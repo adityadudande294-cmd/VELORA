@@ -1,0 +1,890 @@
+# Seed file containing the primary stories definitions in Python
+# Used to seed MongoDB Atlas/Mock JSON collections on server startup
+
+SEED_STORIES = [
+  {
+    "id": "roopkund",
+    "image": "/images/roopkund.png",
+    "title": {
+      "en": "Roopkund: The Skeleton Lake",
+      "hi": "रूपकुंड: कंकाल झील का रहस्य",
+      "mr": "रूपकुंड: सांगाड्यांच्या तलावाचे रहस्य"
+    },
+    "subtitle": {
+      "en": "The frozen Himalayan graveyard of ancient travelers",
+      "hi": "प्राचीन यात्रियों का बर्फीला हिमालयी कब्रिस्तान",
+      "mr": "प्राचीन प्रवाशांचे हिमालयातील बर्फाच्छादित स्मशान"
+    },
+    "category": "Indian Mysteries",
+    "duration": "15 mins",
+    "difficulty": "Medium",
+    "era": "c. 800 CE",
+    "factStatus": "95% DNA Verified, 5% Mountain Legend",
+    "factLabel": "Supported by Scientific Evidence",
+    "learningObjectives": [
+      { "en": "Understand the geographical layout of Roopkund Lake", "hi": "रूपकुंड झील की भौगोलिक स्थिति को समझें", "mr": "रूपकुंड तलावाची भौगोलिक रचना समजून घेणे" },
+      { "en": "Analyze the 2019 DNA findings published in Nature", "hi": "नेचर पत्रिका में 2019 के डीएनए निष्कर्षों का विश्लेषण करें", "mr": "२०१९ च्या 'नेचर' जर्नलमध्ये प्रसिद्ध झालेल्या डीएनए निष्कृषांचे विश्लेषण" }
+    ],
+    "knowledgeLevel": "Intermediate",
+    "relatedTopics": ["Himalayas", "DNA Forensic", "Ancient Migrations"],
+    "synopsis": {
+      "en": "At 5,029 meters in the Himalayas lies Roopkund, a frozen lake holding the bones of over 300 travelers. For decades, myths blamed lost armies or curses. In 2019, genome sequencing revealed the bodies belonged to genetically distinct groups who died 1,000 years apart.",
+      "hi": "हिमालय में 5,029 मीटर की ऊंचाई पर रूपकुंड स्थित है, जो एक जमी हुई झील है जिसमें 300 से अधिक यात्रियों की हड्डियाँ हैं। दशकों तक किंवदंतियों में खोई हुई सेना या शापों को जिम्मेदार ठहराया गया। 2019 में डीएनए अनुक्रमण ने खुलासा किया कि कंकाल अलग-अलग समूहों के थे जो 1,000 साल के अंतर पर मरे थे।",
+      "mr": "हिमालयात ५,०२९ मीटर उंचीवर रूपकुंड तलाव आहे, जिथे ३०० हून अधिक प्रवाशांची हाडे आढळली आहेत. अनेक दशके लोक याला शाप किंवा हरवलेले सैन्य मानत होते. २०१९ मधील जनुकीय संशोधनानुसार समजले की हे लोक वेगवेगळ्या गटातील होते आणि त्यांच्या मृत्यूमध्ये १००० वर्षांचे अंतर होते."
+    },
+    "timeline": [
+      {
+        "year": "1942",
+        "title": { "en": "Initial Discovery", "hi": "प्रारंभिक खोज", "mr": "प्राथमिक शोध" },
+        "details": {
+          "en": "H.K. Madhwal, a Nanda Devi game reserve ranger, stumbles upon the skeletons floating in the melting ice.",
+          "hi": "नंदा देवी गेम रिजर्व के रेंजर एच.के. मधवाल बर्फ पिघलते समय तैरते हुए कंकालों को देखते हैं।",
+          "mr": "नंदा देवी गेम रिझर्व्हचे रेंजर एच.के. मधवाल यांनी वितळणाऱ्या बर्फात तरंगणारे सांगाडे पाहिले."
+        }
+      },
+      {
+        "year": "2019",
+        "title": { "en": "Nature DNA Study", "hi": "नेचर डीएनए अध्ययन", "mr": "जनुकीय संशोधन (Nature)" },
+        "details": {
+          "en": "A massive international study sequences the DNA of 38 skeletons, breaking the single-event theory.",
+          "hi": "38 कंकालों के डीएनए अनुक्रमण ने एकल-घटना सिद्धांत को पूरी तरह से खारिज कर दिया।",
+          "mr": "३८ सांगाड्यांच्या जनुकीय चाचणीतून स्पष्ट झाले की ही एकच दुर्घटना नव्हती."
+        }
+      }
+    ],
+    "narrative": {
+      "en": {
+        "intro": [
+          "High in the Trishul massif of the Himalayas, Roopkund Lake remains frozen for most of the year.",
+          "When the ice melts, it reveals a horrific sight: hundreds of human bones scattered across the rocky shoreline.",
+          "Discovered during World War II, this remote location sparked rumors of a failed Japanese invasion force."
+        ],
+        "background": [
+          "Carbon dating disproved the war theory, dating the bones back to around 800 CE.",
+          "Local folk songs attribute the skeletons to a pilgrimage of the King of Kanauj, who angered the mountain goddess Nanda Devi.",
+          "According to legends, the goddess rained down hard iron stones upon the travelers, causing their instant demise."
+        ],
+        "evidence": [
+          "The 2019 DNA study analyzed the remains of 38 individuals, finding three distinct groups.",
+          "The first group consists of South Asians dating to 800 CE, likely pilgrims caught in a disaster.",
+          "The second group, surprisingly, matches Mediterranean Greeks who died around 1800 CE, a historical mystery with no records of Greek travels in the area."
+        ],
+        "scientific": [
+          "Forensic examination of the skulls showed deep, circular fractures with no signs of weapon marks.",
+          "The wounds were caused by heavy, rounded objects falling directly from above.",
+          "Scientists concluded that a sudden, massive hailstorm on the exposed ridge killed the shelterless travelers."
+        ],
+        "historical": [
+          "The presence of Mediterranean travelers in the Himalayas in 1800 CE remains unexplained.",
+          "No military records or trade route diaries mention a Greek expedition during this period."
+        ],
+        "legends": [
+          "The goddess Nanda Devi's legend of throwing iron hail remains a vivid reminder of local warnings against violating the mountains."
+        ],
+        "facts": [
+          "Male and female skeletons are both present, ruling out a strictly military unit.",
+          "The freeze of the high-altitude lake preserved hair, leather shoes, and bamboo sticks intact."
+        ],
+        "takeaways": [
+          "Roopkund is not a single graveyard, but a frozen intersection of multiple tragic events separated by a millennium.",
+          "DNA analysis exposes historical events that traditional written histories completely missed."
+        ],
+        "conclusion": [
+          "Today, Roopkund stands as a chilling monument to the unpredictable fury of the Himalayas, blending history and science."
+        ]
+      },
+      "hi": {
+        "intro": [
+          "हिमालय की त्रिशूल चोटियों में स्थित रूपकुंड झील साल के अधिकांश समय जमी रहती है।",
+          "जब बर्फ पिघलती है, तो पत्थरों पर बिखरे सैकड़ों इंसानी कंकाल दिखाई देते हैं।",
+          "द्वितीय विश्व युद्ध के दौरान खोजे गए इस स्थल ने जापानी आक्रमण सेना की अफवाहों को जन्म दिया था।"
+        ],
+        "background": [
+          "रेडियोकार्बन डेटिंग ने युद्ध के सिद्धांत को गलत साबित किया, जिससे पता चला कि हड्डियां 800 ईस्वी पुरानी थीं।",
+          "स्थानीय लोकगीतों में कहा गया है कि कन्नौज के राजा के तीर्थयात्रियों ने नंदा देवी का क्रोध भड़काया था।"
+        ],
+        "evidence": [
+          "2019 के ऐतिहासिक डीएनए अध्ययन में पाया गया कि कंकाल तीन अलग-अलग समूहों के थे।",
+          "पहला समूह 800 ईस्वी के दक्षिण एशियाई लोगों का था, जबकि दूसरा समूह 1800 ईस्वी के भूमध्यसागरीय यूनानियों का था।"
+        ],
+        "scientific": [
+          "कंकालों की फोरेंसिक जांच में खोपड़ी पर गोल फ्रैक्चर मिले, जो दर्शाता है कि उन पर किसी भारी गोल वस्तु से ऊपर से हमला हुआ था।",
+          "वैज्ञानिकों ने निष्कर्ष निकाला कि खुले पहाड़ों पर आए भीषण ओलावृष्टि से इन तीर्थयात्रियों की मृत्यु हुई।"
+        ],
+        "legends": [
+          "स्थानीय लोककथाओं में नंदा देवी द्वारा लोहे के ओलों की बारिश करने की कहानी आज भी प्रचलित है।"
+        ],
+        "facts": [
+          "पुरुषों और महिलाओं दोनों के कंकाल मिले हैं, जिससे साबित होता है कि यह सेना नहीं थी।"
+        ],
+        "takeaways": [
+          "रूपकुंड एक ही घटना का परिणाम नहीं बल्कि 1,000 साल के अंतर पर हुई विभिन्न त्रासदियों का केंद्र है।"
+        ],
+        "conclusion": [
+          "आज भी रूपकुंड विज्ञान और लोककथाओं का एक रहस्यमयी केंद्र बना हुआ है।"
+        ]
+      },
+      "mr": {
+        "intro": [
+          "हिमालयातील त्रिशूळ शिखरांच्या कुशीत असलेले रूपकुंड तलाव वर्षभर बर्फाच्छादित असते.",
+          "बर्फ वितळल्यावर तिथे दगडांवर शेकडो मानवी हाडे विखुरलेली दिसतात.",
+          "दुसऱ्या महायुद्धाच्या काळात या सांगाड्यांचा शोध लागला आणि विविध अफवा पसरल्या."
+        ],
+        "background": [
+          "रेडिओकार्बन डेटिंगवरून समजले की ही हाडे ८०० ईसवी मधील आहेत.",
+          "स्थानिक लोककथांनुसार, राजा जसधवल यांच्या यात्रेमुळे नंदा देवी देवी संतप्त झाली होती."
+        ],
+        "evidence": [
+          "२०१९ च्या जनुकीय डीएनए अभ्यासानुसार येथे तीन स्वतंत्र मानवी गट आढळले.",
+          "एक गट ८०० ईसवी मधील भारतीयांचा होता, तर दुसरा १८०० ईसवी मधील ग्रीक प्रवाशांचा होता."
+        ],
+        "scientific": [
+          "सांगाड्यांच्या डोक्यावर खोल जखमा होत्या, ज्या शस्त्रांमुळे झालेल्या नव्हत्या.",
+          "शास्त्रज्ञांच्या मते, अचानक आलेल्या वादळात डोक्यावर मोठमोठ्या गारा पडल्याने प्रवाशांचा मृत्यू झाला."
+        ],
+        "legends": [
+          "देवी नंदा देवीने लोखंडी गारांचा पाऊस पाडून शिक्षा दिल्याची दंतकथा आजही सांगितली जाते."
+        ],
+        "facts": [
+          "या तलावात लहान मुले आणि स्त्रियांचीही हाडे सापडली आहेत, त्यामुळे लष्कराचा सिद्धांत फेटाळला जातो."
+        ],
+        "takeaways": [
+          "रूपकुंड तलाव हे एका आपत्तीचे नसून १,००० वर्षांच्या अंतराने घडलेल्या मृत्यूंचे गोठलेले केंद्र आहे."
+        ],
+        "conclusion": [
+          "रूपकुंड आजही इतिहास, विज्ञान आणि स्थानिक लोककथांचे एक अद्भुत मिश्रण बनून उभे आहे."
+        ]
+      }
+    },
+    "explanations": {
+      "eli10": {
+        "en": "Roopkund is a frozen lake high up in the mountains. A long time ago, some travelers were walking past. Suddenly, a giant storm started, and huge chunks of ice fell from the sky. With no trees or caves to hide under, the ice hit them and they died. The freezing cold ice kept their bones safe like a natural freezer for hundreds of years!",
+        "hi": "रूपकुंड पहाड़ों में एक जमी हुई झील है। बहुत समय पहले, कुछ यात्री वहां से जा रहे थे। अचानक, बहुत बड़ा तूफान आया और आसमान से क्रिकेट की गेंद जैसे बड़े-बड़े ओले गिरने लगे। छिपने की जगह न होने के कारण वे ओलों की मार से मर गए। अत्यधिक ठंड ने उनकी हड्डियों को एक फ्रीजर की तरह सुरक्षित रखा है।",
+        "mr": "रूपकुंड हे हिमालयातील एक गोठलेले तलाव आहे. खूप वर्षांपूर्वी, काही लोक तेथून प्रवास करत होते. अचानक आकाशातून दगडासारख्या मोठ्या गारा पडू लागल्या. आश्रय घ्यायला जागा नसल्यामुळे गारा लागून ते मरण पावले. तिथल्या प्रचंड थंडीमुळे त्यांची हाडे हजारो वर्षे तशीच टिकून राहिली."
+      },
+      "simple": {
+        "en": "Roopkund is a high-altitude Himalayan lake discovered in 1942, famous for containing the skeletons of over 300 people. Modern DNA testing showed they died in separate events. One group died around 800 CE, and another group of European descent died around 1800 CE. Forensic evidence suggests they were killed by a sudden, severe hailstorm that cracked their skulls.",
+        "hi": "रूपकुंड 1942 में खोजी गई एक पहाड़ी झील है, जो 300 से अधिक कंकालों के लिए प्रसिद्ध है। डीएनए से पता चला कि वे अलग-अलग समय पर मरे थे। पहला दल 800 ईस्वी में मरा, दूसरा 1800 ईस्वी में। वे भारी ओलावृष्टि से मरे थे।",
+        "mr": "रूपकुंड तलावात ३०० हून अधिक लोकांचे सांगाडे सापडले आहेत. डीएनए चाचणीवरून असे समजले की हे लोक वेगवेगळ्या शतकात मरण पावले. काही लोक ८०० ईसवीमध्ये तर काही युरोपियन लोक १८०० ईसवीमध्ये मरण पावले. गारांच्या वादळात त्यांचा मृत्यू झाला."
+      },
+      "detailed": {
+        "en": "Located in Uttarakhand, India, Roopkund is an archaeological mystery site. After years of speculation linking the skeletons to lost armies or royal curses, a breakthrough 2019 study published in Nature analyzed the DNA of 38 individuals. It showed they died in distinct episodes separated by 1,000 years. The older cohort consists of South Asian pilgrims caught in a storm around 800 CE. The younger cohort is genetically identical to Mediterranean Greeks, dying around 1800 CE. The forensic cause of death was blunt force trauma to the head and shoulders, caused by large hailstones dropping on shelterless ridges.",
+        "hi": "उत्तराखंड में स्थित रूपकुंड एक पुरातात्विक रहस्य है। 2019 के एक डीएनए अध्ययन ने साबित किया कि वे 1,000 वर्षों के अंतर पर मरे थे। पुराना समूह 800 ईस्वी का था और नया समूह 1800 ईस्वी का ग्रीक मूल का था। उनकी मौत सिर पर बड़े ओले गिरने के कारण गहरी चोट से हुई थी।",
+        "mr": "उत्तराखंडमधील रूपकुंड हे एक ऐतिहासिक रहस्य आहे. २०१९ च्या जनुकीय अभ्यासानुसार येथे ३८ सांगाड्यांचे परीक्षण केले गेले. त्यातून असे दिसून आले की हे लोक वेगवेगळ्या शतकात मरण पावले. एक गट ८०० ईसवीमधील भारतीय प्रवाशांचा होता, तर दुसरा गट १८०० ईसवीमधील ग्रीक लोकांचा होता."
+      },
+      "academic": {
+        "en": "Roopkund Lake represents a unique paleogenomic reservoir. Genomic sequencing indicates three distinct ancestry components: a South Asian cohort (circa 800 CE) displaying genetic affinity to contemporary Indian populations, a Mediterranean cohort (circa 1800 CE) aligned with modern Greek/Cretan populations, and an East Asian migrant (circa 1800 CE). Bioarchaeological analysis displays blunt-force cranial trauma with no skeletal remodeling, correlating to instant mortality via high-velocity projectile impact, consistent with severe, localized hail precipitation.",
+        "hi": "रूपकुंड झील एक अनूठा पुरा-जीनोमिक भंडार प्रस्तुत करती है। जीनोमिक अनुक्रमण तीन अलग-अलग वंश घटकों को दर्शाता है: एक दक्षिण एशियाई समूह (लगभग 800 ईस्वी) जो समकालीन भारतीय आबादी के साथ आनुवंशिक समानता प्रदर्शित करता है, और एक भूमध्यसागरीय समूह (लगभग 1800 ईस्वी) जो आधुनिक ग्रीक आबादी से मेल खाता है।",
+        "mr": "रूपकुंड तलाव हे प्राचीन मानवी जनुकांचे एक महत्त्वपूर्ण केंद्र मानले जाते. जनुकीय संशोधनानुसार येथे तीन भिन्न मानवी गट आढळले आहेत. एक भारतीय गट (८०० ईसवी) आणि दुसरा भूमध्यसागरीय ग्रीक गट (१८०० ईसवी). त्यांच्या डोक्यावरील जखमांचे स्वरूप हे वेगाने पडणाऱ्या कठीण गारांमुळे झाल्याचे स्पष्ट करते."
+      },
+      "revision": {
+        "en": "Key Points: Roopkund Lake (5029m elevation) holds skeletons of hundreds of people. Discovery: 1942 by Hari Kishan Madhwal. DNA study (2019): Remains belong to South Asians (800 CE) and Mediterranean Greeks (1800 CE). Cause of death: Blunt force trauma to head from massive cricket-ball-sized hailstones (no weapon marks, ruling out warfare).",
+        "hi": "मुख्य बिंदु: रूपकुंड झील (5029 मीटर) में सैकड़ों कंकाल मिले हैं। खोज: 1942 में हरी किशन मधवाल द्वारा। डीएनए अध्ययन (2019): अवशेष दक्षिण एशियाई (800 ईस्वी) और ग्रीक (1800 ईस्वी) के हैं। मौत का कारण: भारी ओलावृष्टि से सिर पर लगी गंभीर चोट (युद्ध के कोई संकेत नहीं)।",
+        "mr": "महत्त्वाचे मुद्दे: रूपकुंड तलावात (५०२९ मी) सांगाडे आढळले. शोध: १९४२ मध्ये हरी किशन मधवाल यांनी लावला. डीएनए अभ्यास (२०१९): मृतदेह भारतीय (८०० ईसवी) आणि ग्रीक (१८०० ईसवी) प्रवाशांचे आहेत. मृत्यूचे कारण: गारांचा प्रचंड वर्षाव (डोक्यावर गंभीर जखमा)."
+      }
+    },
+    "qa": [
+      {
+        "q": ["what killed the people", "cause of death", "how did they die", "मृत्यू कसा झाला", "मौत कैसे हुई"],
+        "a": {
+          "en": "Forensic evidence reveals circular fractures in the skulls, consistent with blunt force trauma caused by massive, cricket-ball-sized hailstones. The absence of other bone injuries rules out weapons, warfare, or landslides.",
+          "hi": "फोरेंसिक साक्ष्यों से पता चलता है कि यात्रियों की मौत सिर पर बड़े-बड़े ओले गिरने से हुई थी। हड्डियों पर हथियारों के घाव न होने से लड़ाई की बात खारिज होती है।",
+          "mr": "डोक्याच्या कवटीच्या तपासणीवरून समजते की प्रवाशांवर अचानक गारांचा प्रचंड मारा झाला. युद्ध किंवा दरोड्याच्या खुणा तिथे सापडल्या नाहीत."
+        }
+      },
+      {
+        "q": ["is this scientifically verified", "is it true", "real", "सत्य", "खरे आहे का"],
+        "a": {
+          "en": "Yes, a 2019 genomic study published in the scientific journal Nature analyzed the DNA of 38 skeletons and proved that these skeletons represent multiple groups caught in storms, dating back to 800 CE and 1800 CE.",
+          "hi": "हां, 2019 में प्रसिद्ध विज्ञान पत्रिका 'नेचर' में प्रकाशित एक अध्ययन में 38 कंकालों के डीएनए विश्लेषण से यह साबित हुआ है।",
+          "mr": "होय, २०१९ मध्ये 'नेचर' या जगप्रसिद्ध विज्ञान पत्रिकेत प्रसिद्ध झालेल्या संशोधनानुसार हे पूर्णपणे सिद्ध झाले आहे."
+        }
+      }
+    ],
+    "references": [
+      "Nature Communications: 'Ancient DNA from the skeletons of Roopkund Lake' (2019)",
+      "Anthropological Survey of India field expedition notes, 1956",
+      "National Geographic: 'Skeleton Lake' documentary and archives"
+    ]
+  },
+  {
+    "id": "dwarka",
+    "image": "/images/dwarka.png",
+    "title": {
+      "en": "Dwarka: Undersea Secrets",
+      "hi": "द्वारका: समुद्र के भीतर छिपे रहस्य",
+      "mr": "द्वारका: समुद्राच्या गर्भातील रहस्ये"
+    },
+    "subtitle": {
+      "en": "The underwater ruins of a legendary golden city",
+      "hi": "एक पौराणिक सोने के शहर के जलमग्न अवशेष",
+      "mr": "पौराणिक सुवर्णनगरीचे पाण्याखालील अवशेष"
+    },
+    "category": "Archaeology",
+    "duration": "12 mins",
+    "difficulty": "Hard",
+    "era": "c. 1500 BCE",
+    "factStatus": "Sonar Mapped, Archaeological Evidence Found",
+    "factLabel": "Partially Verified",
+    "learningObjectives": [
+      { "en": "Understand marine archaeology techniques", "hi": "समुद्री पुरातत्व तकनीकों को समझें", "mr": "सागरी पुरातत्त्व संशोधन पद्धती समजून घेणे" },
+      { "en": "Compare Mahabharata descriptions with physical ruins", "hi": "महाभारत के विवरण की भौतिक अवशेषों से तुलना करें", "mr": "महाभारतातील वर्णनांची प्रत्यक्ष अवशेषांशी तुलना करणे" }
+    ],
+    "knowledgeLevel": "Advanced",
+    "relatedTopics": ["Marine Archaeology", "Indian Ocean", "Mahabharata"],
+    "synopsis": {
+      "en": "Off the coast of Gujarat lies Dwarka, a city described in the epic Mahabharata as Krishna's golden capital. In the 1980s, marine archaeologists discovered stone anchors, massive walls, and streets submerged under the Arabian Sea, bridging the gap between scripture and science.",
+      "hi": "गुजरात के तट पर द्वारका स्थित है, जिसे महाभारत में कृष्ण की स्वर्ण राजधानी बताया गया है। 1980 के दशक में, समुद्री पुरातत्वविदों ने अरब सागर में डूबे हुए विशाल पत्थर के खंभे, दीवारें और लंगर खोजे, जिससे पुराण और विज्ञान के बीच की कड़ी जुड़ गई।",
+      "mr": "गुजरातच्या किनारपट्टीवर वसलेली द्वारका ही महाभारतात श्रीकृष्णाची सोन्याची राजधानी म्हणून वर्णित आहे. १९८० च्या दशकात सागरी पुरातत्त्वशास्त्रज्ञांनी अरबी समुद्रात शोधलेल्या दगडी खांब, तटबंदी आणि भिंती या प्राचीन सुवर्णनगरीच्या अस्तित्वाची साक्ष देतात."
+    },
+    "timeline": [
+      {
+        "year": "1983",
+        "title": { "en": "First Marine Survey", "hi": "पहला समुद्री सर्वेक्षण", "mr": "पहिले सागरी सर्वेक्षण" },
+        "details": {
+          "en": "Dr. S.R. Rao leads the Marine Archaeology Unit to discover submerged stone structures off the Gujarat coast.",
+          "hi": "डॉ. एस.आर. राव के नेतृत्व में समुद्री पुरातत्व इकाई ने गुजरात तट पर डूबी हुई संरचनाओं की खोज की।",
+          "mr": "डॉ. एस.आर. राव यांच्या नेतृत्वाखालील पथकाने अरबी समुद्रात पहिल्यांदाच दगडी भिंतींचे अवशेष शोधून काढले."
+        }
+      }
+    ],
+    "narrative": {
+      "en": {
+        "intro": [
+          "For millennia, the city of Dwarka was regarded as a poetical myth from the ancient text Mahabharata.",
+          "According to scriptures, Krishna built the city on reclaimed land, but it was swallowed by the sea after his departure.",
+          "However, modern underwater archaeology has turned this mythical tale into a tangible historic inquiry."
+        ],
+        "background": [
+          "The epic texts detail a highly sophisticated city protected by high walls and massive gateways, containing royal palaces.",
+          "Dwarka was said to be a crucial trading port connecting ancient India with Mediterranean and Middle Eastern trade channels."
+        ],
+        "evidence": [
+          "Diving operations conducted by the National Institute of Oceanography found extensive stone structures at depths of up to 12 meters.",
+          "Discoveries include triangular stone anchors, semi-circular copper alloy sheets, and pottery dated to around 1500 BCE."
+        ],
+        "scientific": [
+          "Carbon dating and thermodynamic analysis of artifacts indicate a major submergence event around 1500 BCE.",
+          "Oceanographers suggest that rising sea levels at the end of the ice age combined with tectonic activity caused the coast to sink."
+        ],
+        "facts": [
+          "Dozens of large triangular stone anchors matching late Bronze Age styles were discovered, verifying trade activity."
+        ],
+        "takeaways": [
+          "Submerged Dwarka bridges the gap between historical literature and physical marine archaeological evidence."
+        ],
+        "conclusion": [
+          "The sunken ruins of Dwarka represent one of the most significant underwater archaeological achievements in South Asian history."
+        ]
+      },
+      "hi": {
+        "intro": [
+          "द्वारका शहर को सदियों से केवल महाभारत की एक कथा माना जाता था।",
+          "लेकिन आधुनिक गोताखोरों की खोज ने इस पौराणिक कहानी को इतिहास में बदल दिया है।"
+        ]
+      },
+      "mr": {
+        "intro": [
+          "द्वारका ही केवळ एक दंतकथा आहे असे मानले जात होते.",
+          "परंतु समुद्राखालील संशोधनाने या मताला छेद देऊन महाभारतातील ऐतिहासिक पुरावे समोर आणले आहेत."
+        ]
+      }
+    },
+    "explanations": {
+      "eli10": {
+        "en": "Dwarka is a famous city from stories that got covered by water a long time ago. Divers went deep under the sea and found stone walls and anchors, proving that this legendary city was real!",
+        "hi": "द्वारका कहानियों का एक शहर है जो पानी में डूब गया था। गोताखोरों ने पानी के नीचे पत्थर की दीवारें खोजी हैं, जिससे साबित हुआ कि यह सच में था।",
+        "mr": "द्वारका हे समुद्राच्या पाण्यात बुडालेले एक प्राचीन शहर आहे. गोताखोरानी समुद्राच्या खाली शोधून काढलेले दगडी खांब आणि भिंती हे सिद्ध करतात की हे शहर खरंच अस्तित्वात होते."
+      },
+      "simple": {
+        "en": "Dwarka was Krishna's capital in the Mahabharata. Submerged ruins discovered in the 1980s include stone anchors and protective walls, showing the city was a real port that sank due to rising sea levels or earthquakes.",
+        "hi": "द्वारका महाभारत का एक बंदरगाह था जो समुद्र के नीचे डूब गया। 1980 में खोजी गई दीवारें इसके बंदरगाह होने का प्रमाण हैं।",
+        "mr": "द्वारका हे अरबी समुद्राखाली बुडालेले ऐतिहासिक बंदरगाह आहे. समुद्रात मिळालेले जुने अँकर आणि दगडी भिंती याचे मुख्य पुरावे आहेत."
+      },
+      "detailed": {
+        "en": "Marine archaeological expeditions off Gujarat have mapped a submerged township containing stone structures, anchors, and pottery fragments. Scholars debate if the ruins represent the city of the Mahabharata. Tectonic shifting combined with post-glacial sea rise is believed to have caused the coastal city to submerge around 1500 BCE.",
+        "hi": "समुद्री पुरातत्वविदों ने डूबे शहर की खोज की है। यह शहर लगभग 1500 ईसा पूर्व डूब गया था।",
+        "mr": "गुजरातच्या किनारपट्टीवर मिळालेले अवशेष हे सुमारे १५०० ईसा पूर्व काळातील आहेत. भूकंप किंवा समुद्राची पातळी वाढल्याने हे बंदर समुद्रात बुडाले."
+      },
+      "academic": {
+        "en": "Marine geoarchaeology shows structured block masonry and grooved anchors off Dwarka. Sediment core samples show coastal submergence around 3500-1500 BCE, correlating with the terminal Bronze Age oceanographic shift.",
+        "hi": "द्वारका के पास डूबी हुई संरचनाओं का भू-पुरातात्विक सर्वेक्षण कास्य युग के अंत की ओर संकेत करता है।",
+        "mr": "भू-पुरातात्त्विक संशोधनानुसार येथील वास्तुरचना कांस्य युगाशी मिळतीजुळती आहे. समुद्राच्या तळाशी सापडलेले दगड नागरी संस्कृती दर्शवतात."
+      },
+      "revision": {
+        "en": "Key Points: Dwarka, Gujarat coast. Excavated in 1980s by Dr. S.R. Rao. Submerged structures at 3-12m depth. Tectonic shifts and sea rise are the accepted cause of submergence.",
+        "hi": "मुख्य बिंदु: गुजरात का तट। 1980 में डॉ. एस.आर. राव द्वारा खोजा गया। भूकंप और समुद्र के बढ़ते स्तर से जलमग्न हुआ।",
+        "mr": "महत्त्वाचे मुद्दे: गुजरात किनारपट्टी. १९८० मध्ये डॉ. राव यांनी संशोधन सुरू केले. भूकंपामुळे समुद्रात बुडाले."
+      }
+    },
+    "qa": [
+      {
+        "q": ["who discovered dwarka", "archaeologist", "खोज किसने की", "शोध कोणी लावला"],
+        "a": {
+          "en": "Dr. S. R. Rao, leading the Marine Archaeology Unit of the National Institute of Oceanography (NIO), discovered the submerged ruins off Dwarka in 1983.",
+          "hi": "डॉ. एस.आर. राव के नेतृत्व में 1983 में राष्ट्रीय समुद्र विज्ञान संस्थान (NIO) ने इसकी खोज की थी।",
+          "mr": "डॉ. एस.आर. राव यांच्या मार्गदर्शनाखाली राष्ट्रीय समुद्रविज्ञान संस्था (NIO) ने १९८३ मध्ये समुद्राखालील अवशेष शोधले."
+        }
+      }
+    ],
+    "references": [
+      "S.R. Rao: 'The Lost City of Dvaraka' (1999)",
+      "National Institute of Oceanography (NIO) Marine Archaeology reports, 1983-2001"
+    ]
+  },
+  {
+    "id": "jatinga",
+    "image": "/images/jatinga.png",
+    "title": {
+      "en": "Jatinga: The Bird Phenomenon",
+      "hi": "जाटिंगा: पक्षियों का रहस्यमयी व्यवहार",
+      "mr": "जाटिंगा: पक्षांचे गूढ वर्तन"
+    },
+    "subtitle": {
+      "en": "The mysterious autumn suicides of migrating birds",
+      "hi": "प्रवासी पक्षियों की रहस्यमयी शरद ऋतु की सामूहिक मृत्यु",
+      "mr": "पक्षांच्या सामूहिक मृत्यूचे अनाकलनीय रहस्य"
+    },
+    "category": "Indian Mysteries",
+    "duration": "10 mins",
+    "difficulty": "Easy",
+    "era": "Ongoing Phenomenon",
+    "factStatus": "Observed and Documented, Scientific Theory Proposed",
+    "factLabel": "Partially Verified",
+    "learningObjectives": [
+      { "en": "Explore the geographical conditions of Jatinga", "hi": "जाटिंगा की भौगोलिक परिस्थितियों का पता लगाएं", "mr": "जाटिंगाच्या अनोख्या भौगोलिक रचनेचा अभ्यास करणे" }
+    ],
+    "knowledgeLevel": "Beginner",
+    "relatedTopics": ["Ornithology", "Assam", "Magnetic Anomaly"],
+    "synopsis": {
+      "en": "In Jatinga, Assam, during dark, foggy nights of monsoon, hundreds of birds plunge from the sky to their deaths. Once feared as evil spirits, ornithologists now attribute this behavior to disorientation caused by high wind speeds, heavy fog, and artificial light sources.",
+      "hi": "असम के जटिंगा गांव में मानसून की धुंध भरी रातों में पक्षी आसमान से नीचे गिरने लगते हैं। कभी इसे बुरी ताकतों का काम माना जाता था, लेकिन वैज्ञानिक अब इसे तेज हवा, भारी धुंध और कृत्रिम रोशनी के कारण दिशाभ्रम का नतीजा मानते हैं।",
+      "mr": "आसाममधील जटिंगा गावात पावसाळ्याच्या ढगाळ रात्री शेकडो पक्षी जमिनीवर कोसळून जीव देतात. याला आधी भूतबाधा मानले जायचे, पण शास्त्रज्ञांनुसार वेगवान वारा आणि प्रकाशामुळे पक्षी गोंधळात पडतात."
+    },
+    "timeline": [
+      {
+        "year": "1905",
+        "title": { "en": "First Recorded Observation", "hi": "पहला दर्ज अवलोकन", "mr": "पहिली नोंद" },
+        "details": {
+          "en": "Jaintia tribesmen settle in the village and observe birds plummeting into their campfires.",
+          "hi": "जैंतिया आदिवासियों ने गांव में बसने के बाद पक्षियों को अपनी अलाव की आग में गिरते देखा।",
+          "mr": "जैंतिया आदिवासी जमातीने गावात शेकोटीभोवती पक्षी अचानक कोसळताना पाहिले."
+        }
+      }
+    ],
+    "narrative": {
+      "en": {
+        "intro": [
+          "Located in the Borail hills of Assam, Jatinga is a small village famous for a bizarre avian behavior.",
+          "Every year between September and November, local and migratory birds crash into fires and searchlights.",
+          "This only occurs on moonless, foggy nights when wind blows from south to north."
+        ]
+      }
+    },
+    "explanations": {
+      "eli10": {
+        "en": "In a village named Jatinga, on foggy nights, birds get confused by lights because of the heavy mist and crash. Scientists are helping save them by teaching villagers to turn off bright lights.",
+        "hi": "जटिंगा गांव में पक्षी धुंध के कारण बल्ब की रोशनी में दिशा खो देते हैं और गिर जाते हैं।",
+        "mr": "जटिंगा गावात रात्री धुक्यामुळे पक्षांना रस्ता दिसत नाही आणि ते दिव्यांच्या प्रकाशाकडे आकर्षित होऊन कोसळतात."
+      },
+      "simple": {
+        "en": "During monsoon months, birds in Jatinga crash into buildings on foggy nights. The combination of fog, wind, and searchlights confuses their navigation systems, making them dive towards artificial lights.",
+        "hi": "मानसून में कोहरे और हवा के कारण पक्षी लाइटों से टकराकर गिर जाते हैं।",
+        "mr": "पावसाळ्यात रात्री धुक्यामुळे दिशा हरवून पक्षी प्रकाशाकडे झेपावतात आणि इमारतींवर आदळून मरण पावतात."
+      },
+      "detailed": {
+        "en": "Ornithologists show that Jatinga is situated on a wind corridor. High-velocity winds combined with heavy fog disorient birds flying over the ridge. When they see artificial lights in the village, they fly towards them for safety, crashing into houses and trees.",
+        "hi": "पक्षी वैज्ञानिकों का मानना है कि हवा के गलियारे और कोहरे के कारण पक्षी रोशनी की ओर आकर्षित होकर टकराते हैं।",
+        "mr": "पक्षीशास्त्रज्ञांनुसार हा परिसर एका विशिष्ट हवेच्या पट्ट्यात आहे. अतिवेगाने वाहणारे वारे आणि दाट धुक्यामुळे पक्षी सैरभैर होतात."
+      },
+      "academic": {
+        "en": "Disorientation is triggered by localized meteorological conditions. Atmospheric pressure changes and heavy moisture attenuate the birds' magnetoreception navigation, forcing them to follow phototactic responses.",
+        "hi": "वायुमंडलीय दबाव और घने कोहरे से पक्षियों की आंतरिक चुंबकीय प्रणाली काम करना बंद कर देती है।",
+        "mr": "धुक्यातील पाण्याचे प्रमाण आणि हवेचा दाब यामुळे पक्षांच्या पंखांना उडणे कठीण होते आणि ते जमिनीवरील प्रकाशाकडे आकर्षित होतात."
+      },
+      "revision": {
+        "en": "Key Points: Jatinga, Assam. Occurs Sept-Nov. disoriented by fog, rain, and wind. Attic lights attract them, leading to fatal crashes.",
+        "hi": "मुख्य बिंदु: जटिंगा, असम। सितंबर-नवंबर के बीच। कोहरा और तेज हवा जिम्मेदार हैं।",
+        "mr": "महत्त्वाचे मुद्दे: जटिंगा, आसाम. सप्टेंबर ते नोव्हेंबर दरम्यान. धुक्यामुळे आणि वारे यामुळे पक्षांचा गोंधळ होतो."
+      }
+    },
+    "qa": [
+      {
+        "q": ["why do birds commit suicide", "suicides", "आत्महत्या", "पक्षी का मरना"],
+        "a": {
+          "en": "Birds do not commit suicide. They are disoriented by heavy fog and strong winds, and dive towards searchlights in search of shelter, crashing into structures.",
+          "hi": "पक्षी आत्महत्या नहीं करते। वे घने कोहरे के कारण दिशा खो देते हैं और रोशनी की ओर जाते हुए दुर्घटनाग्रस्त हो जाते हैं।",
+          "mr": "पक्षी आत्महत्या करत नाहीत. ते धुक्यामुळे रस्ता विसरतात आणि घरात लावलेल्या विजेच्या दिव्यांवर आदळून खाली कोसळतात."
+        }
+      }
+    ],
+    "references": [
+      "Dr. Salim Ali: Ornithological surveys of Assam and North-East India",
+      "Zoological Survey of India (ZSI) research paper on avian anomalies, 1988"
+    ]
+  },
+  {
+    "id": "antikythera",
+    "image": "/images/antikythera.png",
+    "title": {
+      "en": "The Antikythera Mechanism",
+      "hi": "एंटीकाइथेरा तंत्र: प्राचीन कंप्यूटर",
+      "mr": "अँटीकायथेरा यंत्र: प्राचीन संगणक"
+    },
+    "subtitle": {
+      "en": "The 2,000-year-old analog computer of ancient Greece",
+      "hi": "प्राचीन ग्रीस का 2,000 साल पुराना एनालॉग कंप्यूटर",
+      "mr": "ग्रीसमधील २,००० वर्षे जुने खगोलशास्त्रीय यंत्र"
+    },
+    "category": "Ancient Civilizations",
+    "duration": "14 mins",
+    "difficulty": "Hard",
+    "era": "c. 150 BCE",
+    "factStatus": "X-Ray Imaged, Fully Proven Mechanics",
+    "factLabel": "Historically Verified",
+    "learningObjectives": [
+      { "en": "Analyze the gear mechanism and astronomy calculations", "hi": "गियर तंत्र और खगोल विज्ञान गणनाओं का विश्लेषण करें", "mr": "गियर रचनेचे आणि खगोलशास्त्रीय गणिताचे विश्लेषण करणे" }
+    ],
+    "knowledgeLevel": "Advanced",
+    "relatedTopics": ["Greek Technology", "Analog Computers", "Shipwrecks"],
+    "synopsis": {
+      "en": "Recovered from a shipwreck in 1901, the Antikythera Mechanism is a bronze device containing over 30 gears. Modern CT scans revealed it was used to track solar and lunar cycles, predict eclipses, and time the Olympic Games, displaying astronomical engineering far ahead of its time.",
+      "hi": "1901 में एक जहाज के मलबे से मिला एंटीकाइथेरा तंत्र 30 से अधिक गियरों वाला एक कांस्य उपकरण है। आधुनिक एक्स-रे स्कैन से पता चला कि इसका उपयोग सूर्य-चंद्रमा की स्थिति मापने और ग्रहणों की भविष्यवाणी करने के लिए किया जाता था।",
+      "mr": "१९०१ मध्ये समुद्रात सापडलेले अँटीकायथेरा यंत्र हे ३० हून अधिक चक्रांचे बनलेले एक कांस्य यंत्र आहे. संशोधनावरून स्पष्ट झाले की हे यंत्र ग्रहण वर्तवण्यासाठी आणि ऑलिम्पिक खेळांची वेळ मोजण्यासाठी वापरले जायचे."
+    },
+    "timeline": [
+      {
+        "year": "1901",
+        "title": { "en": "Shipwreck Discovery", "hi": "जहाज के मलबे की खोज", "mr": "शोध" },
+        "details": {
+          "en": "Greek sponge divers discover a sunken Roman cargo ship containing bronze and marble statues, along with the device.",
+          "hi": "ग्रीक गोताखोरों को एक डूबा हुआ मालवाहक जहाज मिला जिसमें मूर्तियों के साथ यह अनोखा यंत्र भी था।",
+          "mr": "ग्रीक डायव्हर्सना समुद्रात बुडलेले जहाज सापडले ज्यामध्ये या यंत्राचे अवशेष होते."
+        }
+      }
+    ],
+    "narrative": {
+      "en": {
+        "intro": [
+          "In 1901, divers off the Greek island of Antikythera brought up a corroded green lump of bronze.",
+          "For decades, this artifact was ignored while researchers focused on beautiful statues from the wreck.",
+          "Only later did scientists discover the lump contained complex interlocking gears of astronomical precision."
+        ]
+      }
+    },
+    "explanations": {
+      "eli10": {
+        "en": "Imagine a pocket watch from 2,000 years ago that doesn't tell time, but instead predicts when eclipses will happen in the sky. That is the Antikythera mechanism—the world's first computer!",
+        "hi": "यह 2,000 साल पुराना लोहे का एक छोटा यंत्र है, जो समय नहीं बल्कि आसमान में होने वाले सूर्य ग्रहण की तारीख बताता था।",
+        "mr": "हे २,००० वर्षांपूर्वीचे एक घड्याळासारखे यंत्र आहे जे वेळेऐवजी आकाशातील ग्रहांची अचूक स्थिती सांगायचे. हा जगातील पहिला संगणक मानला जातो."
+      },
+      "simple": {
+        "en": "The Antikythera Mechanism is a 2,000-year-old Greek device with interlocking bronze gears. It calculated planetary movements and predicted eclipses, showing that ancient technology was much more advanced than previously believed.",
+        "hi": "यह कांस्य का बना एक ग्रीक उपकरण है जो ग्रहणों की सटीक गणना करता था।",
+        "mr": "अँटीकायथेरा यंत्र हे ग्रीक लोकांनी बनवलेले पितळेचे खगोलशास्त्रीय कॅल्क्युलेटर होते, ज्याद्वारे ग्रहण आणि सण अचूक मोजले जायचे."
+      },
+      "detailed": {
+        "en": "Through CT scans and 3D modeling, scientists reconstructed the mechanism. It contains a complex epicyclic gearing system that models the irregular motion of the Moon. Nothing of similar mechanical complexity is known in the historical record until the rise of European clockmaking in the 14th century.",
+        "hi": "वैज्ञानिकों ने इसके गियरों का पुनर्निर्माण किया है। यह चंद्रमा की गति की गणना करने में सक्षम था।",
+        "mr": "थ्रीडी स्कॅनिंगच्या मदतीने याच्या आत असणारे ३० हून अधिक फिरणारे चक्र शोधण्यात आले आहेत. १४ व्या शतकापर्यंत युरोपमध्येही इतके प्रगत यंत्र बनवता आले नव्हते."
+      },
+      "academic": {
+        "en": "The device utilizes a highly sophisticated gear train to execute mathematical calculations of the Metonic cycle. The back dials contain spiral tracks tracking the 223-month Saros cycle, confirming advanced Hellenistic computational mechanics.",
+        "hi": "इस उपकरण में 19 साल के मेटोनिक चक्र और 223 महीने के सरोस ग्रहण चक्र को दर्शाने वाले गियर लगे हुए थे।",
+        "mr": "खगोलशास्त्रातील अतिशय क्लिष्ट गणितीय चक्र या यंत्राद्वारे सोडवले जायचे. यातील तबकड्या ग्रह आणि नक्षत्रांची चक्र अचूक दाखवायच्या."
+      },
+      "revision": {
+        "en": "Key Points: Discovered in 1901 off Antikythera Island. Dates to c. 150 BCE. Contains 30+ bronze gears. Tracks celestial bodies and eclipse cycles.",
+        "hi": "मुख्य बिंदु: 1901 में खोजा गया। लगभग 150 ईसा पूर्व का है। इसमें 30 गियर थे जो चंद्र ग्रहण की गणना करते थे।",
+        "mr": "महत्त्वाचे मुद्दे: १९०१ मध्ये सापडले. अंदाजे १५० ईसा पूर्व मधील. ३० हून अधिक कांस्य चाकांचा वापर."
+      }
+    },
+    "qa": [
+      {
+        "q": ["what is the antikythera mechanism used for", "purpose", "उपयोग", "यंत्राचा वापर कशासाठी"],
+        "a": {
+          "en": "It was used as an analog computer to display astronomical cycles, compute the positions of the Sun and Moon, predict lunar and solar eclipses, and determine the calendar dates for pan-Hellenic games.",
+          "hi": "इसका उपयोग खगोलीय चक्रों को प्रदर्शित करने, ग्रहणों की भविष्यवाणी करने और प्राचीन ओलंपिक खेलों की तिथि निर्धारित करने के लिए किया जाता था।",
+          "mr": "याचा वापर ग्रहांची स्थिती मोजण्यासाठी, ग्रहण वर्तवण्यासाठी आणि ऑलिम्पिक खेळांचे वेळापत्रक ठरवण्यासाठी केला जायचा."
+        }
+      }
+    ],
+    "references": [
+      "Tony Freeth et al.: 'An Ancient Greek Computer' (Nature, 2006)",
+      "National Archaeological Museum of Athens research archives"
+    ]
+  },
+  {
+    "id": "konark",
+    "image": "/images/konark.png",
+    "title": {
+      "en": "Konark: Wheels of Time",
+      "hi": "कोणार्क: समय के पहिये",
+      "mr": "कोणार्क: काळाची चक्रे"
+    },
+    "subtitle": {
+      "en": "The mathematical precision of the stone sundials",
+      "hi": "पत्थर की धूपघड़ियों की गणितीय सटीकता",
+      "mr": "दगडी सुर्यघड्याळांची गणितीय अचूकता"
+    },
+    "category": "Temple Architecture",
+    "duration": "11 mins",
+    "difficulty": "Medium",
+    "era": "13th Century CE",
+    "factStatus": "Physically Intact, Functionality Verified",
+    "factLabel": "Historically Verified",
+    "learningObjectives": [
+      { "en": "Analyze how the sundial wheels calculate time using shadows", "hi": "विश्लेषण करें कि धूपघड़ी के पहिये छाया का उपयोग करके समय की गणना कैसे करते हैं", "mr": "दगडी सुर्यघड्याळाच्या साह्याने वेळेची अचूक गणना कशी केली जायची हे पाहणे" }
+    ],
+    "knowledgeLevel": "Intermediate",
+    "relatedTopics": ["Indian Architecture", "Astronomy", "Stone Carving"],
+    "synopsis": {
+      "en": "The Konark Sun Temple in Odisha is built in the shape of a massive chariot. Its 24 stone wheels are not mere decorations; they are highly accurate sundials. By calculating the shadow of the central axis, one can determine the time down to the exact minute.",
+      "hi": "ओडिशा का कोणार्क सूर्य मंदिर एक विशाल रथ के आकार में बनाया गया है। इसके 24 पत्थर के पहिये केवल सजावट नहीं हैं; वे अत्यंत सटीक धूपघड़ियां हैं। केंद्रीय अक्ष की छाया की गणना करके, कोई भी बिल्कुल सही मिनट तक समय निर्धारित कर सकता है।",
+      "mr": "ओडिशामधील कोणार्कचे सूर्य मंदिर हे एका भव्य रथाच्या आकारात बांधले आहे. या मंदिराला असणारी २४ दगडाची चक्रे ही केवळ नक्षी नसून अचूक वेळ दाखवणारी सुर्यघड्याळे आहेत."
+    },
+    "timeline": [
+      {
+        "year": "1250",
+        "title": { "en": "Temple Construction", "hi": "मंदिर निर्माण", "mr": "बांधकाम" },
+        "details": {
+          "en": "King Narasimhadeva I of the Eastern Ganga Dynasty commissions the temple to honor Surya, the Sun God.",
+          "hi": "पूर्वी गंगा राजवंश के राजा नरसिंहदेव प्रथम ने सूर्य देव के सम्मान में मंदिर का निर्माण कराया।",
+          "mr": "पूर्व गंगा घराण्याचे राजा नरसिंहदेव प्रथम यांनी सूर्यदेवाच्या सन्मानार्थ हे मंदिर बांधले."
+        }
+      }
+    ],
+    "narrative": {
+      "en": {
+        "intro": [
+          "Designed as a celestial chariot pulled by seven horses, Konark Sun Temple is a marvel of medieval engineering.",
+          "Along the base of the chariot are carved 24 wheels, each standing nearly 10 feet high.",
+          "These wheels serve as an astronomical calendar that dictates seasons, months, and hours."
+        ]
+      }
+    },
+    "explanations": {
+      "eli10": {
+        "en": "The giant stone wheels carved on the sides of the Konark temple are actually clocks. By looking at where the sun casts a shadow on the wheel's spokes, you can tell the exact time without any batteries!",
+        "hi": "कोणार्क मंदिर के रथ पर बने पत्थर के पहिये असल में घडियां हैं। सूरज की रोशनी से पड़ने वाली परछाई को देखकर समय का पता चलता था।",
+        "mr": "कोणार्क मंदिराच्या भिंतीवर कोरलेली दगडी चाके ही खरी तर घड्याळे आहेत. सूर्यप्रकाशामुळे पडणारी सावली पाहून अचूक वेळ ठरवली जायची."
+      },
+      "simple": {
+        "en": "The Konark Sun Temple in Odisha has 24 stone wheels that act as sundials. The shadow of the central hub on the spokes calculates the hour, showing the deep mathematical knowledge of medieval Indian builders.",
+        "hi": "ओडिशा के कोणार्क सूर्य मंदिर के पहिये धूपघड़ी हैं। यह परछाई से मिनट तक का समय सही बताते हैं।",
+        "mr": "ओडिशामधील कोणार्क मंदिराच्या चाकांमध्ये असणारे आरे सूर्यप्रकाशाच्या सावलीवरून अचूक वेळ दाखवतात, जे प्राचीन भारतीय गणिताचे एक उत्तम उदाहरण आहे."
+      },
+      "detailed": {
+        "en": "The 8 main spokes of each wheel represent the 8 'Prahars' (3-hour intervals) of a 24-hour day. The sub-spokes partition these further. By aligning the central shadow against these indicators, time can be computed to within two minutes of modern clocks.",
+        "hi": "प्रत्येक पहिये के 8 मुख्य आरे दिन के 8 प्रहरों (3 घंटे के अंतराल) को दर्शाते हैं।",
+        "mr": "चाकाचे ८ मुख्य आरे हे दिवसाचे ८ प्रहर (३ तासांचा एक प्रहर) दर्शवतात. लहान आरे मिनिटे मोजण्यासाठी वापरले जायचे."
+      },
+      "academic": {
+        "en": "The gnomonic design of the wheels demonstrates an advanced application of spherical geometry. The angle of the stone carvings is calibrated to the local latitude, compensating for seasonal declination changes.",
+        "hi": "पहियों की ज्यामितीय नक्काशी कोणार्क की अक्षांश स्थिति के अनुसार की गई है ताकि मौसम के बदलाव से समय गणना में फर्क न आए।",
+        "mr": "मंदिराच्या चाकांची रचना स्थानिक अक्षवृत्ताचा विचार करून करण्यात आली आहे, जेणेकरून कोणत्याही ऋतूत वेळेत फरक पडणार नाही."
+      },
+      "revision": {
+        "en": "Key Points: Konark Temple, Odisha (13th Century). 24 wheels (12 pairs). Primary wheels act as sundials. Shadows denote the 8 'prahars' of the day.",
+        "hi": "मुख्य बिंदु: कोणार्क मंदिर, ओडिशा। 24 पत्थर के पहिये। धूपघड़ी के रूप में काम करते हैं। साये से प्रहर का पता चलता है।",
+        "mr": "महत्त्वाचे मुद्दे: कोणार्क मंदिर, ओडिशा. २४ चाके (१२ जोड्या). चाकांवरील सावली प्रहर दाखवते."
+      }
+    },
+    "qa": [
+      {
+        "q": ["how do the wheels tell time", "tell time", "सटीक समय", "वेळ कशी मोजतात"],
+        "a": {
+          "en": "By looking at the shadow of the central axle falling on the spokes. The 8 main spokes represent the 8 prahars (3 hours each), while the beads on the rims allow counting down to the exact minutes.",
+          "hi": "पहिये के केंद्र से निकलने वाली परछाई जब आरों पर पड़ती है, तो उससे प्रहर का पता चलता है। पहिये की परिधि पर बने बिंदु मिनटों की गणना कराते हैं।",
+          "mr": "चाकावर पडणारी सावली ज्या आऱ्यावर जाते त्यावरून वेळ समजते. मुख्य ८ आरे प्रहर दाखवतात तर काठावरील मणी अचूक मिनिटे मोजण्यासाठी वापरले जातात."
+        }
+      }
+    ],
+    "references": [
+      "Debala Mitra: 'Konark' (Archaeological Survey of India, 1976)",
+      "Journal of Astronomical History and Heritage: 'Sundials of the Konark Temple'"
+    ]
+  },
+  {
+    "id": "blackhole",
+    "image": "/images/blackhole.png",
+    "title": {
+      "en": "Accretion: Inside Black Holes",
+      "hi": "एकरेशन: ब्लैक होल के भीतर",
+      "mr": "अॅक्रिशन: कृष्णविवराच्या आत"
+    },
+    "subtitle": {
+      "en": "The extreme physics of light and gravity",
+      "hi": "प्रकाश और गुरुत्वाकर्षण का चरम भौतिकी",
+      "mr": "प्रकाश आणि गुरुत्वाकर्षणाचे अंतिम नियम"
+    },
+    "category": "Space & Science",
+    "duration": "16 mins",
+    "difficulty": "Hard",
+    "era": "Modern Astrophysics",
+    "factStatus": "Mathematically Modeled, First Images Captured",
+    "factLabel": "Supported by Scientific Evidence",
+    "learningObjectives": [
+      { "en": "Analyze gravitational lensing and event horizons", "hi": "गुरुत्वाकर्षण लेंसिंग और इवेंट होराइज़न का विश्लेषण करें", "mr": "गुरुत्वीय लेन्सिंग आणि इव्हेंट होरायझन समजून घेणे" }
+    ],
+    "knowledgeLevel": "Advanced",
+    "relatedTopics": ["Astrophysics", "General Relativity", "Event Horizon"],
+    "synopsis": {
+      "en": "Black holes are the universe's ultimate gravity wells, bending light until it can no longer escape. Through the Event Horizon Telescope, humanity captured the first direct images of accretion disks, confirming Einstein's General Theory of Relativity under the most extreme conditions.",
+      "hi": "ब्लैक होल ब्रह्मांड के सबसे शक्तिशाली गुरुत्वाकर्षण बल हैं, जो प्रकाश को भी मोड़ देते हैं। इवेंट होराइजन टेलीस्कोप के जरिए, मानव ने ब्लैक होल के चारों ओर चमकती हुई गैस (एकरेशन डिस्क) की पहली तस्वीरें लीं, जिसने आइंस्टीन के सिद्धांतों को साबित किया।",
+      "mr": "कृष्णविवर (ब्लैक होल) हे अंतराळातील अफाट गुरुत्वाकर्षणाचे केंद्र आहेत जिथून प्रकाशही बाहेर पडू शकत नाही. इव्हेंट होरायझन टेलिस्कोपने पहिल्यांदाच कृष्णविवराच्या भोवतालच्या प्रकाशित चकतीचे चित्र टिपले, ज्यामुळे आईन्स्टाईनचे सापेक्षता सिद्धांत सिद्ध झाले."
+    },
+    "timeline": [
+      {
+        "year": "1915",
+        "title": { "en": "General Relativity", "hi": "सामान्य सापेक्षता", "mr": "सापेक्षता सिद्धांत" },
+        "details": {
+          "en": "Albert Einstein publishes the General Theory of Relativity, predicting that massive mass can warp space-time.",
+          "hi": "अल्बर्ट आइंस्टीन ने सामान्य सापेक्षता सिद्धांत प्रकाशित किया, जिससे ब्लैक होल के अस्तित्व की संभावना खुली।",
+          "mr": "अल्बर्ट आईन्स्टाईन यांनी गुरुत्वाकर्षणामुळे अवकाश वाकू शकते हे सांगणारा सापेक्षता सिद्धांत प्रसिद्ध केला."
+        }
+      },
+      {
+        "year": "2019",
+        "title": { "en": "M87* First Image", "hi": "M87* की पहली तस्वीर", "mr": "पहिले छायाचित्र M87*" },
+        "details": {
+          "en": "The Event Horizon Telescope collaboration releases the first direct radio image of the black hole in galaxy M87.",
+          "hi": "इवेंट होराइजन टेलीस्कोप ने आकाशगंगा M87 के केंद्र में स्थित ब्लैक होल की पहली रेडियो तस्वीर जारी की।",
+          "mr": "इव्हेंट होरायझन टेलिस्कोपने M87 गॅलेक्सी मधील कृष्णविवराचे पहिले छायाचित्र जाहीर केले."
+        }
+      }
+    ],
+    "narrative": {
+      "en": {
+        "intro": [
+          "Nothing can escape a black hole once it crosses the threshold known as the event horizon.",
+          "At this boundary, the escape velocity exceeds the speed of light.",
+          "While the black hole itself is invisible, the matter spiraling into it shines brilliantly."
+        ]
+      }
+    },
+    "explanations": {
+      "eli10": {
+        "en": "A black hole is like a giant cosmic slide where the gravity is so strong that even light gets pulled in and can't escape. Around the black hole is a super-hot, glowing ring of dust and gas that we can see with telescopes.",
+        "hi": "ब्लैक होल अंतरिक्ष में एक ऐसा बड़ा छेद है जिसके गुरुत्वाकर्षण से प्रकाश भी बचकर नहीं भाग सकता। इसके चारों तरफ चमकती हुई गैस का चक्र होता है।",
+        "mr": "कृष्णविवर हे अंतराळातील एका महाकाय विहिरीसारखे आहे, ज्याचे गुरुत्वाकर्षण इतके शक्तिशाली आहे की प्रकाशही तिथे खेचला जातो. त्याच्या भोवताली फिरणाऱ्या धुळीच्या गरम रिंगचे फोटो आता शास्त्रज्ञानी काढले आहेत."
+      },
+      "simple": {
+        "en": "Black holes are regions of space with gravity so strong that nothing, not even light, can escape. The Event Horizon Telescope captured images of the bright, glowing ring of gas surrounding a supermassive black hole, verifying modern physics.",
+        "hi": "ब्लैक होल अंतरिक्ष के वे हिस्से हैं जहां अत्यधिक गुरुत्वाकर्षण के कारण प्रकाश भी कैद हो जाता है।",
+        "mr": "कृष्णविवर म्हणजे अंतराळातील असा भाग जिथे प्रचंड गुरुत्वाकर्षणामुळे प्रकाशही शोषला जातो. टेलिस्कोपने कृष्णविवराभोवती चमकणाऱ्या वायूची वर्तुळाकार चकती दाखवून खगोलशास्त्राचे नियम सिद्ध केले."
+      },
+      "detailed": {
+        "en": "Matter falling toward a black hole forms an accretion disk, heated by friction to millions of degrees, releasing intense X-rays. Gravitational lensing warps the image of this disk, creating the characteristic 'shadow' of the event horizon observed by astronomers.",
+        "hi": "ब्लैक होल की ओर खिंचती हुई गैस एक एकरेशन डिस्क बनाती है जो घर्षण से अत्यधिक गर्म हो जाती है।",
+        "mr": "कृष्णविवरात पडणारा वायू प्रचंड वेगाने फिरून खूप गरम होतो आणि त्यातून किरणोत्सर्ग बाहेर पडतो. गुरुत्वाकर्षणामुळे प्रकाश वाकल्यामुळे कृष्णविवराची सावली टेलिस्कोपमध्ये दिसते."
+      },
+      "academic": {
+        "en": "The Event Horizon Telescope uses Very Long Baseline Interferometry (VLBI) at 1.3mm wavelength to achieve angular resolution capable of imaging the shadow of M87*. The asymmetric ring asymmetry is explained by Doppler beaming of plasma orbiting at relativistic velocities.",
+        "hi": "इवेंट होराइजन टेलीस्कोप अत्यधिक दूरी के रेडियो एंटीना का उपयोग करके ब्लैक होल के इर्द-गिर्द घूमते प्लाज्मा की तस्वीरें लेता है।",
+        "mr": "इव्हेंट होरायझन टेलिस्कोप जगातील अनेक रेडिओ टेलिस्कोप एकत्र जोडून कृष्णविवराचे चित्रण करतो. कृष्णविवराच्या तीव्र गुरुत्वाकर्षणात भौतिकशास्त्राचे सर्व नियम टोकाचे बदलतात."
+      },
+      "revision": {
+        "en": "Key Points: Event Horizon boundary of no escape. Accretion disk: hot orbiting matter. M87* imaged in 2019. Confirms Einstein's General Relativity.",
+        "hi": "मुख्य बिंदु: इवेंट होराइज़न से बाहर कुछ नहीं आता। 2019 में M87* की पहली तस्वीर ली गई। आइंस्टीन के सापेक्षता सिद्धांत की पुष्टि करता है।",
+        "mr": "महत्त्वाचे मुद्दे: इव्हेंट होरायझन - प्रकाशही बाहेर पडू न शकणारी सीमा. २०१९ मध्ये कृष्णविवराचे पहिले छायाचित्र मिळाले. सापेक्षता सिद्धांत सिद्ध."
+      }
+    },
+    "qa": [
+      {
+        "q": ["what is accretion disk", "disk", "चमकती हुई गैस", "अॅक्रिशन डिस्क काय आहे"],
+        "a": {
+          "en": "An accretion disk is a flat, rotating structure of gas, dust, and matter orbiting a black hole. Gravity heats this gas until it glows brightly, making the black hole visible to radio telescopes.",
+          "hi": "यह ब्लैक होल के चारों ओर घूमती हुई गैस और मलबे की एक डिस्क है, जो घर्षण के कारण चमकती है।",
+          "mr": "ही कृष्णविवराभोवती फिरणाऱ्या अतिउष्ण वायूची आणि धुळीची प्रकाशमान गोल तबकडी असते. यामुळेच कृष्णविवराचे अस्तित्व टेलिस्कोपमध्ये दिसू शकते."
+        }
+      }
+    ],
+    "references": [
+      "The Event Horizon Telescope Collaboration: 'First M87 Black Hole Results' (Astrophysical Journal Letters, 2019)",
+      "Albert Einstein: 'The Foundation of the General Theory of Relativity' (1916)"
+    ]
+  },
+  {
+    "id": "bhangarh",
+    "image": "/images/bhangarh.png",
+    "title": {
+      "en": "Bhangarh: The Cursed Ruins",
+      "hi": "भानगढ़: शापित खंडहर का रहस्य",
+      "mr": "भानगड: शापित किल्ल्याचे रहस्य"
+    },
+    "subtitle": {
+      "en": "The mysterious fort where entry after sunset is banned",
+      "hi": "वह रहस्यमयी किला जहां सूर्यास्त के बाद प्रवेश प्रतिबंधित है",
+      "mr": "सूर्यास्तानंतर प्रवेश बंदी असलेला रहस्यमयी किल्ला"
+    },
+    "category": "Indian Mysteries",
+    "duration": "13 mins",
+    "difficulty": "Easy",
+    "era": "16th Century CE",
+    "factStatus": "Government Regulated Entry, Abandoned Trading Town",
+    "factLabel": "Folklore",
+    "learningObjectives": [
+      { "en": "Explore the legend of Princess Ratnavati and the sorcerer's curse", "hi": "राजकुमारी रत्नावती और तांत्रिक के शाप की कहानी को जानें", "mr": "राजकुमारी रत्नावती आणि तांत्रिकाच्या शापाची कथा तपासणे" },
+      { "en": "Understand the historical causes of abandonment in 1783", "hi": "1783 में किला खाली होने के ऐतिहासिक कारणों को समझें", "mr": "१७८३ मध्ये हा किल्ला ओसाड होण्यामागील ऐतिहासिक कारणे शोधणे" }
+    ],
+    "knowledgeLevel": "Beginner",
+    "relatedTopics": ["Rajasthan", "Ghost Towns", "Famine"],
+    "synopsis": {
+      "en": "Bhangarh Fort in Rajasthan is famous as India's most haunted location. The Archaeological Survey of India strictly bans entry after sunset. While local legends speak of a black magic curse, historians link its abandonment to the severe famine of 1783 and subsequent military conflicts.",
+      "hi": "राजस्थान में स्थित भानगढ़ का किला भारत की सबसे भुतहा जगहों में गिना जाता है। भारतीय पुरातत्व सर्वेक्षण शाम के बाद यहां जाने पर प्रतिबंध लगाता है। जहां स्थानीय लोग तांत्रिक के श्राप की बात करते हैं, वहीं इतिहासकार इसे 1783 के अकाल और युद्धों से जोड़ते हैं।",
+      "mr": "राजस्थानमधील भानगड किल्ला हा भारतातील सर्वात रहस्यमयी किल्ला मानला जातो. भारतीय पुरातत्व विभागाने येथे सूर्यास्तानंतर थांबण्यास सक्त बंदी घातली आहे. स्थानिक लोक तांत्रिकाच्या शापाची गोष्ट सांगतात, पण इतिहासकार १७८३ चा भीषण दुष्काळ आणि युद्ध यामुळे लोक तो सोडून गेले असे मानतात."
+    },
+    "timeline": [
+      {
+        "year": "1573",
+        "title": { "en": "Fort Establishment", "hi": "किले का निर्माण", "mr": "बांधकाम" },
+        "details": {
+          "en": "The fort is built by Raja Bhagwant Das for his younger son Madho Singh.",
+          "hi": "राजा भगवंत दास ने अपने छोटे बेटे माधो सिंह के लिए किले का निर्माण कराया।",
+          "mr": "माधो सिंग यांच्यासाठी राजा भगवंत दास यांनी हा किल्ला बांधला."
+        }
+      },
+      {
+        "year": "1783",
+        "title": { "en": "Famine of Chalisa", "hi": "चालीसा अकाल", "mr": "भीषण दुष्काळ (Chalisa)" },
+        "details": {
+          "en": "A catastrophic famine ravages northern India, forcing the entire population of Bhangarh to abandon the city.",
+          "hi": "उत्तर भारत में भीषण अकाल पड़ा, जिससे भानगढ़ की पूरी आबादी शहर छोड़कर चली गई।",
+          "mr": "उत्तर भारतात आलेल्या महाभयानक दुष्काळामुळे भानगडमधील सर्व लोक तेथून स्थलांतरित झाले."
+        }
+      }
+    ],
+    "narrative": {
+      "en": {
+        "intro": [
+          "Nestled at the border of Sariska Tiger Reserve, the ruins of Bhangarh are beautifully preserved yet completely deserted.",
+          "It is the only heritage site in India where a government sign board prohibits entry after dark.",
+          "Locals warn that anyone who stays in the fort overnight never returns."
+        ],
+        "background": [
+          "16th-century Bhangarh was a bustling market town with gardens, temples, and over 10,000 residents.",
+          "According to local folklore, a sorcerer named Singhia fell in love with Princess Ratnavati and tried to enchant her with magic oil.",
+          "The princess discovered the plot and threw the oil onto a boulder, which crushed the sorcerer, who cursed the town with his dying breath."
+        ],
+        "evidence": [
+          "Historians reject the magic narrative. Archival documents show that the neighboring state of Jaipur grew in power, squeezing Bhangarh's resources.",
+          "The Chalisa famine of 1783 was the final blow, depopulating the entire region."
+        ],
+        "scientific": [
+          "The restriction on night visits is a standard safety measure because of the lack of electricity, presence of wild panthers from Sariska, and risk of structural collapses.",
+          "Psychologists state that the reputation of the site creates heightened suggestibility, causing visitors to interpret natural wind noises as supernatural occurrences."
+        ],
+        "facts": [
+          "The fort contains several temples that are still in excellent condition, showing it was not ruined by magic but abandoned."
+        ],
+        "takeaways": [
+          "Bhangarh's ghost town status was caused by historical famine and migration, not a magical curse.",
+          "The government night ban is a safety regulation for ruins located next to a forest reserve."
+        ],
+        "conclusion": [
+          "Bhangarh remains a stunning example of medieval Rajasthani architecture, shrouded in mystery and legend."
+        ]
+      },
+      "hi": {
+        "intro": [
+          "राजस्थान में स्थित भानगढ़ का किला भारत की सबसे भुतहा जगहों में गिना जाता है। शाम के बाद यहां जाने पर सरकारी पाबंदी है।"
+        ],
+        "background": [
+          "1573 में निर्मित यह किला कभी एक समृद्ध व्यापारिक नगर हुआ करता था।"
+        ],
+        "main": [
+          "किंवदंती के अनुसार, एक तांत्रिक ने राजकुमारी रत्नावती पर काला जादू करने की कोशिश की, लेकिन खुद ही मारा गया और मरते समय उसने पूरे नगर को शाप दे दिया।"
+        ],
+        "evidence": [
+          "इतिहासकारों का मानना है कि 1783 के भीषण अकाल और युद्ध के कारण लोग इस किले को छोड़कर भाग गए थे।"
+        ],
+        "scientific": [
+          "रात में प्रवेश पर रोक का कारण जंगली जानवर, बिजली की कमी और पुरानी ढहती हुई संरचनाएं हैं।"
+        ],
+        "legends": [
+          "कहा जाता है कि श्राप के कारण आज भी यहाँ घरों की छतें टिक नहीं पातीं।"
+        ],
+        "facts": [
+          "किले में कई ऐतिहासिक मंदिर आज भी अच्छी स्थिति में खड़े हैं।"
+        ],
+        "takeaways": [
+          "पतन का कारण युद्ध और अकाल था, जादू नहीं।"
+        ],
+        "conclusion": [
+          "भानगढ़ इतिहास और जनश्रुतियों का एक खूबसूरत मेल है।"
+        ]
+      },
+      "mr": {
+        "intro": [
+          "भानगड किल्ला हा भारतातील सर्वात गूढ किल्ला मानला जातो. येथे रात्री जाण्यास बंदी आहे."
+        ],
+        "background": [
+          "१५७३ मध्ये बांधलेले हे शहर पूर्वी एक अतिशय श्रीमंत बाजारपेठ होते."
+        ],
+        "main": [
+          "कथेनुसार, एका तांत्रिकाने राजकुमारी रत्नावतीवर जादूटोणा करण्याचा प्रयत्न केला, पण त्याचा डाव उलटून मरताना त्याने या गावाला शाप दिला."
+        ],
+        "evidence": [
+          "इतिहासकारांच्या मते, १७८३ मध्ये पडलेल्या अकाल आणि शेजारील राज्यांचे आक्रमण यामुळे लोक गाव सोडून निघून गेले."
+        ],
+        "scientific": [
+          "रात्री बंदी असण्याचे कारण म्हणजे जंगलातून येणारे वन्य प्राणी आणि पडझड होणाऱ्या जुन्या भिंती आहेत."
+        ],
+        "legends": [
+          "शापामुळे येथील वास्तूंना छप्पर टिकत नाही अशी दंतकथा आजही सांगितली जाते."
+        ],
+        "facts": [
+          "येथील मंदिरे अजूनही चांगल्या स्थितीत आहेत, जे नागरी संस्कृती दर्शवते."
+        ],
+        "takeaways": [
+          "गावाच्या ऱ्हासामागे दुष्काळ आणि स्थलांतर ही मुख्य कारणे होती."
+        ],
+        "conclusion": [
+          "भानगड किल्ला हा ऐतिहासिक स्थापत्यशास्त्र आणि स्थानिक लोककथांचे एक अद्भुत रहस्य आहे."
+        ]
+      }
+    },
+    "explanations": {
+      "eli10": {
+        "en": "Bhangarh is a beautiful old fort built in a forest. People tell scary stories about a magician's curse, which makes it fun and spooky. The government locks the gates at night to protect visitors from wild animals and dark paths.",
+        "hi": "भानगढ़ एक पुराना किला है। लोग इसके बारे में डरावनी कहानियां सुनाते हैं। सरकारी तौर पर रात में बंद होने का कारण अंधेरा और जंगली जानवर हैं।",
+        "mr": "भानगड हा जंगलाजवळ असणारा एक जुना ऐतिहासिक किल्ला आहे. तांत्रिकाच्या शापामुळे तिथे भुतांचा वावर आहे अशी लोकांची समजूत आहे. रात्री तिथे हिंस्र प्राणी फिरत असल्यामुळे सरकारी बंदी घालण्यात आली आहे."
+      },
+      "simple": {
+        "en": "Bhangarh Fort is labeled India's most haunted place. A local myth says a sorcerer cursed the fort. In reality, the town was abandoned in 1783 due to a severe famine. The night ban exists because there is no lighting and wild panthers live nearby.",
+        "hi": "भानगढ़ को भारत का सबसे भूतहा स्थान माना जाता है। लेकिन इसका असली कारण 1783 का अकाल था।",
+        "mr": "भानगड किल्ला हा भारतामधील सर्वाधिक भुतहा किल्ला समजला जातो. लोककथा शापाचे कारण सांगतात, पण प्रत्यक्षात दुष्काळामुळे गाव ओसाड झाले. रात्री वाघ-बिबट्या फिरत असल्याने तिथे प्रवेश बंदी आहे."
+      },
+      "detailed": {
+        "en": "Bhangarh Fort was built in 1573. It was abandoned in 1783 due to a catastrophic famine known as the Famine of Chalisa. The myth of the sorcerer Singhia cursing the town is popular, but historical records confirm economic competition with Jaipur led to its decline. The night ban by the Archaeological Survey of India (ASI) is for safety, due to wild panthers and collapsing ruins.",
+        "hi": "1573 में निर्मित भानगढ़ 1783 के चालीसा अकाल के कारण वीरान हुआ।",
+        "mr": "१५७३ मध्ये बांधलेला भानगड किल्ला १७८३ च्या चालीसा दुष्काळामुळे ओसाड झाला. रात्री सुरक्षेच्या कारणास्तव (वन्य प्राणी आणि जुन्या वास्तू) पुरातत्व विभागाने तिथे बंदी घातली आहे."
+      },
+      "academic": {
+        "en": "Socio-economic analysis shows Bhangarh's decline was structural, driven by resources shifting toward Jaipur. The night curfew is a safety protocol for historical monuments situated adjacent to wildlife reserves, preventing human-wildlife conflicts.",
+        "hi": "ऐतिहासिक विश्लेषण दर्शाता है कि भानगढ़ का पतन जयपुर राज्य के उदय और आर्थिक मार्ग बदलने से हुआ।",
+        "mr": "ऐतिहासिक पुराव्यानुसार जयपूरच्या उदयानंतर या भागाचे व्यापारी महत्त्व कमी झाले. हा किल्ला अभयारण्याच्या हद्दीत असल्यामुळे मानवी सुरक्षेसाठी रात्री बंद केला जातो."
+      },
+      "revision": {
+        "en": "Key Points: Bhangarh Fort, Rajasthan (1573). Ghost town since 1783 famine. Sorcerer's curse legend. Government night ban is for physical safety and wild animals.",
+        "hi": "मुख्य बिंदु: भानगढ़ किला, राजस्थान। 1783 के अकाल के बाद वीरान हुआ। शाप की किंवदंती है। रात की बंदी जंगली जानवरों से बचाव के लिए है।",
+        "mr": "महत्त्वाचे मुद्दे: भानगड किल्ला, राजस्थान. १७८३ मधील दुष्काळामुळे ओसाड. रात्रीची बंदी वन्य प्राण्यांपासून सुरक्षेसाठी."
+      }
+    },
+    "qa": [
+      {
+        "q": ["why entry after sunset is banned", "why entry banned", "सूर्यास्त के बाद प्रवेश", "रात्री बंदी का आहे"],
+        "a": {
+          "en": "The Archaeological Survey of India (ASI) bans entry because the ruins are unlit, structurally unstable, and located right next to the Sariska Tiger Reserve, which has wild panthers and nocturnal predators.",
+          "hi": "रात में बिजली की कमी, ढहती दीवारें और सरिस्का टाइगर रिजर्व से आने वाले जंगली जानवरों (तेदुओं) के खतरे के कारण रात में प्रवेश वर्जित है।",
+          "mr": "किल्ल्यात रात्रीच्या वेळी वीज नसते, भिंती पडण्याचा धोका असतो आणि जवळच सरिस्का वाघ प्रकल्प असल्याने बिबट्यासारखे हिंस्र प्राणी फिरतात, म्हणून तिथे बंदी आहे."
+        }
+      }
+    ],
+    "references": [
+      "Archaeological Survey of India Jaipur Circle monuments list",
+      "R.A. Sharma: 'History and Legends of Alwar District' (1982)"
+    ]
+  }
+]

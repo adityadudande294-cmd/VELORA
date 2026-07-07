@@ -5,149 +5,61 @@ import Image from "next/image";
 import { 
   Play, BookOpen, Search, Clock, Sparkles, Volume2, VolumeX, User, 
   ChevronRight, X, Headphones, Globe, ArrowRight, Settings, Bell, 
-  Flame, Award, Compass, Heart, Bookmark, Eye, HelpCircle, Star, Music 
+  Flame, Award, Compass, Heart, Bookmark, Eye, HelpCircle, Star, Music, Send
 } from "lucide-react";
+import { 
+  getStoryDetail, 
+  naturalLanguageSearch, 
+  getDailyFeatures, 
+  groupIntoCollections,
+  getRecommendations,
+  generateCustomStory,
+  StoryDetail
+} from "../utils/storyEngine";
+import { KNOWLEDGE_DATABASE } from "../data/knowledgeDatabase";
+import { UserSettings, BookmarkData } from "../app/page";
+import { apiClient } from "../services/apiClient";
 
-interface Story {
-  id: string;
-  title: string;
-  category: string;
-  duration: string;
-  image: string;
-  tags: string[];
-  synopsis: string;
-  archaeologicalNotes: string;
-  era: string;
-  factStatus: string;
-  popularity: string;
-  progress?: number; // percentage completed
-  timeLeft?: string; // time left for continue reading
+type AmbientTheme = "library" | "space" | "ancient" | "calm";
+
+interface DashboardProps {
+  onStartReading: (story: StoryDetail) => void;
+  userName: string;
+  userSettings: UserSettings;
+  updateSettings: (settings: Partial<UserSettings>) => void;
+  bookmarks: BookmarkData;
+  updateBookmarks: (updater: (prev: BookmarkData) => BookmarkData) => void;
+  onAuthSuccess?: (syncedUser: any) => void;
 }
-
-const ALL_STORIES: Story[] = [
-  {
-    id: "dwarka",
-    title: "Dwarka: Undersea Secrets",
-    category: "Archaeology",
-    duration: "18 mins",
-    image: "/images/dwarka.png",
-    tags: ["Ancient India", "Submerged City", "Legends"],
-    synopsis: "Deep beneath the Gulf of Khambhat lie the stone remains of a colossal grid-like city. Is this the legendary city of Dwarka spoken of in ancient Sanskrit epics? Join marine archaeologists as they map massive stone walls, anchors, and artifacts to uncover a lost chapter of human civilization dating back thousands of years.",
-    archaeologicalNotes: "Carbon dating of wood samples recovered from the site suggests the area could be over 9,000 years old, challenging current timelines of urban development.",
-    era: "c. 7500 BCE",
-    factStatus: "90% Archaeological Evidence, 10% Epic Folklore",
-    popularity: "9.8",
-    progress: 65,
-    timeLeft: "6 mins left"
-  },
-  {
-    id: "roopkund",
-    title: "Roopkund: The Skeleton Lake",
-    category: "Indian Mysteries",
-    duration: "15 mins",
-    image: "/images/roopkund.png",
-    tags: ["Himalayas", "Archaeology", "Unexplained"],
-    synopsis: "High in the freezing peaks of the Himalayas, Roopkund Lake holds the bones of hundreds of ancient travelers. DNA analysis reveals a shocking truth: these people died in a single event, separated by centuries and originating from entirely different parts of the world. What drew them to this desolate altitude, and how did they meet their end?",
-    archaeologicalNotes: "Recent genetic studies published in Nature show that the skeleton remains belong to three distinct genetic groups, including Mediterranean Europeans, who died in a sudden hailstorm around 800 CE.",
-    era: "c. 800 CE",
-    factStatus: "95% DNA Verified, 5% Mountain Legend",
-    popularity: "9.7",
-    progress: 25,
-    timeLeft: "11 mins left"
-  },
-  {
-    id: "antikythera",
-    title: "The Antikythera Mechanism",
-    category: "Ancient Science",
-    duration: "16 mins",
-    image: "/images/antikythera.png",
-    tags: ["Ancient Computers", "Astronomy", "Greek Shipwrecks"],
-    synopsis: "Discovered in a Roman shipwreck off Greece, a lump of corroded bronze lay ignored until researchers exposed a maze of interlocking gears. Rebuild the world's oldest analog computer, built to track eclipses, planetary movements, and the quadrennial cycle of the Olympic games.",
-    archaeologicalNotes: "X-ray imaging has revealed over 30 gearwheels and thousands of Greek characters inscribed on the device's bronze plates, indicating a level of technology that did not reappear for another 1,500 years.",
-    era: "c. 150 BCE",
-    factStatus: "100% Scientific Record",
-    popularity: "9.6"
-  },
-  {
-    id: "jatinga",
-    title: "Jatinga: The Bird Phenomenon",
-    category: "Unexplained Phenomena",
-    duration: "12 mins",
-    image: "/images/jatinga.png",
-    tags: ["Assam", "Ornithology", "Atmosphere"],
-    synopsis: "In a small valley in Assam, during foggy monsoon nights, hundreds of migratory birds plunge from the sky, disoriented and crashing into lights and buildings. Explore the atmospheric anomalies, electromagnetic sweeps, and behavioral biology behind this tragic bird phenomenon.",
-    archaeologicalNotes: "Scientists suggest that high-velocity winds, combined with heavy fog and light sources in the village, disorient the birds, causing them to fly towards the lights in search of shelter.",
-    era: "Ongoing",
-    factStatus: "75% Scientific Hypothesis, 25% Local Lore",
-    popularity: "9.4"
-  },
-  {
-    id: "konark",
-    title: "Konark: Wheels of Time",
-    category: "Ancient Engineering",
-    duration: "14 mins",
-    image: "/images/konark.png",
-    tags: ["Odisha", "Solar Alignment", "Sun Temple"],
-    synopsis: "The Sun Temple of Konark is built as a colossal stone chariot with 24 intricately carved wheels. Discover how these wheels act as highly accurate sundials, calculating time down to the exact minute by the shadow cast by the hub.",
-    archaeologicalNotes: "The temple is aligned so that the first rays of the sun strike the main entrance, highlighting sophisticated astronomical calculation in 13th-century Indian architecture.",
-    era: "c. 1250 CE",
-    factStatus: "100% Historical Monuments Record",
-    popularity: "9.5"
-  },
-  {
-    id: "blackhole",
-    title: "Accretion: Inside Black Holes",
-    category: "Space & Science",
-    duration: "22 mins",
-    image: "/images/blackhole.png",
-    tags: ["Astrophysics", "General Relativity", "Cosmos"],
-    synopsis: "Peer beyond the event horizon where space and time warp into an infinite singularity. Track the searing plasma of accretion disks, light bending in cosmic lenses, and Hawking radiation slowly bleeding heat from the universe's most absolute monsters.",
-    archaeologicalNotes: "First direct visual proof of black holes was captured in 2019 by the Event Horizon Telescope, confirming Einstein's general relativity models with extreme precision.",
-    era: "Universal",
-    factStatus: "100% Astrophysical Consensus",
-    popularity: "9.9"
-  },
-  {
-    id: "bhangarh",
-    title: "Bhangarh: The Cursed Ruins",
-    category: "Indian Mysteries",
-    duration: "14 mins",
-    image: "/images/bhangarh.png",
-    tags: ["History", "Folklore", "Haunted"],
-    synopsis: "Within the Sariska Tiger Reserve sits the 17th-century Bhangarh Fort. Abandoned overnight, locals believe a wizard's curse keeps the city barren. Walk through the empty markets, the majestic royal palace, and temples to explore the tragic history and legends of the most haunted place in India.",
-    archaeologicalNotes: "The Archaeological Survey of India (ASI) has placed a sign forbidding entry between sunset and sunrise, a rare governmental acknowledgment of local folklore.",
-    era: "1613 CE",
-    factStatus: "40% Historical Fact, 60% Local Myth",
-    popularity: "9.5"
-  }
-];
 
 const CATEGORIES = [
   { name: "Indian Mysteries", count: 18, color: "from-amber-600/30 to-[#e5c158]/5 border-amber-500/20" },
   { name: "Ancient India", count: 24, color: "from-yellow-600/30 to-[#e5c158]/5 border-yellow-500/20" },
   { name: "History", count: 32, color: "from-blue-600/30 to-[#0088ff]/5 border-blue-500/20" },
   { name: "Archaeology", count: 15, color: "from-indigo-600/30 to-indigo-500/5 border-indigo-500/20" },
-  { name: "Science & Space", count: 28, color: "from-sky-600/30 to-[#0088ff]/5 border-sky-500/20" },
+  { name: "Space & Science", count: 28, color: "from-sky-600/30 to-[#0088ff]/5 border-sky-500/20" },
   { name: "Civilizations", count: 19, color: "from-cyan-600/30 to-cyan-500/5 border-cyan-500/20" },
   { name: "Legends & Folklore", count: 22, color: "from-red-600/30 to-red-500/5 border-red-500/20" },
-  { name: "Unexplained", count: 11, color: "from-purple-600/30 to-purple-500/5 border-purple-500/20" }
+  { name: "Unexplained Phenomena", count: 11, color: "from-purple-600/30 to-purple-500/5 border-purple-500/20" }
 ];
 
-const COLLECTIONS = [
+const COLLECTIONS_METADATA = [
   { name: "Hidden India", desc: "Secrets buried in the jungles, forts, and ruins of the subcontinent.", cover: "/images/bhangarh.png" },
   { name: "Lost Kingdoms", desc: "Metropolises and royal centers swallowed by oceans and desert sands.", cover: "/images/dwarka.png" },
   { name: "Mysteries of Nature", desc: "Phenomena that defy standard geological and biological consensus.", cover: "/images/jatinga.png" },
   { name: "Ancient Engineering", desc: "Colossal structures built with technologies lost to time.", cover: "/images/konark.png" }
 ];
 
-type AmbientTheme = "library" | "space" | "ancient" | "calm";
-
-interface DashboardProps {
-  onStartReading: (story: Story) => void;
-}
-
-export default function Dashboard({ onStartReading }: DashboardProps) {
-  const [selectedStory, setSelectedStory] = useState<Story | null>(null);
+export default function Dashboard({ 
+  onStartReading, 
+  userName, 
+  userSettings, 
+  updateSettings, 
+  bookmarks, 
+  updateBookmarks,
+  onAuthSuccess
+}: DashboardProps) {
+  const [selectedStory, setSelectedStory] = useState<StoryDetail | null>(null);
   
   // Navigation & Scroll State
   const [isScrolled, setIsScrolled] = useState(false);
@@ -156,8 +68,22 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
   // Search Experience
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [searchResults, setSearchResults] = useState<Story[]>([]);
+  const [searchResults, setSearchResults] = useState<StoryDetail[]>([]);
+  const [customSearchTopic, setCustomSearchTopic] = useState("");
+
+  // AI Assistant Tab States
+  const [assistantInput, setAssistantInput] = useState("");
+  const [assistantMessages, setAssistantMessages] = useState<Array<{ sender: "user" | "ai"; text: string; actionStoryId?: string }>>([
+    { sender: "ai", text: `Greetings, ${userName}. I am the VELORA Knowledge Oracle. Ask me any historical mystery, space fact, or type a custom topic to generate a fresh premium documentary on-the-fly!` }
+  ]);
+
+  // Selected Category/Collection filter in Sub-Views
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string | null>(null);
+  const [selectedCollectionFilter, setSelectedCollectionFilter] = useState<string | null>(null);
   
+  // Daily Features State
+  const [daily, setDaily] = useState<any>(null);
+
   // Stats State
   const [statStories, setStatStories] = useState(0);
   const [statHours, setStatHours] = useState(0.0);
@@ -165,9 +91,55 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
   const [statsAnimated, setStatsAnimated] = useState(false);
   const statsSectionRef = useRef<HTMLDivElement>(null);
 
+  // Cloud Sync Auth States
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState<"login" | "register">("login");
+  const [authName, setAuthName] = useState("");
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPassword, setAuthPassword] = useState("");
+  const [authError, setAuthError] = useState("");
+  const [authLoading, setAuthLoading] = useState(false);
+  const [isCloudSynced, setIsCloudSynced] = useState(false);
+
+  useEffect(() => {
+    setIsCloudSynced(apiClient.isOnline && !!apiClient.user);
+  }, []);
+
+  const handleAuthSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError("");
+    setAuthLoading(true);
+    try {
+      let profile;
+      if (authMode === "login") {
+        profile = await apiClient.login(authEmail, authPassword);
+      } else {
+        profile = await apiClient.register(authName, authEmail, authPassword);
+      }
+      setIsCloudSynced(true);
+      if (onAuthSuccess) {
+        onAuthSuccess(profile);
+      }
+      setShowAuthModal(false);
+      setAuthName("");
+      setAuthEmail("");
+      setAuthPassword("");
+    } catch (err: any) {
+      setAuthError(err.message || "Authentication failed");
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  const handleSignOut = () => {
+    apiClient.logout();
+    setIsCloudSynced(false);
+    window.location.reload();
+  };
+
   // Audio Synthesis States & Refs
   const [ambientTheme, setAmbientTheme] = useState<AmbientTheme>("library");
-  const [isMuted, setIsMuted] = useState(true); // Default muted to let user trigger
+  const [isMuted, setIsMuted] = useState(true);
   const [volume, setVolume] = useState(0.6);
   
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -178,6 +150,11 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(parseFloat(e.target.value));
   };
+
+  // Load Daily Features on Mount
+  useEffect(() => {
+    setDaily(getDailyFeatures());
+  }, []);
 
   // Listen for scroll to toggle navbar glassmorphism
   useEffect(() => {
@@ -199,7 +176,6 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("revealed");
-            // If the stats section is intersected, animate stats counter
             if (entry.target.id === "stats-panel") {
               setStatsAnimated(true);
             }
@@ -220,11 +196,11 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
     if (!statsAnimated) return;
 
     let start = 0;
-    const storiesEnd = 24;
-    const hoursEnd = 15.8;
-    const streakEnd = 7;
-    const duration = 2000; // 2 seconds
-    const steps = 60;
+    const storiesEnd = userSettings.history.length || 6;
+    const hoursEnd = Number((storiesEnd * 0.25).toFixed(1)) || 1.5;
+    const streakEnd = userSettings.streak || 1;
+    const duration = 1500;
+    const steps = 40;
     const stepTime = duration / steps;
     let step = 0;
 
@@ -245,25 +221,26 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
     }, stepTime);
 
     return () => clearInterval(interval);
-  }, [statsAnimated]);
+  }, [statsAnimated, userSettings.history, userSettings.streak]);
 
   // Search Suggestion logic
   useEffect(() => {
     if (searchQuery.trim() === "") {
       setSearchResults([]);
-    } else {
-      const q = searchQuery.toLowerCase();
-      const filtered = ALL_STORIES.filter(
-        (s) =>
-          s.title.toLowerCase().includes(q) ||
-          s.category.toLowerCase().includes(q) ||
-          s.tags.some((t) => t.toLowerCase().includes(q))
-      );
-      setSearchResults(filtered);
+      return;
     }
+    const delayDebounce = setTimeout(async () => {
+      try {
+        const results = await apiClient.searchStories(searchQuery);
+        setSearchResults(results);
+      } catch (e) {
+        setSearchResults(naturalLanguageSearch(searchQuery));
+      }
+    }, 300);
+    return () => clearTimeout(delayDebounce);
   }, [searchQuery]);
 
-  // Handle ambient theme synthesis initialization & transition
+  // Audio mute/theme handling
   useEffect(() => {
     if (isMuted) {
       cleanupAudioNodes();
@@ -281,7 +258,7 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
   // Adjust volume
   useEffect(() => {
     if (masterGainRef.current && audioContextRef.current) {
-      const volVal = isMuted ? 0 : volume * 0.15; // soft overall volume scale
+      const volVal = isMuted ? 0 : volume * 0.15;
       masterGainRef.current.gain.linearRampToValueAtTime(volVal, audioContextRef.current.currentTime + 0.1);
     }
   }, [volume, isMuted]);
@@ -320,7 +297,6 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
     if (!ctx || !master) return;
 
     if (ambientTheme === "library") {
-      // 1. Cozy Wind Sweep
       const windFilter = ctx.createBiquadFilter();
       windFilter.type = "bandpass";
       windFilter.Q.value = 1.8;
@@ -336,9 +312,8 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
       noise.start();
       activeNodesRef.current.push(noise);
 
-      // Low LFO to sweep wind
       const lfo = ctx.createOscillator();
-      lfo.frequency.value = 0.06; // super slow
+      lfo.frequency.value = 0.06;
       const lfoGain = ctx.createGain();
       lfoGain.gain.value = 180;
       lfo.connect(lfoGain);
@@ -346,7 +321,6 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
       lfo.start();
       activeNodesRef.current.push(lfo);
 
-      // 2. Vinyl/Paper Crackle node
       const crackleFilter = ctx.createBiquadFilter();
       crackleFilter.type = "highpass";
       crackleFilter.frequency.value = 1000;
@@ -361,31 +335,18 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
       crackleNoise.start();
       activeNodesRef.current.push(crackleNoise);
 
-      // Random impulse sweeps representing crackles
-      const crackleLFO = ctx.createOscillator();
-      crackleLFO.type = "sawtooth";
-      crackleLFO.frequency.value = 8;
-      const crackleLFOGain = ctx.createGain();
-      crackleLFOGain.gain.value = 0.02;
-      crackleLFO.connect(crackleLFOGain);
-      crackleLFOGain.connect(crackleGain.gain);
-      crackleLFO.start();
-      activeNodesRef.current.push(crackleLFO);
-
-      // 3. Periodic Clock tick
       themeIntervalRef.current = setInterval(() => {
         playTick(480, 0.02);
       }, 2000);
 
     } else if (ambientTheme === "space") {
-      // 1. Deep Celestial Sub Bass Pad
       const osc1 = ctx.createOscillator();
       osc1.type = "sine";
-      osc1.frequency.value = 45; // F#1
+      osc1.frequency.value = 45;
 
       const osc2 = ctx.createOscillator();
       osc2.type = "sine";
-      osc2.frequency.value = 45.4; // detune beat
+      osc2.frequency.value = 45.4;
 
       const filter = ctx.createBiquadFilter();
       filter.type = "lowpass";
@@ -403,10 +364,9 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
       osc2.start();
       activeNodesRef.current.push(osc1, osc2);
 
-      // 2. Space Sweeping Pad
       const spaceOsc = ctx.createOscillator();
       spaceOsc.type = "triangle";
-      spaceOsc.frequency.value = 135; // C#3
+      spaceOsc.frequency.value = 135;
       
       const spaceFilter = ctx.createBiquadFilter();
       spaceFilter.type = "bandpass";
@@ -422,27 +382,15 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
       spaceOsc.start();
       activeNodesRef.current.push(spaceOsc);
 
-      // Sweep Space filter with LFO
-      const spaceLFO = ctx.createOscillator();
-      spaceLFO.frequency.value = 0.08;
-      const spaceLFOGain = ctx.createGain();
-      spaceLFOGain.gain.value = 120;
-      spaceLFO.connect(spaceLFOGain);
-      spaceLFOGain.connect(spaceFilter.frequency);
-      spaceLFO.start();
-      activeNodesRef.current.push(spaceLFO);
-
-      // 3. Random Space Sparkles
       themeIntervalRef.current = setInterval(() => {
         if (Math.random() > 0.4) {
-          const notes = [587.33, 659.25, 783.99, 880.00, 1046.50]; // D5, E5, G5, A5, C6
+          const notes = [587.33, 659.25, 783.99, 880.00, 1046.50];
           const randomNote = notes[Math.floor(Math.random() * notes.length)];
           playSineSparkle(randomNote, 0.04);
         }
       }, 2500);
 
     } else if (ambientTheme === "ancient") {
-      // 1. Resonant Deep Cave Air
       const caveFilter = ctx.createBiquadFilter();
       caveFilter.type = "bandpass";
       caveFilter.Q.value = 7.0;
@@ -458,31 +406,19 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
       noise.start();
       activeNodesRef.current.push(noise);
 
-      // Slow drift LFO
-      const caveLFO = ctx.createOscillator();
-      caveLFO.frequency.value = 0.05;
-      const caveLFOGain = ctx.createGain();
-      caveLFOGain.gain.value = 80;
-      caveLFO.connect(caveLFOGain);
-      caveLFOGain.connect(caveFilter.frequency);
-      caveLFO.start();
-      activeNodesRef.current.push(caveLFO);
-
-      // 2. Distant Woodwind/Flute Drone Melodies
       themeIntervalRef.current = setInterval(() => {
-        const pentatonicScale = [220.00, 246.94, 261.63, 293.66, 329.63, 392.00]; // A3, B3, C4, D4, E4, G4
+        const pentatonicScale = [220.00, 246.94, 261.63, 293.66, 329.63, 392.00];
         const note = pentatonicScale[Math.floor(Math.random() * pentatonicScale.length)];
         playAncientFlute(note);
       }, 4000);
 
     } else if (ambientTheme === "calm") {
-      // 1. Ocean Shore Waves crashing (Periodically swept noise filter)
       const waveFilter = ctx.createBiquadFilter();
       waveFilter.type = "lowpass";
       waveFilter.frequency.value = 350;
 
       const waveGain = ctx.createGain();
-      waveGain.gain.value = 0.05; // start low
+      waveGain.gain.value = 0.05;
 
       const noise = createNoiseNode();
       noise.connect(waveFilter);
@@ -491,23 +427,6 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
       noise.start();
       activeNodesRef.current.push(noise);
 
-      // LFO sweeping wave amplitude (crashing waves at ~0.08Hz, 12s period)
-      const waveLFO = ctx.createOscillator();
-      waveLFO.frequency.value = 0.08;
-      const waveLFOGain = ctx.createGain();
-      waveLFOGain.gain.value = 0.16; // sweep range
-      waveLFO.connect(waveLFOGain);
-      waveLFOGain.connect(waveGain.gain);
-      waveLFO.start();
-      activeNodesRef.current.push(waveLFO);
-
-      // Sweep filter cutoff alongside wave intensity
-      const waveFilterLFOGain = ctx.createGain();
-      waveFilterLFOGain.gain.value = 250;
-      waveLFO.connect(waveFilterLFOGain);
-      waveFilterLFOGain.connect(waveFilter.frequency);
-
-      // 2. High Pure Bells
       themeIntervalRef.current = setInterval(() => {
         const randomBell = 900 + Math.random() * 800;
         playSineSparkle(randomBell, 0.02);
@@ -574,7 +493,6 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
     osc.connect(gain);
     gain.connect(master);
 
-    // delay loop
     gain.connect(delay);
     delay.connect(feedback);
     feedback.connect(delay);
@@ -600,9 +518,9 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
     filter.frequency.value = 380;
 
     gain.gain.setValueAtTime(0, ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.06, ctx.currentTime + 0.8); // slow attack
+    gain.gain.linearRampToValueAtTime(0.06, ctx.currentTime + 0.8);
     gain.gain.setValueAtTime(0.06, ctx.currentTime + 2.2);
-    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 4.0); // slow decay
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 4.0);
 
     osc.connect(filter);
     filter.connect(gain);
@@ -634,21 +552,115 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
     osc.stop(ctx.currentTime + 0.2);
   };
 
+  // Generate Custom Story from search / oracle input
+  const triggerCustomStoryGen = async (topicStr: string) => {
+    if (!topicStr.trim()) return;
+    playClickSound();
+    try {
+      const customStory = await apiClient.synthesizeCustomStory(topicStr);
+      KNOWLEDGE_DATABASE[customStory.id] = customStory;
+      onStartReading(customStory);
+    } catch (e) {
+      const customStory = generateCustomStory(topicStr);
+      KNOWLEDGE_DATABASE[customStory.id] = customStory;
+      onStartReading(customStory);
+    }
+  };
+
+  // Oracle Chat assistant query handler
+  const handleAssistantSend = async () => {
+    if (!assistantInput.trim()) return;
+    const userQuery = assistantInput;
+    setAssistantMessages(prev => [...prev, { sender: "user", text: userQuery }]);
+    setAssistantInput("");
+    playClickSound();
+
+    const q = userQuery.toLowerCase();
+    let reply = "";
+    let actionStoryId = undefined;
+
+    try {
+      if (q.includes("generate") || q.includes("write about") || q.includes("tell me about")) {
+        const topic = userQuery.replace(/generate|write about|tell me about|story/gi, "").trim();
+        if (topic) {
+          const customStory = await apiClient.synthesizeCustomStory(topic);
+          KNOWLEDGE_DATABASE[customStory.id] = customStory;
+          reply = `I have successfully compiled the story for "${topic}" on the backend server. Click below to begin the cinematic documentary immediately.`;
+          actionStoryId = customStory.id;
+        } else {
+          reply = "Please specify the topic or mystery you would like me to generate.";
+        }
+      } else {
+        const searchHits = await apiClient.searchStories(userQuery);
+        if (searchHits.length > 0) {
+          const topStory = searchHits[0];
+          reply = `I found a matching story in my archives: "${topStory.title.en}". It covers the period of ${topStory.era} with a fact status of ${topStory.factStatus}. Would you like to read this story?`;
+          actionStoryId = topStory.id;
+        } else {
+          reply = `I couldn't find an exact record for "${userQuery}" in my pre-loaded files. I have dynamically synthesized a new documentary on this mystery on the server! Click below to compile it now.`;
+          const customStory = await apiClient.synthesizeCustomStory(userQuery);
+          KNOWLEDGE_DATABASE[customStory.id] = customStory;
+          actionStoryId = customStory.id;
+        }
+      }
+    } catch (e) {
+      if (q.includes("generate") || q.includes("write about") || q.includes("tell me about")) {
+        const topic = userQuery.replace(/generate|write about|tell me about|story/gi, "").trim();
+        const customStory = generateCustomStory(topic || "Unknown");
+        KNOWLEDGE_DATABASE[customStory.id] = customStory;
+        reply = `[Offline Mode] Compiled the story for "${topic || "Unknown"}" locally. Click below to read.`;
+        actionStoryId = customStory.id;
+      } else {
+        reply = "I had a connection error querying the archives. Let me check my offline logs...";
+      }
+    }
+
+    setAssistantMessages(prev => [...prev, { sender: "ai", text: reply, actionStoryId }]);
+  };
+
+  // Sync highlighting, notes deletes
+  const deleteNote = (storyId: string, idx: number) => {
+    updateBookmarks(prev => {
+      const nextNotes = { ...prev.notes };
+      if (nextNotes[storyId]) {
+        delete nextNotes[storyId][idx];
+        if (Object.keys(nextNotes[storyId]).length === 0) {
+          delete nextNotes[storyId];
+        }
+      }
+      return { ...prev, notes: nextNotes };
+    });
+  };
+
+  const exportNotes = () => {
+    const allNotesText = Object.entries(bookmarks.notes).map(([storyId, notesObj]) => {
+      const story = getStoryDetail(storyId);
+      const notesLines = Object.entries(notesObj).map(([idx, text]) => `- Sentence #${Number(idx) + 1}: "${text}"`).join("\n");
+      return `### ${story.title.en}\n${notesLines}`;
+    }).join("\n\n");
+    
+    const blob = new Blob([`# VELORA Reading Notes\n\n${allNotesText || "No saved notes yet."}`], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "velora_reading_notes.txt";
+    a.click();
+    URL.revokeObjectURL(url);
+    playClickSound();
+  };
+
   return (
     <div className="min-h-screen bg-[#050505] text-zinc-100 font-sans flex flex-col selection:bg-[#e5c158]/30 selection:text-white pb-16 relative">
       
-      {/* Background Animated Motion Overlay (Floating Constellation Dust Parallax) */}
+      {/* Background Animated Overlay */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        {/* Glow Spheres */}
         <div className="absolute top-[8%] left-[15%] w-[450px] h-[450px] bg-blue-900/10 rounded-full blur-[120px] opacity-80" />
         <div className="absolute top-[40%] right-[5%] w-[500px] h-[500px] bg-indigo-900/5 rounded-full blur-[140px] opacity-70" />
         <div className="absolute top-[75%] left-[25%] w-[380px] h-[380px] bg-amber-900/5 rounded-full blur-[110px] opacity-60" />
-        
-        {/* Stars Particle field (HTML/CSS simulated parallax) */}
         <div className="absolute inset-0 bg-[radial-gradient(1px_1px_at_20px_30px,rgba(255,255,255,0.15),transparent_100%),radial-gradient(1px_1px_at_80px_140px,rgba(255,255,255,0.1),transparent_100%),radial-gradient(1.5px_1.5px_at_140px_70px,rgba(229,193,88,0.15),transparent_100%)] opacity-70 bg-[size:200px_200px]" />
       </div>
 
-      {/* DYNAMIC HEADER NAVIGATION BAR */}
+      {/* NAVIGATION BAR */}
       <header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-4 px-6 md:px-12 flex items-center justify-between ${
           isScrolled 
@@ -657,7 +669,6 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
         }`}
       >
         <div className="flex items-center gap-8">
-          {/* Logo */}
           <div 
             onClick={() => { setActiveMenu("home"); playClickSound(); }}
             className="flex flex-col items-start cursor-pointer group"
@@ -669,21 +680,25 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
               VELORA
             </span>
             <span className="text-[8px] uppercase tracking-[0.15em] text-[#e5c158] font-semibold -mt-1 opacity-80">
-              World of Stories
+              AI Story Engine
             </span>
           </div>
 
-          {/* Navigation Links */}
           <nav className="hidden lg:flex items-center gap-5 text-[13px] font-light text-zinc-400">
-            {["home", "discover", "categories", "trending", "collections", "library", "bookmarks", "AI Assistant"].map((item) => (
+            {["home", "discover", "categories", "trending", "collections", "bookmarks", "AI Assistant"].map((item) => (
               <button
                 key={item}
-                onClick={() => { setActiveMenu(item); playClickSound(); }}
+                onClick={() => { 
+                  setActiveMenu(item); 
+                  setSelectedCategoryFilter(null);
+                  setSelectedCollectionFilter(null);
+                  playClickSound(); 
+                }}
                 className={`hover:text-white transition-colors capitalize py-1 relative ${
                   activeMenu === item ? "text-white font-medium" : ""
                 }`}
               >
-                {item === "bookmarks" ? "Bookmarks" : item}
+                {item === "home" ? "Home Feed" : item}
                 {activeMenu === item && (
                   <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#e5c158]" />
                 )}
@@ -692,10 +707,10 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
           </nav>
         </div>
 
-        {/* Search & Action Buttons */}
+        {/* Action Buttons */}
         <div className="flex items-center gap-4 relative">
           
-          {/* Expanding Search Input with Suggestion Dropdown */}
+          {/* Natural Language Search bar */}
           <div className="relative">
             <div 
               className={`flex items-center bg-white/5 border rounded-full py-1.5 px-3.5 transition-all duration-500 ease-out shadow-inner ${
@@ -704,13 +719,13 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
                   : "w-40 md:w-48 border-white/10"
               }`}
             >
-              <Search className="text-zinc-500 mr-2 shrink-0 animate-pulse" size={13} />
+              <Search className="text-zinc-500 mr-2 shrink-0" size={13} />
               <input
                 type="text"
-                placeholder="Search mysteries, space, temples..."
+                placeholder="Search Forts, Science, temples..."
                 value={searchQuery}
                 onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)} // delay to allow clicks
+                onBlur={() => setTimeout(() => setIsSearchFocused(false), 250)}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="bg-transparent border-none text-xs font-light text-white placeholder-zinc-500 focus:outline-none w-full"
               />
@@ -723,9 +738,9 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
 
             {/* Live Search Suggestions Dropdown */}
             {(isSearchFocused || searchQuery) && searchResults.length > 0 && (
-              <div className="absolute top-11 right-0 w-80 bg-[#090a10] border border-white/10 rounded-2xl p-4 shadow-2xl backdrop-blur-2xl animate-fade-in flex flex-col gap-2 max-h-[300px] overflow-y-auto">
+              <div className="absolute top-11 right-0 w-80 bg-[#090a10] border border-white/10 rounded-2xl p-4 shadow-2xl backdrop-blur-2xl animate-fade-in flex flex-col gap-2 max-h-[300px] overflow-y-auto z-50">
                 <span className="text-[10px] uppercase text-zinc-500 font-bold tracking-widest px-2 pb-1 border-b border-white/5">
-                  Suggestions ({searchResults.length})
+                  Knowledge Archives ({searchResults.length})
                 </span>
                 {searchResults.map((story) => (
                   <div
@@ -739,21 +754,21 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
                     <div className="relative w-10 h-10 rounded-lg overflow-hidden shrink-0">
                       <Image
                         src={story.image}
-                        alt={story.title}
+                        alt={story.title.en}
                         fill
                         className="object-cover"
                       />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="text-xs font-light text-white truncate group-hover:text-[#e5c158] transition-colors">
-                        {story.title}
+                        {story.title[userSettings.lang] || story.title.en}
                       </h4>
                       <p className="text-[9px] text-zinc-400 mt-0.5 truncate">
                         {story.era} • {story.category}
                       </p>
                     </div>
                     <span className="text-[9px] bg-white/5 border border-white/10 px-2 py-0.5 rounded-full text-zinc-400 group-hover:border-[#e5c158] group-hover:text-white transition-all shrink-0">
-                      Read
+                      Explore
                     </span>
                   </div>
                 ))}
@@ -761,120 +776,41 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
             )}
           </div>
 
-          {/* Quick Notifications panel mockup */}
-          <button className="text-zinc-400 hover:text-white transition-colors relative" title="Notifications">
-            <Bell size={16} />
-            <span className="absolute -top-1.5 -right-1 w-2 h-2 bg-blue-500 rounded-full animate-ping" />
-            <span className="absolute -top-1.5 -right-1 w-2 h-2 bg-blue-600 rounded-full" />
-          </button>
-
-          {/* Settings button mockup */}
-          <button className="text-zinc-400 hover:text-white transition-colors" title="Settings">
-            <Settings size={16} />
-          </button>
-
-          {/* User profile */}
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#0a2540] to-blue-900 border border-white/10 flex items-center justify-center cursor-pointer hover:border-[#e5c158] transition-colors shrink-0">
-            <User size={14} className="text-zinc-300" />
+          {/* Cloud Sync Auth Controls */}
+          <div className="flex items-center gap-3">
+            {isCloudSynced ? (
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-[#e5c158] hidden sm:inline font-mono">
+                  {userName}
+                </span>
+                <div 
+                  onClick={handleSignOut}
+                  className="w-8 h-8 rounded-full bg-gradient-to-tr from-green-950/40 to-emerald-900/40 border border-emerald-500/30 flex items-center justify-center cursor-pointer hover:border-red-500/50 transition-colors"
+                  title="Sign Out / Disconnect Cloud"
+                >
+                  <User size={12} className="text-emerald-400 hover:text-red-400 transition-colors" />
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => { setShowAuthModal(true); playClickSound(); }}
+                className="bg-gradient-to-b from-[#e5c158] to-[#c29e37] hover:from-[#f3cf65] hover:to-[#d4af37] text-black font-semibold text-[9px] uppercase tracking-widest px-3 py-1.5 rounded-full hover:shadow-[0_0_10px_rgba(229,193,88,0.2)] transition-all flex items-center gap-1"
+                title="Connect Cloud Sync"
+              >
+                Sync to Cloud
+              </button>
+            )}
           </div>
 
         </div>
       </header>
 
-      {/* FULL-HEIGHT HERO BANNER WITH PARALLAX & CONSTELLATIONS */}
-      <section className="relative w-full min-h-screen flex flex-col justify-center px-6 md:px-12 z-10 pt-20">
-        
-        {/* Parallax Hero Visual Background */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <Image
-            src="/images/blackhole.png"
-            alt="Hero Cinematic Accretion"
-            fill
-            priority
-            className="object-cover scale-[1.05] brightness-[0.35]"
-            style={{
-              filter: "contrast(1.1) brightness(0.38)",
-            }}
-          />
-          {/* Subtle gold grid/ocean filter overlays */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-transparent" />
-          
-          {/* Parallax grid dots */}
-          <div className="absolute inset-0 bg-[radial-gradient(rgba(229,193,88,0.06)_1px,transparent_1px)] [background-size:24px_24px] opacity-60" />
-        </div>
-
-        {/* Hero Content */}
-        <div className="relative z-10 max-w-3xl space-y-6 scale-up-entry">
-          <div className="flex items-center gap-3">
-            <span className="bg-[#e5c158]/10 border border-[#e5c158]/30 px-3.5 py-1 rounded-full text-[10px] uppercase tracking-[0.2em] text-[#e5c158] font-bold">
-              Immersive Space Explorer
-            </span>
-            <span className="text-[11px] text-zinc-400 flex items-center gap-1">
-              <Globe size={11} className="text-[#0088ff] animate-spin" style={{ animationDuration: "12s" }} /> 22 min journey
-            </span>
-          </div>
-
-          <h1 
-            className="text-5xl md:text-7xl font-extralight tracking-wide text-white leading-[1.1] text-gradient"
-            style={{ fontFamily: "Cinzel, serif" }}
-          >
-            Discover Stories <br className="hidden sm:inline" />
-            That Changed History
-          </h1>
-
-          <p className="text-sm md:text-base font-light text-zinc-300 leading-relaxed max-w-xl">
-            Explore real mysteries, historical legends, astronomical findings, and deep-sea archaeological excavations from India and around the world, presented in stunning cinematic formats.
-          </p>
-
-          {/* Action buttons */}
-          <div className="flex flex-wrap items-center gap-4 pt-4">
-            <button
-              onClick={() => {
-                setSelectedStory(ALL_STORIES.find((s) => s.id === "blackhole") || ALL_STORIES[0]);
-                playClickSound();
-              }}
-              className="bg-gradient-to-b from-[#e5c158] to-[#c29e37] hover:from-[#f3cf65] hover:to-[#d4af37] text-[#050505] font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full flex items-center gap-2.5 active:scale-95 transition-all shadow-[0_4px_25px_rgba(229,193,88,0.3)]"
-            >
-              <Play size={14} fill="currentColor" /> Read Now
-            </button>
-            <button
-              onClick={() => {
-                setActiveMenu("categories");
-                document.getElementById("categories-grid")?.scrollIntoView({ behavior: "smooth" });
-                playClickSound();
-              }}
-              className="bg-white/5 border border-white/10 hover:bg-white/10 text-white font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full flex items-center gap-2 backdrop-blur-md transition-all"
-            >
-              <Compass size={14} /> Explore Collection
-            </button>
-            <button
-              onClick={() => {
-                playClickSound();
-                alert("Playing AI Story Preview: Full 3D fly-through space particle trailer initiating...");
-              }}
-              className="bg-blue-950/20 border border-blue-500/20 hover:border-blue-500/40 hover:bg-blue-900/10 text-[#0088ff] font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full flex items-center gap-2 backdrop-blur-sm transition-all"
-            >
-              <Headphones size={14} /> Watch AI Preview
-            </button>
-          </div>
-        </div>
-
-        {/* Small Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none opacity-60">
-          <span className="text-[10px] uppercase tracking-[0.25em] font-light text-zinc-500">
-            Scroll to discover
-          </span>
-          <div className="w-[1px] h-10 bg-gradient-to-b from-[#e5c158]/80 to-transparent animate-pulse" />
-        </div>
-      </section>
-
-      {/* FLOATING AMBIENT AUDIO THEMES SELECTOR */}
-      <div className="fixed bottom-6 right-6 z-40 bg-[#0c0d14]/85 border border-white/10 backdrop-blur-xl p-4 rounded-2xl shadow-2xl flex flex-col gap-3 min-w-[200px] animate-fade-in hover:border-[#e5c158]/30 transition-colors">
+      {/* AMBIENT SOUNDS HUD */}
+      <div className="fixed bottom-6 right-6 z-40 bg-[#0c0d14]/85 border border-white/10 backdrop-blur-xl p-4 rounded-2xl shadow-2xl flex flex-col gap-3 min-w-[200px] hover:border-[#e5c158]/30 transition-colors">
         <div className="flex items-center justify-between border-b border-white/5 pb-2">
           <div className="flex items-center gap-2 text-xs font-semibold text-white">
-            <Music size={13} className="text-[#e5c158] animate-bounce" />
-            <span>Ambient Themes</span>
+            <Music size={13} className="text-[#e5c158]" />
+            <span>Atmospheric Sound</span>
           </div>
           <button
             onClick={() => { setIsMuted(!isMuted); playClickSound(); }}
@@ -883,13 +819,10 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
                 ? "bg-red-950/40 border border-red-500/25 text-red-400" 
                 : "bg-blue-950/40 border border-blue-500/25 text-blue-400"
             }`}
-            title={isMuted ? "Unmute Ambient" : "Mute Ambient"}
           >
             {isMuted ? <VolumeX size={12} /> : <Volume2 size={12} />}
           </button>
         </div>
-
-        {/* Theme select buttons */}
         <div className="grid grid-cols-2 gap-2">
           {(["library", "space", "ancient", "calm"] as AmbientTheme[]).map((theme) => (
             <button
@@ -899,20 +832,18 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
                 setAmbientTheme(theme);
                 playClickSound();
               }}
-              className={`text-[10px] uppercase font-semibold tracking-wider py-2 px-2.5 rounded-lg border text-center transition-all ${
+              className={`text-[10px] uppercase font-semibold tracking-wider py-1.5 rounded-lg border text-center transition-all ${
                 ambientTheme === theme && !isMuted
-                  ? "bg-[#e5c158] border-[#e5c158] text-[#050505] shadow-[0_0_10px_rgba(229,193,88,0.25)]"
-                  : "bg-white/5 border-white/5 hover:border-white/15 text-zinc-400 hover:text-white"
+                  ? "bg-[#e5c158] border-[#e5c158] text-[#050505]"
+                  : "bg-white/5 border-white/5 hover:border-white/15 text-zinc-400"
               }`}
             >
               {theme}
             </button>
           ))}
         </div>
-
-        {/* Master volume slider */}
-        <div className="flex items-center gap-2.5 pt-1.5">
-          <span className="text-[10px] text-zinc-500">Vol</span>
+        <div className="flex items-center gap-2 pt-1">
+          <span className="text-[9px] text-zinc-500">Vol</span>
           <input
             type="range"
             min="0"
@@ -925,388 +856,659 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
         </div>
       </div>
 
-      {/* CONTINUOUS MAIN CONTENT FEED */}
-      <main className="space-y-24 mt-12 relative z-10">
+      {/* DYNAMIC VIEWS CONTROLLER */}
+      <main className="flex-1 mt-24 px-6 md:px-12 w-full max-w-7xl mx-auto z-10 relative">
 
-        {/* 1. DAILY HIGHLIGHT (STORY OF THE DAY) */}
-        <section className="px-6 md:px-12 reveal-on-scroll">
-          <div className="max-w-7xl mx-auto space-y-6">
-            <h2 
-              className="text-2xl md:text-3xl font-light tracking-wider"
-              style={{ fontFamily: "Cinzel, serif" }}
-            >
-              Story of the Day
-            </h2>
+        {/* 1. HOME TAB */}
+        {activeMenu === "home" && (
+          <div className="space-y-20">
             
-            <div 
-              onClick={() => {
-                setSelectedStory(ALL_STORIES.find(s => s.id === "roopkund") || ALL_STORIES[0]);
-                playClickSound();
-              }}
-              className="relative w-full min-h-[380px] bg-[#0c0d14] rounded-3xl overflow-hidden border border-white/5 hover:border-[#e5c158]/30 flex flex-col md:flex-row justify-end shadow-2xl group cursor-pointer transition-all duration-500"
-            >
-              <div className="absolute inset-0 md:relative md:w-1/2 h-full z-0 overflow-hidden">
-                <Image
-                  src="/images/roopkund.png"
-                  alt="Roopkund Skeleton Lake Daily highlight"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-50 md:brightness-[0.7]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0d14] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-[#0c0d14]/80 md:to-[#0c0d14]" />
-              </div>
-
-              <div className="relative w-full md:w-1/2 p-8 md:p-12 z-10 flex flex-col justify-center space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="bg-amber-500/10 border border-amber-500/30 text-amber-500 text-[9px] uppercase tracking-wider px-2.5 py-0.5 rounded-full font-bold">
-                    Indian Mysteries
-                  </span>
-                  <span className="text-[10px] text-zinc-400">15 min read</span>
+            {/* HERO HERO HERO */}
+            {daily && daily.storyOfTheDay && (
+              <section 
+                onClick={() => { setSelectedStory(daily.storyOfTheDay); playClickSound(); }}
+                className="relative w-full min-h-[420px] rounded-3xl overflow-hidden border border-white/5 hover:border-[#e5c158]/30 flex flex-col justify-end p-8 md:p-12 shadow-2xl group cursor-pointer transition-all duration-500 scale-up-entry"
+              >
+                <div className="absolute inset-0 z-0">
+                  <Image
+                    src={daily.storyOfTheDay.image}
+                    alt={daily.storyOfTheDay.title.en}
+                    fill
+                    priority
+                    className="object-cover scale-[1.03] group-hover:scale-105 transition-transform duration-10000 brightness-[0.35]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent" />
                 </div>
 
-                <h3 
-                  className="text-3xl md:text-4xl font-light text-white tracking-wide leading-tight group-hover:text-[#e5c158] transition-colors"
-                  style={{ fontFamily: "Cinzel, serif" }}
-                >
-                  Roopkund: The Skeleton Lake
-                </h3>
-
-                <p className="text-xs md:text-sm font-light text-zinc-300 leading-relaxed">
-                  In 1942, a forest ranger stumbled upon a frozen lake in the high Himalayas. Inside lay hundreds of human skeletons. Modern forensic DNA scans reveal a baffling twist: the remains belong to multiple groups from Greece and India, killed centuries apart. How did they die, and why did they walk to this remote peak?
-                </p>
-
-                {/* Fact Status Badge */}
-                <div className="bg-white/5 border border-white/5 p-4 rounded-2xl flex flex-col gap-1 backdrop-blur-md">
-                  <span className="text-[9px] uppercase text-[#e5c158] tracking-widest font-bold flex items-center gap-1.5">
-                    <Sparkles size={11} /> Fact Status Check
-                  </span>
-                  <p className="text-[11px] text-zinc-400 leading-normal">
-                    95% DNA Verified Scientific Fact, 5% Local Himalayan Mountain Legends.
+                <div className="relative z-10 max-w-2xl space-y-4 text-left">
+                  <div className="flex items-center gap-3">
+                    <span className="bg-[#e5c158]/10 border border-[#e5c158]/30 text-[#e5c158] text-[9px] uppercase tracking-[0.25em] px-3.5 py-1 rounded-full font-bold">
+                      {daily.storyOfTheDay.category}
+                    </span>
+                    <span className="text-[10px] text-zinc-400 flex items-center gap-1">
+                      <Clock size={11} /> {daily.storyOfTheDay.duration} Read
+                    </span>
+                  </div>
+                  <h1 
+                    className="text-4xl md:text-5xl font-light text-white tracking-wide"
+                    style={{ fontFamily: "Cinzel, serif" }}
+                  >
+                    {daily.storyOfTheDay.title[userSettings.lang] || daily.storyOfTheDay.title.en}
+                  </h1>
+                  <p className="text-zinc-300 text-xs sm:text-sm font-light leading-relaxed">
+                    {daily.storyOfTheDay.synopsis[userSettings.lang] || daily.storyOfTheDay.synopsis.en}
                   </p>
+                  <div className="bg-white/5 border border-white/5 px-4 py-2.5 rounded-xl max-w-sm text-[11px] text-zinc-400">
+                    <span className="text-[#e5c158] font-bold uppercase tracking-wider block text-[9px]">FACT CLASSIFICATION</span>
+                    {daily.storyOfTheDay.factLabel} ({daily.storyOfTheDay.factStatus})
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* DAILY FEATURES BANNER ROW */}
+            {daily && (
+              <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                {/* Event of Day */}
+                <div className="bg-gradient-to-br from-indigo-950/20 to-transparent border border-indigo-500/10 p-5 rounded-2xl text-left space-y-2">
+                  <span className="text-[10px] text-indigo-400 uppercase tracking-wider font-bold">Historical Event of the Day</span>
+                  <h4 className="text-xs font-semibold text-white">{daily.eventOfTheDay.title}</h4>
+                  <p className="text-[11px] text-zinc-400 leading-normal font-light">{daily.eventOfTheDay.event}</p>
                 </div>
 
-                <span className="text-xs text-[#e5c158] font-semibold tracking-wider flex items-center gap-1 group-hover:translate-x-1.5 transition-transform duration-300 pt-2">
-                  Begin Journey <ArrowRight size={14} />
-                </span>
+                {/* Science Discovery of Day */}
+                <div className="bg-gradient-to-br from-sky-950/20 to-transparent border border-sky-500/10 p-5 rounded-2xl text-left space-y-2">
+                  <span className="text-[10px] text-sky-400 uppercase tracking-wider font-bold">Science Discovery of the Day</span>
+                  <h4 className="text-xs font-semibold text-white">{daily.scienceOfTheDay.topic}</h4>
+                  <p className="text-[11px] text-zinc-400 leading-normal font-light">{daily.scienceOfTheDay.text}</p>
+                </div>
+
+                {/* Random Mystery */}
+                <div 
+                  onClick={() => { setSelectedStory(daily.randomMystery); playClickSound(); }}
+                  className="bg-gradient-to-br from-amber-950/20 to-transparent border border-amber-500/10 p-5 rounded-2xl text-left space-y-2 cursor-pointer hover:border-amber-500/40 transition-colors"
+                >
+                  <span className="text-[10px] text-[#e5c158] uppercase tracking-wider font-bold">Spotlight Random Mystery</span>
+                  <h4 className="text-xs font-semibold text-white">{daily.randomMystery.title[userSettings.lang] || daily.randomMystery.title.en}</h4>
+                  <p className="text-[11px] text-zinc-400 truncate font-light">{daily.randomMystery.subtitle.en}</p>
+                  <span className="text-[9px] text-[#e5c158] flex items-center gap-1 font-semibold pt-1">Explore Now <ChevronRight size={10} /></span>
+                </div>
+
+              </section>
+            )}
+
+            {/* CONTINUE READING */}
+            {userSettings.history.length > 0 && (
+              <section className="space-y-4 text-left">
+                <h2 className="text-xl font-light uppercase tracking-widest text-zinc-300" style={{ fontFamily: "Cinzel, serif" }}>
+                  Continue Journeys
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {userSettings.history.slice(0, 2).map((storyId) => {
+                    const story = getStoryDetail(storyId);
+                    return (
+                      <div
+                        key={story.id}
+                        onClick={() => { onStartReading(story); playClickSound(); }}
+                        className="bg-[#0b0c11] border border-white/5 rounded-2xl p-4 flex gap-4 hover:border-blue-500/30 group cursor-pointer transition-all duration-300"
+                      >
+                        <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                          <Image src={story.image} alt={story.title.en} fill className="object-cover" />
+                        </div>
+                        <div className="flex-1 flex flex-col justify-between py-1 min-w-0">
+                          <div className="space-y-0.5">
+                            <span className="text-[8px] uppercase tracking-wider text-blue-400 font-bold">{story.category}</span>
+                            <h3 className="text-xs font-semibold text-white truncate group-hover:text-[#e5c158] transition-colors">
+                              {story.title[userSettings.lang] || story.title.en}
+                            </h3>
+                            <p className="text-[10px] text-zinc-500">{story.era}</p>
+                          </div>
+                          <div className="w-full bg-white/5 rounded-full h-1 relative overflow-hidden">
+                            <div className="bg-gradient-to-r from-blue-500 to-[#e5c158] h-1 rounded-full w-2/3" />
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            )}
+
+            {/* ALL STORIES FEED */}
+            <section className="space-y-6 text-left">
+              <h2 className="text-2xl font-light tracking-wider" style={{ fontFamily: "Cinzel, serif" }}>
+                Primary Knowledge Feed
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {Object.values(KNOWLEDGE_DATABASE).map((story) => (
+                  <div
+                    key={story.id}
+                    onClick={() => { setSelectedStory(story); playClickSound(); }}
+                    className="bg-[#0b0c11] border border-white/5 rounded-2xl overflow-hidden hover:border-[#e5c158]/40 group cursor-pointer transition-all duration-300 flex flex-col"
+                  >
+                    <div className="relative w-full h-40 bg-zinc-950">
+                      <Image src={story.image} alt={story.title.en} fill className="object-cover brightness-90 group-hover:scale-105 transition-transform duration-500" />
+                      <div className="absolute top-3 left-3 bg-black/50 backdrop-blur-md px-2 py-0.5 rounded border border-white/10 text-[9px] uppercase tracking-wider text-white">
+                        {story.category}
+                      </div>
+                      <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded border border-white/10 text-[9px] text-white flex items-center gap-1">
+                        <Star size={9} className="text-[#e5c158] fill-[#e5c158]" /> {story.factLabel}
+                      </div>
+                    </div>
+                    <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
+                      <div className="space-y-1">
+                        <h3 className="text-sm font-semibold text-white group-hover:text-[#e5c158] transition-colors truncate">
+                          {story.title[userSettings.lang] || story.title.en}
+                        </h3>
+                        <p className="text-[11px] text-zinc-400 font-light line-clamp-2 leading-relaxed">
+                          {story.synopsis[userSettings.lang] || story.synopsis.en}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between text-[9px] text-zinc-500 border-t border-white/5 pt-2">
+                        <span>{story.era}</span>
+                        <span>{story.duration} Read</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* READING STATISTICS PANEL */}
+            <section id="stats-panel" ref={statsSectionRef} className="reveal-on-scroll">
+              <div className="bg-[#0c0d14] border border-white/5 rounded-3xl p-8 shadow-2xl grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                <div className="space-y-1">
+                  <span className="text-[10px] uppercase text-zinc-500 font-bold tracking-widest block">Journeys Explored</span>
+                  <span className="text-3xl sm:text-4xl font-extralight text-white block">{statStories}</span>
+                  <span className="text-[9px] text-[#e5c158] font-semibold tracking-wider flex items-center justify-center gap-1">
+                    <Award size={10} /> Knowledge Base
+                  </span>
+                </div>
+                <div className="space-y-1">
+                  <span className="text-[10px] uppercase text-zinc-500 font-bold tracking-widest block">Hours Invested</span>
+                  <span className="text-3xl sm:text-4xl font-extralight text-white block">{statHours} hrs</span>
+                  <span className="text-[9px] text-[#0088ff] font-semibold tracking-wider flex items-center justify-center gap-1">
+                    <Clock size={10} /> Active Reading
+                  </span>
+                </div>
+                <div className="space-y-1">
+                  <span className="text-[10px] uppercase text-zinc-500 font-bold tracking-widest block">Preferred Domain</span>
+                  <span className="text-sm sm:text-base font-light text-white tracking-wide py-1 block">
+                    {userSettings.favoriteCategory}
+                  </span>
+                  <span className="text-[9px] text-zinc-500 font-light block">Calculated from history</span>
+                </div>
+                <div className="space-y-1">
+                  <span className="text-[10px] uppercase text-zinc-500 font-bold tracking-widest block">Reading Streak</span>
+                  <span className="text-3xl sm:text-4xl font-extralight text-[#e5c158] block">{statStreak} Days</span>
+                  <span className="text-[9px] text-zinc-500 font-semibold flex items-center justify-center gap-1">
+                    <Flame size={10} className="text-amber-500" /> Keep it going!
+                  </span>
+                </div>
+              </div>
+            </section>
+
+          </div>
+        )}
+
+        {/* 2. DISCOVER TAB */}
+        {activeMenu === "discover" && (
+          <div className="space-y-10 text-left scale-up-entry">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-light tracking-wide text-white" style={{ fontFamily: "Cinzel, serif" }}>Search & Synthesis Hub</h2>
+              <p className="text-xs text-zinc-400 font-light max-w-xl leading-relaxed">
+                Query our structured databases with natural language (e.g. "Mysteries in Rajasthan") or input a custom topic to generate a premium original documentary on-the-fly.
+              </p>
+            </div>
+
+            {/* Custom Story Gen Input Block */}
+            <div className="bg-[#0c0d14] border border-white/5 rounded-3xl p-6 md:p-8 space-y-6">
+              <div className="flex items-center gap-2 border-b border-white/5 pb-3">
+                <Sparkles size={16} className="text-[#e5c158] animate-pulse" />
+                <h3 className="text-sm font-semibold tracking-wider uppercase text-white">Create Custom Documentary Story</h3>
+              </div>
+              <div className="space-y-3">
+                <p className="text-xs text-zinc-400 font-light">
+                  Type any historical mystery, space paradox, or landmark (e.g. "Taj Mahal secrets", "Bermuda Triangle", "The Great Pyramids") and watch the AI synthesize a 1000-word structured documentary.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <input
+                    type="text"
+                    placeholder="Enter custom topic name..."
+                    value={customSearchTopic}
+                    onChange={(e) => setCustomSearchTopic(e.target.value)}
+                    className="bg-white/5 border border-white/10 focus:border-[#e5c158]/40 px-4 py-3 rounded-xl text-xs text-white focus:outline-none flex-1"
+                  />
+                  <button
+                    onClick={() => triggerCustomStoryGen(customSearchTopic)}
+                    className="bg-gradient-to-b from-[#e5c158] to-[#c29e37] hover:from-[#f3cf65] hover:to-[#d4af37] text-black font-semibold text-xs tracking-wider uppercase px-6 py-3 rounded-xl hover:shadow-[0_0_15px_rgba(229,193,88,0.25)] transition-all active:scale-[0.99] flex items-center justify-center gap-2"
+                  >
+                    Generate Story <Sparkles size={12} />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* 2. CONTINUE READING ROW */}
-        <section className="px-6 md:px-12 reveal-on-scroll">
-          <div className="max-w-7xl mx-auto space-y-6">
-            <h2 
-              className="text-2xl md:text-3xl font-light tracking-wider"
-              style={{ fontFamily: "Cinzel, serif" }}
-            >
-              Continue Reading
-            </h2>
+            {/* Suggestions buttons */}
+            <div className="space-y-3">
+              <span className="text-[10px] uppercase text-zinc-500 font-bold tracking-widest">Natural Queries Suggestions</span>
+              <div className="flex flex-wrap gap-2">
+                {["Mysteries in Rajasthan", "Ancient temples", "Indian archaeological discoveries", "Black holes explained simply"].map((q, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => { setSearchQuery(q); setActiveMenu("discover"); }}
+                    className="bg-white/5 border border-white/10 hover:border-[#e5c158] text-xs font-light px-3 py-1.5 rounded-lg hover:text-white transition-colors"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Custom search query search feed */}
+            {searchQuery && (
+              <div className="space-y-4">
+                <span className="text-xs text-zinc-400 block font-light">Search Results for "{searchQuery}":</span>
+                {searchResults.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {searchResults.map((story) => (
+                      <div
+                        key={story.id}
+                        onClick={() => { setSelectedStory(story); playClickSound(); }}
+                        className="bg-[#0b0c11] border border-white/5 rounded-2xl p-4 flex gap-4 hover:border-[#e5c158]/30 group cursor-pointer transition-colors"
+                      >
+                        <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                          <Image src={story.image} alt={story.title.en} fill className="object-cover" />
+                        </div>
+                        <div className="flex-1 min-w-0 flex flex-col justify-between py-0.5">
+                          <div>
+                            <span className="text-[8px] uppercase tracking-wider text-blue-400 font-bold">{story.category}</span>
+                            <h4 className="text-xs font-semibold text-white group-hover:text-[#e5c158] truncate">
+                              {story.title[userSettings.lang] || story.title.en}
+                            </h4>
+                            <p className="text-[10px] text-zinc-400 font-light truncate">{story.subtitle.en}</p>
+                          </div>
+                          <span className="text-[9px] text-[#e5c158] font-bold block pt-1">{story.factLabel}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="bg-white/5 border border-white/5 rounded-2xl p-8 text-center space-y-4">
+                    <p className="text-xs text-zinc-400 font-light">No matching pre-loaded stories found in the files.</p>
+                    <button
+                      onClick={() => triggerCustomStoryGen(searchQuery)}
+                      className="bg-white/5 border border-white/10 hover:border-[#e5c158]/50 text-white text-xs px-4 py-2 rounded-xl"
+                    >
+                      Synthesize original story for "{searchQuery}"
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 3. CATEGORIES TAB */}
+        {activeMenu === "categories" && (
+          <div className="space-y-10 text-left scale-up-entry">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-light tracking-wide text-white" style={{ fontFamily: "Cinzel, serif" }}>Knowledge Domains</h2>
+              <p className="text-xs text-zinc-400 font-light max-w-xl">
+                Filter and browse stories by specific educational disciplines.
+              </p>
+            </div>
+
+            {/* Categories Selection list */}
+            {!selectedCategoryFilter ? (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {CATEGORIES.map((cat, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => { setSelectedCategoryFilter(cat.name); playClickSound(); }}
+                    className={`bg-gradient-to-br ${cat.color} border p-5 rounded-2xl flex flex-col justify-between min-h-[120px] group cursor-pointer hover:-translate-y-1 transition-all duration-300 shadow-md`}
+                  >
+                    <span className="text-[9px] uppercase tracking-wider text-zinc-400">Sphere</span>
+                    <h3 className="text-base font-light text-white tracking-wide group-hover:text-[#e5c158] transition-colors">
+                      {cat.name}
+                    </h3>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-6">
+                <div className="flex items-center gap-3">
+                  <button 
+                    onClick={() => setSelectedCategoryFilter(null)} 
+                    className="text-xs text-zinc-500 hover:text-white"
+                  >
+                    ◀ All Categories
+                  </button>
+                  <span className="text-sm font-semibold text-white">/ {selectedCategoryFilter}</span>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {Object.values(KNOWLEDGE_DATABASE).filter(s => s.category === selectedCategoryFilter).map(story => (
+                    <div
+                      key={story.id}
+                      onClick={() => { setSelectedStory(story); playClickSound(); }}
+                      className="bg-[#0b0c11] border border-white/5 rounded-2xl p-4 flex gap-4 hover:border-blue-500/30 group cursor-pointer transition-all duration-300"
+                    >
+                      <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                        <Image src={story.image} alt={story.title.en} fill className="object-cover" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between py-1 min-w-0">
+                        <div>
+                          <h3 className="text-xs font-semibold text-white group-hover:text-[#e5c158] transition-colors truncate">
+                            {story.title[userSettings.lang] || story.title.en}
+                          </h3>
+                          <p className="text-[10px] text-zinc-400 font-light truncate">{story.subtitle.en}</p>
+                        </div>
+                        <span className="text-[9px] text-[#e5c158] block pt-1">{story.factLabel}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 4. TRENDING TAB */}
+        {activeMenu === "trending" && (
+          <div className="space-y-8 text-left scale-up-entry">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-light tracking-wide text-white" style={{ fontFamily: "Cinzel, serif" }}>Trending Narratives</h2>
+              <p className="text-xs text-zinc-400 font-light">
+                Popular historical investigations currently trending among the readers.
+              </p>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {ALL_STORIES.filter(s => s.progress).map((story) => (
+              {Object.values(KNOWLEDGE_DATABASE).map((story, idx) => (
                 <div
                   key={story.id}
-                  onClick={() => {
-                    setSelectedStory(story);
-                    playClickSound();
-                  }}
-                  className="bg-[#0b0c11] border border-white/5 rounded-2xl p-4 flex gap-4 hover:border-blue-500/30 group cursor-pointer transition-all duration-300 shadow-xl hover:shadow-[0_8px_25px_rgba(0,0,0,0.6)]"
+                  onClick={() => { setSelectedStory(story); playClickSound(); }}
+                  className="bg-[#0b0c11] border border-white/5 rounded-3xl overflow-hidden hover:border-[#e5c158]/30 group cursor-pointer transition-all duration-300 flex"
                 >
-                  <div className="relative w-24 h-24 rounded-xl overflow-hidden shrink-0">
-                    <Image
-                      src={story.image}
-                      alt={story.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+                  <div className="relative w-1/3 min-h-[160px] bg-zinc-950 shrink-0">
+                    <Image src={story.image} alt={story.title.en} fill className="object-cover" />
                   </div>
-                  <div className="flex-1 flex flex-col justify-between py-1">
+                  <div className="p-5 flex-1 flex flex-col justify-between min-w-0">
                     <div className="space-y-1">
-                      <span className="text-[9px] uppercase tracking-wider text-blue-400 font-semibold">
-                        {story.category}
-                      </span>
-                      <h3 className="text-sm font-semibold tracking-wide text-white group-hover:text-[#e5c158] transition-colors leading-snug">
-                        {story.title}
+                      <div className="flex justify-between items-center">
+                        <span className="text-[8px] uppercase tracking-wider text-blue-400 font-bold">{story.category}</span>
+                        <span className="text-[12px] font-bold text-white/20">#0{idx+1}</span>
+                      </div>
+                      <h3 className="text-xs font-semibold text-white group-hover:text-[#e5c158] transition-colors truncate">
+                        {story.title[userSettings.lang] || story.title.en}
                       </h3>
-                      <p className="text-[10px] text-zinc-500">{story.timeLeft}</p>
+                      <p className="text-[10px] text-zinc-400 font-light line-clamp-2 leading-relaxed">
+                        {story.synopsis[userSettings.lang] || story.synopsis.en}
+                      </p>
                     </div>
-
-                    {/* Progress bar */}
-                    <div className="space-y-1.5">
-                      <div className="w-full bg-white/5 rounded-full h-1">
-                        <div 
-                          className="bg-gradient-to-r from-blue-500 to-[#e5c158] h-1 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.5)]" 
-                          style={{ width: `${story.progress}%` }}
-                        />
-                      </div>
-                      <div className="flex items-center justify-between text-[9px] text-zinc-500">
-                        <span>{story.progress}% Completed</span>
-                        <span>Read Now</span>
-                      </div>
+                    <div className="flex items-center justify-between text-[9px] text-zinc-500 border-t border-white/5 pt-2">
+                      <span>{story.era}</span>
+                      <span className="text-[#e5c158] font-bold">{story.factLabel}</span>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-        </section>
+        )}
 
-        {/* 3. TRENDING STORIES CAROUSEL */}
-        <section className="px-6 md:px-12 reveal-on-scroll">
-          <div className="max-w-7xl mx-auto space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 
-                className="text-2xl md:text-3xl font-light tracking-wider"
-                style={{ fontFamily: "Cinzel, serif" }}
-              >
-                Trending Stories
+        {/* 5. COLLECTIONS TAB */}
+        {activeMenu === "collections" && (
+          <div className="space-y-10 text-left scale-up-entry">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-light tracking-wide text-white" style={{ fontFamily: "Cinzel, serif" }}>Curated Collections</h2>
+              <p className="text-xs text-zinc-400 font-light">
+                Thematic groupings of stories spanning civilizations, space, and legends.
+              </p>
+            </div>
+
+            {!selectedCollectionFilter ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {COLLECTIONS_METADATA.map((col, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => { setSelectedCollectionFilter(col.name); playClickSound(); }}
+                    className="bg-[#0b0c11] border border-white/5 rounded-2xl overflow-hidden hover:border-[#e5c158]/30 group cursor-pointer transition-all duration-300 shadow-lg"
+                  >
+                    <div className="relative w-full h-36 bg-zinc-950">
+                      <Image src={col.cover} alt={col.name} fill className="object-cover brightness-[0.7]" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c11] via-transparent to-transparent" />
+                    </div>
+                    <div className="p-4 space-y-1">
+                      <h3 className="font-light tracking-wide text-white group-hover:text-[#e5c158] transition-colors leading-tight">
+                        {col.name}
+                      </h3>
+                      <p className="text-[10px] font-light text-zinc-400 leading-normal">
+                        {col.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-6">
+                <div className="flex items-center gap-3">
+                  <button 
+                    onClick={() => setSelectedCollectionFilter(null)} 
+                    className="text-xs text-zinc-500 hover:text-white"
+                  >
+                    ◀ All Collections
+                  </button>
+                  <span className="text-sm font-semibold text-white">/ {selectedCollectionFilter}</span>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {Object.values(KNOWLEDGE_DATABASE).filter(s => {
+                    // Simple collection mapping check
+                    if (selectedCollectionFilter === "Hidden India") return s.id === "dwarka" || s.id === "bhangarh" || s.id === "roopkund";
+                    if (selectedCollectionFilter === "Lost Kingdoms") return s.id === "dwarka" || s.id === "konark";
+                    if (selectedCollectionFilter === "Mysteries of Nature") return s.id === "jatinga" || s.id === "roopkund";
+                    if (selectedCollectionFilter === "Ancient Engineering") return s.id === "konark" || s.id === "antikythera";
+                    return true;
+                  }).map(story => (
+                    <div
+                      key={story.id}
+                      onClick={() => { setSelectedStory(story); playClickSound(); }}
+                      className="bg-[#0b0c11] border border-white/5 rounded-2xl p-4 flex gap-4 hover:border-blue-500/30 group cursor-pointer transition-all duration-300"
+                    >
+                      <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                        <Image src={story.image} alt={story.title.en} fill className="object-cover" />
+                      </div>
+                      <div className="flex-1 flex flex-col justify-between py-1 min-w-0">
+                        <div>
+                          <h3 className="text-xs font-semibold text-white group-hover:text-[#e5c158] transition-colors truncate">
+                            {story.title[userSettings.lang] || story.title.en}
+                          </h3>
+                          <p className="text-[10px] text-zinc-400 font-light truncate">{story.subtitle.en}</p>
+                        </div>
+                        <span className="text-[9px] text-[#e5c158] block pt-1">{story.factLabel}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 6. BOOKMARKS & NOTES TAB */}
+        {activeMenu === "bookmarks" && (
+          <div className="space-y-10 text-left scale-up-entry">
+            <div className="flex justify-between items-center border-b border-white/5 pb-4">
+              <div className="space-y-1">
+                <h2 className="text-3xl font-light tracking-wide text-white" style={{ fontFamily: "Cinzel, serif" }}>Bookmark Intelligence</h2>
+                <p className="text-xs text-zinc-400 font-light">Your saved records, custom highlights, and personal research notes.</p>
+              </div>
+              {Object.keys(bookmarks.notes).length > 0 && (
+                <button
+                  onClick={exportNotes}
+                  className="bg-white/5 border border-white/10 hover:border-[#e5c158] text-[11px] font-semibold tracking-wider text-zinc-300 hover:text-white px-4 py-2 rounded-xl transition-all"
+                >
+                  Export Research Notes
+                </button>
+              )}
+            </div>
+
+            {/* Bookmarked stories */}
+            <div className="space-y-4">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">Bookmarked Journeys</h3>
+              {bookmarks.bookmarkedIds.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {bookmarks.bookmarkedIds.map(storyId => {
+                    const story = getStoryDetail(storyId);
+                    return (
+                      <div
+                        key={story.id}
+                        onClick={() => { setSelectedStory(story); playClickSound(); }}
+                        className="bg-[#0b0c11] border border-white/5 rounded-2xl p-4 flex gap-4 hover:border-blue-500/30 group cursor-pointer transition-all duration-300"
+                      >
+                        <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                          <Image src={story.image} alt={story.title.en} fill className="object-cover" />
+                        </div>
+                        <div className="flex-1 flex flex-col justify-between py-1 min-w-0">
+                          <div>
+                            <h3 className="text-xs font-semibold text-white group-hover:text-[#e5c158] transition-colors truncate">
+                              {story.title[userSettings.lang] || story.title.en}
+                            </h3>
+                            <p className="text-[10px] text-zinc-400 font-light truncate">{story.subtitle.en}</p>
+                          </div>
+                          <span className="text-[9px] text-[#e5c158] block pt-1">{story.factLabel}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="text-xs text-zinc-500 italic">No bookmarked stories yet. Open a story and click the bookmark icon to save it.</p>
+              )}
+            </div>
+
+            {/* Notes list */}
+            <div className="space-y-4 pt-4 border-t border-white/5">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">Personal Research Notes</h3>
+              {Object.keys(bookmarks.notes).length > 0 ? (
+                <div className="space-y-6">
+                  {Object.entries(bookmarks.notes).map(([storyId, notesObj]) => {
+                    const story = getStoryDetail(storyId);
+                    return (
+                      <div key={storyId} className="bg-white/5 border border-white/5 rounded-2xl p-5 space-y-4">
+                        <div className="flex items-center gap-2 border-b border-white/5 pb-2">
+                          <span className="text-xs font-bold text-[#e5c158]">{story.title.en}</span>
+                          <span className="text-[9px] text-zinc-500 font-light">{story.category}</span>
+                        </div>
+                        <div className="space-y-3">
+                          {Object.entries(notesObj).map(([idx, noteText]) => (
+                            <div key={idx} className="bg-black/30 p-3 rounded-lg border border-white/5 flex justify-between items-start gap-4">
+                              <div className="space-y-1 text-xs">
+                                <span className="text-[9px] text-blue-400 font-semibold">Sentence #{Number(idx) + 1} Note</span>
+                                <p className="text-zinc-300 font-light">"{noteText}"</p>
+                              </div>
+                              <button 
+                                onClick={() => deleteNote(storyId, Number(idx))}
+                                className="text-zinc-500 hover:text-red-400 transition-colors text-[10px]"
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="text-xs text-zinc-500 italic">No saved notes. Double-click or click sentences inside the reader to write notes.</p>
+              )}
+            </div>
+
+          </div>
+        )}
+
+        {/* 7. AI ASSISTANT ORACLE TAB */}
+        {activeMenu === "AI Assistant" && (
+          <div className="max-w-3xl mx-auto space-y-6 text-left scale-up-entry">
+            <div className="space-y-2 border-b border-white/5 pb-4">
+              <h2 className="text-3xl font-light tracking-wide text-white flex items-center gap-2" style={{ fontFamily: "Cinzel, serif" }}>
+                <Sparkles className="text-[#0088ff] animate-pulse" />
+                <span>VELORA Knowledge Assistant</span>
               </h2>
-              <span className="text-xs text-zinc-500 hover:text-white flex items-center gap-0.5 cursor-pointer font-light transition-colors">
-                View All <ChevronRight size={14} />
-              </span>
+              <p className="text-xs text-zinc-400 font-light">
+                Ask about historical timelines, scientific views, local legends, or write a custom topic to generate a documentary on it!
+              </p>
             </div>
 
-            {/* Carousel horizontal row */}
-            <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-none pr-4 snap-x">
-              {ALL_STORIES.map((story) => (
-                <div
-                  key={story.id}
-                  onClick={() => {
-                    setSelectedStory(story);
-                    playClickSound();
-                  }}
-                  className="min-w-[280px] md:min-w-[320px] bg-[#0b0c11] border border-white/5 rounded-2xl overflow-hidden hover:border-[#e5c158]/40 group cursor-pointer transition-all duration-300 snap-start"
-                >
-                  <div className="relative w-full h-48 bg-zinc-950">
-                    <Image
-                      src={story.image}
-                      alt={story.title}
-                      fill
-                      className="object-cover brightness-75 group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c11] via-transparent to-transparent" />
-                    <div className="absolute top-3 left-3 flex gap-2">
-                      <span className="bg-[#0088ff]/10 backdrop-blur-md border border-[#0088ff]/30 text-[#0088ff] text-[9px] uppercase tracking-wider px-2.5 py-0.5 rounded-full font-bold">
-                        {story.category}
-                      </span>
-                    </div>
-
-                    {/* Popularity score badge */}
-                    <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-md border border-white/10 flex items-center gap-1 text-[10px] text-white">
-                      <Star size={9} className="text-[#e5c158] fill-[#e5c158]" />
-                      <span className="font-semibold">{story.popularity}</span>
-                    </div>
-                  </div>
-
-                  <div className="p-4 space-y-2">
-                    <h3 className="font-light tracking-wide text-white group-hover:text-[#e5c158] transition-colors leading-tight">
-                      {story.title}
-                    </h3>
-                    <p className="text-xs font-light text-zinc-400 line-clamp-2 leading-normal">
-                      {story.synopsis}
-                    </p>
-                    <div className="flex items-center justify-between text-[9px] text-zinc-500 border-t border-white/5 pt-3">
-                      <span className="font-semibold">{story.era}</span>
-                      <span className="flex items-center gap-1.5 font-light">
-                        <Clock size={10} /> {story.duration}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 4. CATEGORIES TILE GRID */}
-        <section id="categories-grid" className="px-6 md:px-12 reveal-on-scroll">
-          <div className="max-w-7xl mx-auto space-y-6">
-            <h2 
-              className="text-2xl md:text-3xl font-light tracking-wider"
-              style={{ fontFamily: "Cinzel, serif" }}
-            >
-              Explore Categories
-            </h2>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {CATEGORIES.map((cat, idx) => (
-                <div
-                  key={idx}
-                  onClick={playClickSound}
-                  className={`bg-gradient-to-br ${cat.color} border p-5 rounded-2xl flex flex-col justify-between min-h-[120px] group cursor-pointer hover:-translate-y-1.5 transition-all duration-300 shadow-md`}
-                >
-                  <span className="text-[9px] uppercase tracking-wider text-zinc-400 group-hover:text-white transition-colors">
-                    {cat.count} Stories
-                  </span>
-                  <h3 className="text-base font-light text-white tracking-wide group-hover:text-[#e5c158] transition-colors">
-                    {cat.name}
-                  </h3>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 5. AI RECOMMENDATIONS CONTEXT PANEL */}
-        <section className="px-6 md:px-12 reveal-on-scroll">
-          <div className="max-w-7xl mx-auto">
-            <div className="bg-gradient-to-r from-blue-950/20 via-indigo-950/20 to-transparent border border-blue-500/10 rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-80 h-80 bg-blue-900/5 rounded-full blur-[80px]" />
+            {/* Conversational Box */}
+            <div className="bg-[#0c0d14] border border-white/15 rounded-3xl p-5 md:p-6 shadow-2xl flex flex-col gap-4 h-[420px]">
               
-              <div className="space-y-3 relative z-10">
-                <div className="flex items-center gap-2 text-xs text-[#0088ff] font-semibold tracking-wider uppercase">
-                  <Sparkles size={14} className="animate-spin" style={{ animationDuration: "8s" }} />
-                  <span>AI Narrator Recommendation</span>
-                </div>
-                <h3 className="text-xl md:text-2xl font-light text-white tracking-wide">
-                  Tailored For Your Curiosity
-                </h3>
-                <p className="text-xs md:text-sm font-light text-zinc-300 max-w-xl leading-relaxed">
-                  "If you enjoyed the frozen secrets of <strong className="text-white">Roopkund Skeleton Lake</strong>, you may also like the disorienting monsoon occurrences of <strong className="text-white">Jatinga Bird Phenomenon</strong>."
-                </p>
+              {/* Message log */}
+              <div className="flex-1 overflow-y-auto space-y-4 pr-1 scrollbar-none">
+                {assistantMessages.map((msg, i) => (
+                  <div key={i} className={`flex flex-col gap-1 ${msg.sender === "user" ? "items-end" : "items-start"}`}>
+                    <span className={`text-[9px] uppercase tracking-wider ${msg.sender === "user" ? "text-zinc-500" : "text-[#0088ff] font-bold"}`}>
+                      {msg.sender === "user" ? "You" : "VELORA ORACLE"}
+                    </span>
+                    <div className={`p-3 rounded-2xl max-w-[85%] font-light leading-relaxed text-xs ${
+                      msg.sender === "user" 
+                        ? "bg-blue-600 text-white rounded-tr-none" 
+                        : "bg-white/5 border border-white/5 text-zinc-300 rounded-tl-none shadow-md"
+                    }`}>
+                      {msg.text}
+                      
+                      {/* Interactive dynamic generation start reading trigger button */}
+                      {msg.actionStoryId && (
+                        <button
+                          onClick={() => {
+                            const storyObj = getStoryDetail(msg.actionStoryId!);
+                            onStartReading(storyObj);
+                            playClickSound();
+                          }}
+                          className="mt-3 bg-gradient-to-r from-[#e5c158] to-[#c29e37] text-black font-bold uppercase tracking-wider text-[9px] px-4 py-2 rounded-lg block hover:shadow-[0_2px_10px_rgba(229,193,88,0.3)] transition-all"
+                        >
+                          Begin Cinematic Reading
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
 
-              <button
-                onClick={() => {
-                  setSelectedStory(ALL_STORIES.find((s) => s.id === "jatinga") || ALL_STORIES[0]);
-                  playClickSound();
-                }}
-                className="bg-white/5 border border-white/10 hover:border-[#0088ff] hover:bg-white/10 text-white font-semibold text-xs uppercase tracking-widest px-6 py-3.5 rounded-full backdrop-blur-md transition-all shrink-0 relative z-10"
-              >
-                Read Jatinga Story
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* 6. FEATURED PREMIUM COLLECTIONS */}
-        <section className="px-6 md:px-12 reveal-on-scroll">
-          <div className="max-w-7xl mx-auto space-y-6">
-            <h2 
-              className="text-2xl md:text-3xl font-light tracking-wider"
-              style={{ fontFamily: "Cinzel, serif" }}
-            >
-              Featured Collections
-            </h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {COLLECTIONS.map((col, idx) => (
-                <div
-                  key={idx}
-                  onClick={playClickSound}
-                  className="bg-[#0b0c11] border border-white/5 rounded-2xl overflow-hidden hover:border-[#e5c158]/30 group cursor-pointer transition-all duration-300 shadow-lg"
+              {/* Chat input widgets */}
+              <div className="flex gap-2.5 border-t border-white/5 pt-4">
+                <input
+                  type="text"
+                  placeholder="Ask a question or type 'Generate Taj Mahal Secrets'..."
+                  value={assistantInput}
+                  onChange={(e) => setAssistantInput(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter") handleAssistantSend(); }}
+                  className="bg-white/5 border border-white/10 focus:border-[#0088ff]/40 rounded-xl px-4 py-3 text-xs text-white focus:outline-none flex-1 shadow-inner"
+                />
+                <button
+                  onClick={handleAssistantSend}
+                  className="bg-[#0088ff] hover:bg-blue-600 text-white p-3 rounded-xl active:scale-[0.98] transition-all"
                 >
-                  <div className="relative w-full h-44 bg-zinc-950">
-                    <Image
-                      src={col.cover}
-                      alt={col.name}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-[0.7]"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c11] via-transparent to-transparent" />
-                  </div>
-                  <div className="p-4 space-y-1">
-                    <h3 className="font-light tracking-wide text-white group-hover:text-[#e5c158] transition-colors leading-tight">
-                      {col.name}
-                    </h3>
-                    <p className="text-[11px] font-light text-zinc-400 leading-normal">
-                      {col.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 7. READING STATISTICS PANEL */}
-        <section id="stats-panel" ref={statsSectionRef} className="px-6 md:px-12 reveal-on-scroll">
-          <div className="max-w-7xl mx-auto">
-            <div className="bg-[#0c0d14] border border-white/5 rounded-3xl p-8 shadow-2xl grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-              
-              <div className="space-y-1">
-                <span className="text-[10px] uppercase text-zinc-500 font-bold tracking-widest block">
-                  Stories Read
-                </span>
-                <span className="text-3xl sm:text-4xl font-extralight text-white block">
-                  {statStories}
-                </span>
-                <span className="text-[9px] text-[#e5c158] font-semibold tracking-wider flex items-center justify-center gap-1">
-                  <Award size={10} /> Knowledge Base
-                </span>
-              </div>
-
-              <div className="space-y-1">
-                <span className="text-[10px] uppercase text-zinc-500 font-bold tracking-widest block">
-                  Hours Expounded
-                </span>
-                <span className="text-3xl sm:text-4xl font-extralight text-white block">
-                  {statHours} hrs
-                </span>
-                <span className="text-[9px] text-[#0088ff] font-semibold tracking-wider flex items-center justify-center gap-1">
-                  <Clock size={10} /> Active Reading
-                </span>
-              </div>
-
-              <div className="space-y-1">
-                <span className="text-[10px] uppercase text-zinc-500 font-bold tracking-widest block">
-                  Favorite Sphere
-                </span>
-                <span className="text-sm sm:text-base font-light text-white tracking-wide py-1 block">
-                  Archaeology
-                </span>
-                <span className="text-[9px] text-zinc-500 font-light block">
-                  Based on recent histories
-                </span>
-              </div>
-
-              <div className="space-y-1">
-                <span className="text-[10px] uppercase text-zinc-500 font-bold tracking-widest block">
-                  Reading Streak
-                </span>
-                <span className="text-3xl sm:text-4xl font-extralight text-[#e5c158] block">
-                  {statStreak} Days
-                </span>
-                <span className="text-[9px] text-zinc-500 font-semibold flex items-center justify-center gap-1">
-                  <Flame size={10} className="text-amber-500 animate-pulse" /> Keep it going
-                </span>
+                  <Send size={15} />
+                </button>
               </div>
 
             </div>
           </div>
-        </section>
+        )}
 
       </main>
 
-      {/* FOOTER */}
-      <footer className="max-w-7xl mx-auto px-6 md:px-12 mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-zinc-500 text-xs font-light">
-        <div className="flex flex-col items-center md:items-start gap-1">
-          <span className="text-sm font-light tracking-widest text-zinc-400" style={{ fontFamily: "Cinzel, serif" }}>
-            VELORA
-          </span>
-          <span>© 2026 VELORA Story Engine. All rights reserved.</span>
-        </div>
-
-        <div className="flex items-center gap-5">
-          {["About", "Privacy", "Terms", "Contact", "Community", "GitHub"].map((link, idx) => (
-            <span key={idx} className="hover:text-white cursor-pointer transition-colors">
-              {link}
-            </span>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 bg-[#0088ff] rounded-full animate-pulse" />
-          <span>Version 0.2.0 (Part 2)</span>
-        </div>
-      </footer>
-
-      {/* STORY DETAIL OVERLAY MODAL */}
+      {/* STORY DETAILS OVERLAY MODAL */}
       {selectedStory && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8 bg-black/90 backdrop-blur-md animate-fade-in">
           <div className="relative w-full max-w-4xl bg-[#090a10] border border-white/10 rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(229,193,88,0.15)] flex flex-col md:flex-row max-h-[90vh]">
             
-            {/* Close Button */}
             <button
               onClick={() => { setSelectedStory(null); playClickSound(); }}
               className="absolute top-4 right-4 z-50 bg-black/50 border border-white/10 text-zinc-300 hover:text-white p-2 rounded-full backdrop-blur-md"
@@ -1314,11 +1516,11 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
               <X size={16} />
             </button>
 
-            {/* Left Column: Image & Basic Info */}
+            {/* Image banner */}
             <div className="relative w-full md:w-5/12 h-60 md:h-auto min-h-[250px] bg-zinc-950">
               <Image
-                src={selectedStory.image}
-                alt={selectedStory.title}
+                src={selectedStory.image || "/images/roopkund.png"}
+                alt={selectedStory.title.en}
                 fill
                 className="object-cover brightness-50"
               />
@@ -1332,7 +1534,7 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
                   className="text-2xl sm:text-3xl font-light text-white leading-tight pt-1"
                   style={{ fontFamily: "Cinzel, serif" }}
                 >
-                  {selectedStory.title}
+                  {selectedStory.title[userSettings.lang] || selectedStory.title.en}
                 </h2>
                 <div className="flex items-center gap-3 text-[10px] text-zinc-400 pt-1">
                   <span>{selectedStory.era}</span>
@@ -1342,62 +1544,69 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
               </div>
             </div>
 
-            {/* Right Column: Details */}
-            <div className="w-full md:w-7/12 p-6 sm:p-8 overflow-y-auto space-y-6">
-              
-              <div className="space-y-3">
-                <h4 className="text-[10px] uppercase text-[#e5c158] font-bold tracking-[0.2em]">
-                  Synopsis
-                </h4>
-                <p className="text-zinc-300 text-sm font-light leading-relaxed">
-                  {selectedStory.synopsis}
+            {/* Scrollable details */}
+            <div className="w-full md:w-7/12 p-6 sm:p-8 overflow-y-auto space-y-6 text-left">
+              <div className="space-y-2.5">
+                <h4 className="text-[10px] uppercase text-[#e5c158] font-bold tracking-[0.2em]">Synopsis</h4>
+                <p className="text-zinc-300 text-xs sm:text-sm font-light leading-relaxed">
+                  {selectedStory.synopsis[userSettings.lang] || selectedStory.synopsis.en}
                 </p>
               </div>
 
-              {/* Fact Status */}
+              {/* Fact Classification */}
               <div className="bg-white/5 border border-white/5 p-4 rounded-xl space-y-1">
-                <div className="text-xs text-[#e5c158] font-medium">
-                  Fact Status Analysis
+                <div className="text-xs text-[#e5c158] font-medium flex items-center gap-2">
+                  <Star size={12} className="fill-[#e5c158]" />
+                  <span>Fact Check Label: {selectedStory.factLabel}</span>
                 </div>
                 <p className="text-zinc-400 text-xs font-light">
-                  {selectedStory.factStatus}
+                  Status: {selectedStory.factStatus}
                 </p>
               </div>
 
-              {/* Research Notes */}
-              <div className="bg-white/5 border border-white/5 p-4 rounded-xl space-y-2">
-                <div className="flex items-center gap-2 text-xs text-[#0088ff] font-medium">
-                  <Sparkles size={14} />
-                  <span>Archaeological & Historical Evidence</span>
+              {/* Reading Insights */}
+              <div className="bg-white/5 border border-white/5 p-4 rounded-xl space-y-2 text-xs">
+                <span className="text-[#0088ff] font-bold uppercase tracking-wider text-[9px] block">AI Reading Insights</span>
+                <div className="grid grid-cols-2 gap-3 font-light text-zinc-400">
+                  <div><strong>Difficulty Level:</strong> {selectedStory.difficulty}</div>
+                  <div><strong>Knowledge Level:</strong> {selectedStory.knowledgeLevel}</div>
+                  <div className="col-span-2">
+                    <strong>Learning Objectives:</strong>
+                    <ul className="list-disc pl-4 mt-1 space-y-0.5 text-[11px]">
+                      {selectedStory.learningObjectives.map((obj, i) => (
+                        <li key={i}>{obj[userSettings.lang] || obj.en}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                <p className="text-zinc-400 text-xs font-light leading-relaxed">
-                  {selectedStory.archaeologicalNotes}
-                </p>
               </div>
 
+              {/* Topics & tags */}
               <div className="flex flex-wrap gap-2">
-                {selectedStory.tags.map((tag, idx) => (
+                {selectedStory.relatedTopics.map((tag, idx) => (
                   <span key={idx} className="bg-white/5 border border-white/10 text-zinc-400 text-[10px] px-2.5 py-1 rounded-md font-light">
                     #{tag}
                   </span>
                 ))}
               </div>
 
+              {/* Voice select and Start reading button */}
               <div className="border-t border-white/5 pt-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <h5 className="text-xs font-medium text-white flex items-center gap-1.5">
                       <Headphones size={13} className="text-[#0088ff]" />
-                      <span>Select AI Narrator Voice</span>
+                      <span>Preferred Reader Language</span>
                     </h5>
-                    <p className="text-[10px] text-zinc-500 font-light mt-0.5">
-                      Premium spatial text-to-speech engine
-                    </p>
                   </div>
-                  <select className="bg-white/5 border border-white/10 rounded-md text-xs font-light text-zinc-300 px-3 py-1.5 focus:outline-none">
-                    <option value="calm">Calm & Warm (Male)</option>
-                    <option value="aria">Aria Premium (Female)</option>
-                    <option value="mysterious">Narrator Sage (Deep)</option>
+                  <select 
+                    value={userSettings.lang}
+                    onChange={(e) => updateSettings({ lang: e.target.value as any })}
+                    className="bg-[#050505] border border-white/10 rounded-md text-xs font-light text-zinc-300 px-3 py-1.5 focus:outline-none"
+                  >
+                    <option value="en">English</option>
+                    <option value="hi">Hindi (हिंदी)</option>
+                    <option value="mr">Marathi (मराठी)</option>
                   </select>
                 </div>
 
@@ -1405,7 +1614,7 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
                   onClick={() => {
                     playClickSound();
                     onStartReading(selectedStory);
-                    setSelectedStory(null); // close modal
+                    setSelectedStory(null);
                   }}
                   className="w-full bg-gradient-to-b from-[#e5c158] to-[#c29e37] hover:from-[#f3cf65] hover:to-[#d4af37] text-black text-sm font-semibold py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:shadow-[0_5px_15px_rgba(229,193,88,0.3)] transition-all active:scale-[0.99]"
                 >
@@ -1415,6 +1624,96 @@ export default function Dashboard({ onStartReading }: DashboardProps) {
 
             </div>
 
+          </div>
+        </div>
+      )}
+
+      {/* CLOUD SYNC AUTHENTICATION MODAL */}
+      {showAuthModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in font-sans">
+          <div className="bg-[#0b0c12] border border-white/10 w-full max-w-sm rounded-3xl p-6 relative shadow-2xl space-y-6 text-left">
+            <button 
+              onClick={() => setShowAuthModal(false)}
+              className="absolute top-4 right-4 text-zinc-500 hover:text-white"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="space-y-1">
+              <span className="text-[10px] text-[#e5c158] uppercase font-bold tracking-widest block">Secure Connect</span>
+              <h3 className="text-xl font-light text-white tracking-wide uppercase" style={{ fontFamily: "Cinzel, serif" }}>
+                {authMode === "login" ? "Welcome back" : "Create Account"}
+              </h3>
+              <p className="text-xs text-zinc-500 font-light">
+                {authMode === "login" ? "Sign in to synchronize your reading streaks & notes" : "Register to back up your personal library in the cloud"}
+              </p>
+            </div>
+
+            {authError && (
+              <div className="bg-red-950/40 border border-red-500/30 text-red-400 text-xs px-3 py-2.5 rounded-xl font-light">
+                {authError}
+              </div>
+            )}
+
+            <form onSubmit={handleAuthSubmit} className="space-y-4 text-zinc-300">
+              {authMode === "register" && (
+                <div className="space-y-1.5">
+                  <label className="text-[10px] uppercase font-bold text-zinc-500">Your Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Enter your name"
+                    value={authName}
+                    onChange={(e) => setAuthName(e.target.value)}
+                    className="w-full bg-white/5 border border-white/10 focus:border-[#e5c158]/50 rounded-xl px-3 py-2 text-xs focus:outline-none text-white"
+                  />
+                </div>
+              )}
+
+              <div className="space-y-1.5">
+                <label className="text-[10px] uppercase font-bold text-zinc-500">Email Address</label>
+                <input
+                  type="email"
+                  required
+                  placeholder="Enter email"
+                  value={authEmail}
+                  onChange={(e) => setAuthEmail(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 focus:border-[#e5c158]/50 rounded-xl px-3 py-2 text-xs focus:outline-none text-white"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[10px] uppercase font-bold text-zinc-500">Password</label>
+                <input
+                  type="password"
+                  required
+                  placeholder="Enter password"
+                  value={authPassword}
+                  onChange={(e) => setAuthPassword(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 focus:border-[#e5c158]/50 rounded-xl px-3 py-2 text-xs focus:outline-none text-white"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={authLoading}
+                className="w-full bg-[#0088ff] hover:bg-blue-500 disabled:bg-zinc-700 text-white text-xs font-semibold py-3 rounded-xl shadow-lg transition-colors pt-2.5"
+              >
+                {authLoading ? "Synchronizing..." : authMode === "login" ? "Sign In & Sync" : "Create Account & Sync"}
+              </button>
+            </form>
+
+            <div className="text-center pt-2">
+              <button
+                onClick={() => {
+                  setAuthMode(authMode === "login" ? "register" : "login");
+                  setAuthError("");
+                }}
+                className="text-[10px] text-zinc-500 hover:text-white uppercase tracking-wider"
+              >
+                {authMode === "login" ? "Don't have an account? Sign Up" : "Already have an account? Sign In"}
+              </button>
+            </div>
           </div>
         </div>
       )}
