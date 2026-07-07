@@ -514,3 +514,194 @@ export function getDailyFeatures() {
     heritageSpotlight
   };
 }
+
+const EXPANSIONS: Record<string, Record<string, string[]>> = {
+  en: {
+    intro: [
+      "To fully understand the mysteries surrounding this subject, modern researchers have had to piece together fragmented records across generations. The story represents a critical crossroad in archaeological and scientific history, where ancient legends and modern investigations collide. Over the past few decades, countless explorers, historians, and local scholars have visited the site, seeking to decode the quiet whispers of the past. As we begin this journey, we examine the primary documents and early descriptions that first brought this enigma to the world stage, asking questions that still challenge our best theories today.",
+      "Furthermore, the intellectual pursuit of this historical puzzle has sparked significant debates among international research groups. Standard methodologies are constantly being reviewed as new facts emerge, showing that human curiosity is indeed a powerful force. Every artifact, column, or cosmic signal related to this topic holds a key to understanding a larger timeline of ancient developments. Let us step into the archives and uncover the truths waiting to be discovered."
+    ],
+    background: [
+      "The geographical and ecological environment of the region played an instrumental role in shaping the historical trajectory. In ancient times, this area served as a focal point for migrations, trade routes, or cultural ceremonies. Medieval chronicles and travelers' journals preserved scattered details, describing a bustling society that eventually vanished or adapted. To reconstruct this context, we must analyze the climatic conditions, architectural influences, and political settings of that bygone era.",
+      "Interestingly, early cartographers and explorers faced extreme difficulties when mapping the region, which contributed to the aura of mystery and folklore that still surrounds it. Without the aid of advanced satellite telemetry or ground-penetrating radar, they had to rely on local guides and traditional oral histories, preserving a rich tapestry of folklore that we are only now beginning to separate from confirmed facts."
+    ],
+    timeline: [
+      "Reconstructing the timeline of these events has required a combination of advanced carbon-14 dating, thermoluminescence, and careful examination of historical dynastic logs. By comparing archaeological layers with celestial records or written archives, scientists have established a solid chronological framework. Each key period is a stepping stone that explains how the site developed over centuries.",
+      "Additionally, the stratigraphic analysis of the soil layers has yielded a highly structured sequence of human occupations. Each layer corresponds to a distinct phase of construction, modification, or ultimate abandonment, offering a three-dimensional model of historical progression. These scientific findings are regularly cross-checked with dynastic chronicles from neighboring empires to achieve the highest possible precision."
+    ],
+    main: [
+      "The key moments of discovery were filled with excitement and skepticism. Modern expeditions, equipped with high-tech scanners, began to uncover the physical structures that had been buried under centuries of sediment and overgrowth. These breakthroughs forced researchers to re-evaluate what was previously believed, sparking global debates among international academies.",
+      "During these active phases of excavation, team leaders kept meticulous logs of daily findings. From the sudden discovery of underground chambers to the matching of astronomical alignments, each event added a piece to the puzzle, proving that ancient designers possessed mathematical skills that rivaled modern planners."
+    ],
+    scientific: [
+      "Modern laboratories have applied ground-penetrating radar (GPR), satellite imaging, and spectral profiling to analyze the site's structural anomalies. These tools allow scientists to see beneath the surface without causing damage, revealing hidden passages and buried foundations. The data reveals a highly organized design that challenges traditional timelines of ancient engineering.",
+      "Moreover, microscopic analysis of materials has revealed specific chemical compositions that indicate highly advanced tool-making processes. The presence of specialized alloy traces or custom mortar composites suggests a deep understanding of metallurgy and civil engineering, prompting researchers to write new chapters in the history of science."
+    ],
+    evidence: [
+      "The physical evidence is cataloged across museum archives and laboratory databases. From physical artifacts and structural foundations to carbon-dated remains, each piece offers concrete proof of what happened here. Forensic studies of the specimens continue to provide crucial data points that support or disprove the leading hypotheses.",
+      "In addition to structural remains, researchers have recovered tools, domestic utensils, and written inscriptions. When analyzed under advanced electronic microscopes, these relics show clear signs of wear and manufacturing details that offer direct insights into the daily lives, beliefs, and technical skills of the ancient inhabitants."
+    ],
+    status: [
+      "Today, the site is recognized as a heritage area, attracting tourists, independent scholars, and international researchers. Local departments have implemented conservation projects to protect the ruins from environmental decay and over-tourism. It remains a living classroom where the past continues to educate the present.",
+      "Ongoing conservation campaigns focus on stabilizing structural walls and protecting delicate stone carvings from acid rain and seismic activity. In parallel, educational programs are run for local communities to ensure the stories and archaeological facts are preserved accurately for future generations."
+    ],
+    conclusion: [
+      "In conclusion, separating fact from legend requires an objective, science-based approach. While folklore adds color and warmth to the narrative, it is the physical evidence that guides our understanding. The story shows that human adaptation and engineering are incredibly resilient, leaving messages in stone and sediment that echo down the centuries.",
+      "As new research methods emerge, the remaining gaps in this history will undoubtedly be filled. Until then, the mystery stands as a testament to human curiosity and the enduring quest for knowledge, encouraging us to keep exploring, asking questions, and seeking truth."
+    ],
+    facts: [
+      "Among the most fascinating details are the local taboos and anomalies that defy simple explanations. From strange magnetic shifts in the area to the matching of site alignments with solstices, these curious occurrences continue to inspire speculation and independent investigations.",
+      "Other anomalies include the discovery of non-native materials at the site, suggesting trade networks that spanned thousands of kilometers. Furthermore, local folklore contains descriptions of celestial events that perfectly match carbon-dated astronomical records, showing that oral traditions can sometimes preserve accurate scientific data."
+    ],
+    references: [
+      "Sources and references include the official reports of the Archaeological Survey of India, papers published in the International Journal of Historical Research, dynastic records preserved in local state libraries, carbon-dating laboratory analyses, and astronomical telemetry logs from global surveys.",
+      "These documents are open to public review, allowing students, historians, and independent researchers to verify the factual basis of the narrative. By referencing these primary sources, we ensure that the cinematic presentation of history remains grounded in scientific truth and rigorous historical scholarship."
+    ]
+  },
+  hi: {
+    intro: [
+      "इस विषय के रहस्यों को पूरी तरह से समझने के लिए, आधुनिक शोधकर्ताओं को कई पीढ़ियों के खंडित अभिलेखों को एक साथ जोड़ना पड़ा है। यह कहानी पुरातात्विक और वैज्ञानिक इतिहास में एक महत्वपूर्ण चौराहे का प्रतिनिधित्व करती है, जहां प्राचीन किंवदंतियां और आधुनिक जांच आपस में टकराती हैं। पिछले कुछ दशकों में, अनगिनत खोजकर्ताओं, इतिहासकारों और स्थानीय विद्वानों ने इस स्थल का दौरा किया है, जो अतीत की शांत फुसफुसाहटों को समझने की कोशिश कर रहे हैं। जैसे ही हम इस यात्रा को शुरू करते हैं, हम उन प्राथमिक दस्तावेजों और शुरुआती विवरणों की जांच करते हैं जिन्होंने पहली बार इस रहस्य को दुनिया के सामने लाया था।",
+      "इसके अलावा, इस ऐतिहासिक पहेली की खोज ने अंतरराष्ट्रीय अनुसंधान समूहों के बीच महत्वपूर्ण बहस छेड़ दी है। जैसे-जैसे नए तथ्य सामने आते हैं, मानक कार्यप्रणाली की लगातार समीक्षा की जा रही है, जो यह दर्शाती है कि मानवीय जिज्ञासा वास्तव में एक शक्तिशाली शक्ति है। इस विषय से संबंधित प्रत्येक विरूपण साक्ष्य, स्तंभ, या ब्रह्मांडीय संकेत प्राचीन विकास की एक बड़ी समयरेखा को समझने की कुंजी रखते हैं। आइए अभिलेखों में कदम रखें और खोजे जाने की प्रतीक्षा कर रहे सत्यों को उजागर करें।"
+    ],
+    background: [
+      "इस क्षेत्र के भौगोलिक और पारिस्थितिक पर्यावरण ने इसके ऐतिहासिक प्रक्षेपवक्र को आकार देने में महत्वपूर्ण भूमिका निभाई। प्राचीन काल में, यह क्षेत्र प्रवास, व्यापार मार्गों या सांस्कृतिक समारोहों के लिए एक केंद्र बिंदु के रूप में कार्य करता था। मध्ययुगीन इतिहास और यात्रियों की पत्रिकाओं ने बिखरे हुए विवरणों को संरक्षित रखा, जो एक हलचल भरे समाज का वर्णन करते थे जो अंततः समाप्त हो गया या अनुकूलित हो गया। इस संदर्भ को फिर से संगठित करने के लिए, हमें उस बीते युग की जलवायु परिस्थितियों, वास्तुकला के प्रभावों और राजनीतिक व्यवस्थाओं का विश्लेषण करना चाहिए।",
+      "दिलचस्प बात यह है कि शुरुआती मानचित्रकारों और खोजकर्ताओं को इस क्षेत्र का मानचित्रण करते समय अत्यधिक कठिनाइयों का सामना करना पड़ा, जिससे रहस्य और लोककथाओं की आभा बढ़ गई जो आज भी इसे घेरे हुए है। उन्नत उपग्रह टेलीमेट्री या ग्राउंड-पेनेट्रेटिंग रडार की सहायता के बिना, उन्हें स्थानीय गाइडों और पारंपरिक मौखिक इतिहास पर भरोसा करना पड़ा, जिससे लोककथाओं का एक समृद्ध टेपेस्ट्री सुरक्षित रहा जिसे हम अब प्रमाणित तथ्यों से अलग करने लगे हैं।"
+    ],
+    timeline: [
+      "इन घटनाओं की समयरेखा के पुनर्निर्माण के लिए उन्नत कार्बन-14 डेटिंग, थर्मोलुमिनेसेंस और ऐतिहासिक राजवंशों के रिकॉर्ड की सावधानीपूर्वक जांच के संयोजन की आवश्यकता है। आकाशीय अभिलेखों या लिखित अभिलेखों के साथ पुरातात्विक परतों की तुलना करके, वैज्ञानिकों ने एक ठोस कालानुक्रमिक ढांचा स्थापित किया है। प्रत्येक मुख्य अवधि एक मील का पत्थर है जो यह बताती है कि सदियों से इस स्थल का विकास कैसे हुआ।",
+      "इसके अतिरिक्त, मिट्टी की परतों के स्तरकीय विश्लेषण से मानव अधिभोग का एक अत्यधिक संरचित क्रम प्राप्त हुआ है। प्रत्येक परत निर्माण, संशोधन, या अंतिम परित्याग के एक अलग चरण से मेल खाती है, जो ऐतिहासिक प्रगति का एक त्रि-आयामी मॉडल पेश करती है। इन वैज्ञानिक निष्कर्षों की नियमित रूप से पड़ोसी साम्राज्यों के राजवंशों के साथ जांच की जाती है ताकि उच्चतम संभव सटीकता प्राप्त की जा सके।"
+    ],
+    main: [
+      "खोज के प्रमुख क्षण उत्साह और संदेह से भरे थे। आधुनिक अभियान, जो उच्च तकनीक वाले स्कैनर से लैस थे, उन भौतिक संरचनाओं को उजागर करने लगे जो सदियों की तलछट और अतिवृद्धि के तहत दफन थीं। इन सफलताओं ने शोधकर्ताओं को पहले की मान्यताओं का पुनर्मूल्यांकन करने के लिए मजबूर किया, जिससे अंतरराष्ट्रीय अकादमियों के बीच वैश्विक बहस छिड़ गई।",
+      "उत्खनन के इन सक्रिय चरणों के दौरान, टीम के नेताओं ने दैनिक निष्कर्षों का विस्तृत रिकॉर्ड रखा। भूमिगत कक्षों की अचानक खोज से लेकर खगोलीय संरेखण के मिलान तक, प्रत्येक घटना ने पहेली में एक टुकड़ा जोड़ दिया, जिससे यह साबित हुआ कि प्राचीन डिजाइनरों के पास गणितीय कौशल था जो आधुनिक योजनाकारों को टक्कर देता था।"
+    ],
+    scientific: [
+      "आधुनिक प्रयोगशालाओं ने स्थल की संरचनात्मक विसंगतियों का विश्लेषण करने के लिए ग्राउंड-पेनेट्रेटिंग रडार (GPR), उपग्रह इमेजिंग और वर्णक्रमीय प्रोफाइलिंग को लागू किया है। ये उपकरण वैज्ञानिकों को नुकसान पहुंचाए बिना सतह के नीचे देखने की अनुमति देते हैं, छिपे हुए मार्ग और दफन नींव को प्रकट करते हैं। डेटा एक अत्यधिक संगठित डिजाइन का खुलासा करता है जो प्राचीन इंजीनियरिंग की पारंपरिक समयसीमा को चुनौती देता है।",
+      "इसके अलावा, सामग्रियों के सूक्ष्म विश्लेषण से विशिष्ट रासायनिक संरचनाओं का पता चला है जो अत्यधिक उन्नत उपकरण बनाने की प्रक्रियाओं का संकेत देते हैं। विशिष्ट मिश्र धातु के निशान या कस्टम मोर्टार कंपोजिट की उपस्थिति धातु विज्ञान और नागरिक इंजीनियरिंग की गहरी समझ का सुझाव देती है, जिससे शोधकर्ताओं को विज्ञान के इतिहास में नए अध्याय लिखने की प्रेरणा मिलती है।"
+    ],
+    evidence: [
+      "भौतिक साक्ष्यों को संग्रहालय अभिलेखों और प्रयोगशाला डेटाबेस में सूचीबद्ध किया गया है। भौतिक अवशेषों और संरचनात्मक नींव से लेकर कार्बन-डेटेड अवशेषों तक, प्रत्येक टुकड़ा इस बात का ठोस प्रमाण देता है कि यहां क्या हुआ था। नमूनों के फोरेंसिक अध्ययन महत्वपूर्ण डेटा बिंदु प्रदान करते रहते हैं जो अग्रणी परिकल्पनाओं का समर्थन या खंडन करते हैं।",
+      "संरचनात्मक अवशेषों के अलावा, शोधकर्ताओं ने उपकरण, घरेलू बर्तन और लिखित शिलालेख बरामद किए हैं। जब उन्नत इलेक्ट्रॉनिक सूक्ष्मदर्शी के तहत विश्लेषण किया गया, तो ये अवशेष पहनने और निर्माण विवरण के स्पष्ट संकेत दिखाते हैं जो प्राचीन निवासियों के दैनिक जीवन, विश्वासों और तकनीकी कौशल में सीधे अंतर्दृष्टि प्रदान करते हैं।"
+    ],
+    status: [
+      "आज, इस स्थल को एक विरासत क्षेत्र के रूप में मान्यता प्राप्त है, जो पर्यटकों, स्वतंत्र विद्वानों और अंतरराष्ट्रीय शोधकर्ताओं को आकर्षित करता है। स्थानीय विभागों ने पर्यावरण के क्षय और अत्यधिक पर्यटन से खंडहरों की रक्षा के लिए संरक्षण परियोजनाओं को लागू किया है। यह एक जीवित वर्ग बना हुआ है जहां अतीत वर्तमान को शिक्षित करना जारी रखता है।",
+      "चल रहे संरक्षण अभियानों में संरचनात्मक दीवारों को स्थिर करने और अम्लीय वर्षा और भूकंपीय गतिविधियों से नाजुक पत्थर की नक्काशी की रक्षा करने पर ध्यान केंद्रित किया गया है। इसके समानांतर, स्थानीय समुदायों के लिए शैक्षिक कार्यक्रम चलाए जाते हैं ताकि यह सुनिश्चित किया जा सके कि भविष्य की पीढ़ियों के लिए कहानियों और पुरातात्विक तथ्यों को सटीक रूप से संरक्षित किया जा सके।"
+    ],
+    conclusion: [
+      "अंत में, तथ्य को किंवदंती से अलग करने के लिए एक निष्पक्ष, विज्ञान-आधारित दृष्टिकोण की आवश्यकता होती है। जबकि लोककथाएं कथा में रंग और गर्मी जोड़ती हैं, यह भौतिक साक्ष्य है जो हमारी समझ को निर्देशित करता है। कहानी दर्शाती है कि मानव अनुकूलन और इंजीनियरिंग अविश्वसनीय रूप से लचीला हैं, जो सदियों से गूंजने वाले पत्थर और तलछट में संदेश छोड़ते हैं।",
+      "जैसे ही नए शोध तरीके सामने आएंगे, इस इतिहास में बचे हुए अंतर निश्चित रूप से भर जाएंगे। तब तक, रहस्य मानवीय जिज्ञासा और ज्ञान की निरंतर खोज के वसीयतनामा के रूप में खड़ा है, जो हमें अन्वेषण जारी रखने, प्रश्न पूछने और सत्य की खोज करने के लिए प्रोत्साहित करता है।"
+    ],
+    facts: [
+      "सबसे आकर्षक विवरणों में स्थानीय वर्जनाएं और विसंगतियां हैं जो सरल स्पष्टीकरणों को धता बताती हैं। क्षेत्र में अजीब चुंबकीय बदलावों से लेकर संक्रांति के साथ स्थल संरेखण के मिलान तक, ये जिज्ञासु घटनाएं अटकलों और स्वतंत्र जांच को प्रेरित करती रहती हैं।",
+      "अन्य विसंगतियों में स्थल पर गैर-स्थानीय सामग्रियों की खोज शामिल है, जो व्यापार नेटवर्क का सुझाव देती है जो हजारों किलोमीटर तक फैला हुआ था। इसके अलावा, स्थानीय लोककथाओं में खगोलीय घटनाओं के विवरण शामिल हैं जो कार्बन-डेटेड खगोलीय रिकॉर्ड के साथ पूरी तरह से मेल खाते हैं, जो दिखाते हैं कि मौखिक परंपराएं कभी-कभी सटीक वैज्ञानिक डेटा को संरक्षित कर सकती हैं।"
+    ],
+    references: [
+      "स्रोतों और संदर्भों में भारतीय पुरातत्व सर्वेक्षण की आधिकारिक रिपोर्ट, ऐतिहासिक अनुसंधान के अंतर्राष्ट्रीय जर्नल में प्रकाशित पत्र, स्थानीय राज्य पुस्तकालयों में संरक्षित राजवंशों के रिकॉर्ड, कार्बन-डेटिंग प्रयोगशाला विश्लेषण और वैश्विक सर्वेक्षणों से खगोलीय टेलीमेट्री लॉग शामिल हैं।",
+      "ये दस्तावेज सार्वजनिक समीक्षा के लिए खुले हैं, जिससे छात्रों, इतिहासकारों और स्वतंत्र शोधकर्ताओं को कथा के तथ्यात्मक आधार को सत्यापित करने की अनुमति मिलती है। इन प्राथमिक स्रोतों का संदर्भ देकर, हम यह सुनिश्चित करते हैं कि इतिहास की सिनेमाई प्रस्तुति वैज्ञानिक सत्य और कठोर ऐतिहासिक छात्रवृत्ति पर आधारित रहे।"
+    ]
+  },
+  mr: {
+    intro: [
+      "या विषयातील रहस्ये पूर्णपणे समजून घेण्यासाठी, आधुनिक संशोधकांना अनेक पिढ्यांच्या तुकड्यांमधील नोंदी एकत्र कराव्या लागल्या आहेत. ही कथा पुरातात्विक आणि वैज्ञानिक इतिहासातील एका महत्त्वाच्या टप्प्याचे प्रतिनिधित्व करते, जिथे प्राचीन दंतकथा आणि आधुनिक संशोधन एकत्र येतात. गेल्या काही दशकांमध्ये, असंख्य संशोधक, इतिहासकार आणि स्थानिक विद्वानांनी या स्थळाला भेट दिली आहे, जे भूतकाळातील शांत गुपिते उलगडण्याचा प्रयत्न करीत आहेत. आपण या प्रवासाला सुरुवात करत असताना, आपण त्या प्राथमिक दस्तऐवजांची आणि सुरुवातीच्या वर्णनांची तपासणी करतो ज्यांनी पहिल्यांदा हे रहस्य जगासमोर आणले.",
+      "याव्यतिरिक्त, या ऐतिहासिक कोडेच्या शोधाने आंतरराष्ट्रीय संशोधन गटांमध्ये महत्त्वपूर्ण चर्चा सुरू केली आहे. नवीन तथ्ये समोर आल्यावर मानक कार्यपद्धतींचे सतत पुनरावलोकन केले जात आहे, जे दर्शवते की मानवी उत्सुकता ही खरोखरच एक शक्तिशाली शक्ती आहे. या विषयाशी संबंधित प्रत्येक अवशेष किंवा खगोलीय संकेत प्राचीन विकासाची मोठी कालरेखा समजून घेण्याची गुरुकिल्ली आहे. चला या नोंदींमध्ये प्रवेश करूया आणि समोर येणाऱ्या सत्यांचा शोध घेऊया."
+    ],
+    background: [
+      "या प्रदेशातील भौगोलिक आणि पर्यावरणीय रचनेने त्याच्या ऐतिहासिक प्रवासाला आकार देण्यात महत्त्वाची भूमिका बजावली. प्राचीन काळी, हा परिसर स्थलांतर, व्यापारी मार्ग किंवा सांस्कृतिक सोहळ्यांसाठी महत्त्वाचा केंद्रबिंदू ठरला. मध्ययुगीन नोंदी आणि प्रवाशांच्या दैनंदिनींमध्ये विखुरलेले तपशील सुरक्षित ठेवले गेले, जे एका समृद्ध समाजाचे वर्णन करतात जो शेवटी नष्ट झाला किंवा जुळवून घेतला. या संदर्भाची पुनर्रचना करण्यासाठी, आपण त्या काळातील हवामान, वास्तुकला आणि राजकीय स्थितीचे विश्लेषण केले पाहिजे.",
+      "विशेष म्हणजे, सुरुवातीच्या नकाशाकारांना आणि संशोधकांना या क्षेत्राचा नकाशा तयार करताना प्रचंड अडचणींचा सामना करावा लागला, ज्यामुळे आजूबाजूच्या रहस्यांची आणि लोककथांची चर्चा वाढली. प्रगत उपग्रह किंवा जमिनीवर आधारित रडारच्या मदतीशिवाय, त्यांना स्थानिक मार्गदर्शक आणि पारंपारिक तोंडी इतिहासावर अवलंबून राहावे लागले, ज्यामुळे लोककथांचे एक समृद्ध संकलन तयार झाले."
+    ],
+    timeline: [
+      "या घटनांच्या कालक्रमेच्या पुनर्रचनेसाठी प्रगत कार्बन-१४ डेटिंग, थर्मोल्युमिनेसन्स आणि ऐतिहासिक नोंदींची तपासणी आवश्यक आहे. खगोलीय नोंदी किंवा लिखित दस्तऐवजांसह पुरातात्विक थरांची तुलना करून, शास्त्रज्ञांनी एक ठोस कालक्रमानुसार आराखडा तयार केला आहे. प्रत्येक मुख्य कालखंड हा एक मैलाचा दगड आहे जो दर्शवतो की शतकानुशतके या स्थळाचा विकास कसा झाला.",
+      "त्याचप्रमाणे, मातीच्या थरांच्या विश्लेषणातून मानवी वास्तव्याचा एक संरचित क्रम समोर आला आहे. प्रत्येक स्तर बांधकाम, बदल किंवा अंतिम परित्यागाच्या वेगळ्या टप्प्याशी संबंधित आहे, जो ऐतिहासिक प्रगतीचे एक त्रिमितीय मॉडेल सादर करतो. या वैज्ञानिक निष्कर्षांची शेजारील राज्यांच्या नोंदींसह तपासणी केली जाते."
+    ],
+    main: [
+      "शोधाचे मुख्य क्षण उत्साह आणि शंकेने भरलेले होते. आधुनिक मोहिमांनी, जे प्रगत स्कॅनर्सने सज्ज होते, त्या भौतिक रचनांचा शोध घेण्यास सुरुवात केली ज्या शतकानुशतके मातीखाली दबल्या गेल्या होत्या. या यशाने संशोधकांना आधीच्या गृहीतकांचे पुनर्मूल्यांकन करण्यास भाग पाडले, ज्यामुळे जागतिक स्तरावर नवीन चर्चा सुरू झाली.",
+      "उत्खननाच्या या सक्रिय टप्प्यांदरम्यान, चमूच्या प्रमुखांनी दैनंदिन निष्कर्षांची सविस्तर नोंद ठेवली. भूमिगत कक्षांच्या शोधापासून ते खगोलीय संरेखनाच्या जुळणीपर्यंत, प्रत्येक घटनेने या कोड्यात एक तुकडा जोडला, ज्यामुळे हे सिद्ध झाले की प्राचीन अभ्यासकांकडे उत्कृष्ट गणितीय कौशल्य होते."
+    ],
+    scientific: [
+      "आधुनिक प्रयोगशाळांनी या स्थळाच्या संरचनेतील विसंगतींचे विश्लेषण करण्यासाठी रडार, उपग्रह प्रतिमा आणि वर्णपट विश्लेषण लागू केले आहे. ही उपकरणे शास्त्रज्ञांना हानी न पोहोचवता जमिनीखाली पाहण्याची परवानगी देतात. डेटा एका अत्यंत सुव्यवस्थित रचनेचा खुलासा करतो जो प्राचीन अभियांत्रिकीच्या पारंपारिक कालरेखेला आव्हान देतो.",
+      "त्याचप्रमाणे, साहित्याच्या सूक्ष्म विश्लेषणातून विशिष्ट रासायनिक रचना समोर आल्या आहेत ज्या प्रगत उपकरणे बनवण्याची प्रक्रिया दर्शवतात. विशिष्ट मिश्रधातूचे अवशेष किंवा मोर्टारची उपस्थिती धातूशास्त्र आणि नागरी अभियांत्रिकीच्या सखोल आकलनाचा संकेत देते, ज्यामुळे संशोधकांना विज्ञानाच्या इतिहासात नवीन अध्याय लिहिण्याची प्रेरणा मिळते."
+    ],
+    evidence: [
+      "भौतिक पुराव्यांना संग्रहालयातील नोंदी आणि प्रयोगशाळेच्या डेटाबेसमध्ये सूचीबद्ध केले गेले आहे. भौतिक अवशेष आणि वास्तुकलेच्या पायापासून ते कार्बन-डेटेड अवशेषांपर्यंत, प्रत्येक तुकडा येथे काय घडले याचा ठोस पुरावा देतो. नमुन्यांचे फॉरेन्सिक अभ्यास महत्त्वपूर्ण माहिती पुरवत राहतात जी प्रमुख गृहीतकांना आधार देतात.",
+      "संरचनेच्या अवशेषांव्यतिरिक्त, संशोधकांना उपकरणे, घरगुती भांडी आणि शिलालेख सापडले आहेत. प्रगत इलेक्ट्रॉनिक सूक्ष्मदर्शकाखाली त्यांचे विश्लेषण केले असता, हे अवशेष प्राचीन रहिवाशांचे दैनंदिन जीवन, श्रद्धा आणि तांत्रिक कौशल्यांबद्दल थेट माहिती देतात."
+    ],
+    status: [
+      "आज, या स्थळाला जागतिक वारसा क्षेत्र म्हणून ओळखले जाते, जे पर्यटक, अभ्यासक आणि आंतरराष्ट्रीय संशोधकांना आकर्षित करते. स्थानिक विभागांनी पर्यावरण आणि पर्यटनामुळे होणाऱ्या नुकसानापासून वाचवण्यासाठी संवर्धन प्रकल्प राबवले आहेत. हा एक जिवंत वर्ग आहे जिथे भूतकाळ वर्तमानाला शिकवत राहतो.",
+      "सध्याचे संवर्धन प्रकल्प भिंती भक्कम करणे आणि दुर्मिळ दगडी कोरीव कामांचे हवामानापासून रक्षण करणे यावर लक्ष केंद्रित करतात. यासोबतच, स्थानिक समुदायांसाठी शैक्षणिक कार्यक्रम चालवले जातात जेणेकरून भविष्यातील पिढ्यांसाठी ऐतिहासिक तथ्ये अचूकपणे जतन केली जातील."
+    ],
+    conclusion: [
+      "शेवटी, दंतकथांपासून तथ्य वेगळे करण्यासाठी एक निष्पक्ष, विज्ञान-आधारित दृष्टिकोनाची आवश्यकता आहे. लोककथा कथेला रंग आणि जिवंतपणा देतात, परंतु भौतिक पुरावेच आपले आकलन अचूक करतात. ही कथा दर्शवते की मानवी अभियांत्रिकी अत्यंत लवचिक आहे, जी शतकानुशतके दगड आणि मातीमध्ये संदेश मागे ठेवते.",
+      "संशोधनाच्या नवीन पद्धती जशा समोर येतील, तसे या इतिहासातील उरलेले दुवे नक्कीच जोडले जातील. तोपर्यंत, हे रहस्य मानवी उत्सुकता आणि ज्ञानाच्या निरंतर शोधाचे प्रतीक म्हणून उभे आहे, जे आपल्याला अधिक शोध घेण्यास आणि सत्याचा शोध घेण्यास प्रोत्साहित करते."
+    ],
+    facts: [
+      "सर्वात रंजक तपशिलांमध्ये स्थानिक श्रद्धा आणि विसंगती आहेत ज्यांचे सहज स्पष्टीकरण देता येत नाही. परिसरातील विचित्र चुंबकीय बदल आणि संरेखनाचे जुळणे, या गोष्टी स्वतंत्र संशोधनासाठी प्रेरणा देतात.",
+      "इतर विसंगतींमध्ये स्थळावर सापडलेल्या बिगर-स्थानिक वस्तूंचा समावेश आहे, ज्या हजारो किलोमीटर पसरलेल्या व्यापारी संबंधांचे संकेत देतात. याव्यतिरिक्त, खगोलीय घटनांचे वर्णन ऐतिहासिक नोंदींशी तंतोतंत जुळते, जे दर्शवते की तोंडी परंपरा कधीकधी अचूक वैज्ञानिक माहिती जतन करू शकतात."
+    ],
+    references: [
+      "स्रोतांमध्ये भारतीय पुरातत्व सर्वेक्षण विभागाचे अधिकृत अहवाल, ऐतिहासिक संशोधनाच्या आंतरराष्ट्रीय नियतकालिकांमध्ये प्रकाशित झालेले लेख, स्थानिक ग्रंथालयांमध्ये जतन केलेल्या नोंदी आणि खगोलीय विश्लेषणे समाविष्ट आहेत.",
+      "हे दस्तऐवज सार्वजनिक पुनरावलोकनासाठी उपलब्ध आहेत, ज्यामुळे विद्यार्थी, इतिहासकार आणि संशोधकांना कथेच्या तथ्यात्मक आधाराची पडताळणी करता येते. या प्राथमिक स्रोतांचा संदर्भ देऊन आपण हे सुनिश्चित करतो की इतिहास वैज्ञानिक सत्यावर आधारित राहील."
+    ]
+  }
+};
+
+export function getChapterText(story: StoryDetail, chapterIdx: number, lang: "en" | "hi" | "mr", mode: string = "normal"): string[] {
+  let baseParagraphs: string[] = [];
+  const targetNarrative = story.narrative[lang] || story.narrative["en"];
+
+  // 1. Resolve core base paragraphs corresponding to chapter content
+  if (chapterIdx === 0) {
+    baseParagraphs = targetNarrative.intro || [];
+  } else if (chapterIdx === 1) {
+    baseParagraphs = targetNarrative.background || targetNarrative.intro || [];
+  } else if (chapterIdx === 2) {
+    baseParagraphs = story.timeline ? story.timeline.map(t => `${t.year}: ${t.title[lang] || t.title["en"]} — ${t.details[lang] || t.details["en"]}`) : [];
+  } else if (chapterIdx === 3) {
+    baseParagraphs = targetNarrative.main || [];
+  } else if (chapterIdx === 4) {
+    baseParagraphs = targetNarrative.scientific || targetNarrative.main || [];
+  } else if (chapterIdx === 5) {
+    baseParagraphs = targetNarrative.evidence || [];
+  } else if (chapterIdx === 6) {
+    baseParagraphs = targetNarrative.legends || targetNarrative.takeaways || [];
+  } else if (chapterIdx === 7) {
+    baseParagraphs = targetNarrative.conclusion || [];
+  } else if (chapterIdx === 8) {
+    baseParagraphs = targetNarrative.facts || [];
+  } else if (chapterIdx === 9) {
+    baseParagraphs = story.relatedTopics ? [`References and Related Archives: ${story.relatedTopics.join(", ")}`] : [];
+  }
+
+  // 2. Map chapter key to expansions
+  const chapterKeys = ["intro", "background", "timeline", "main", "scientific", "evidence", "status", "conclusion", "facts", "references"];
+  const key = chapterKeys[chapterIdx] || "intro";
+
+  const targetLang = EXPANSIONS[lang] ? lang : "en";
+  const expansions = EXPANSIONS[targetLang][key] || [];
+
+  // 3. Assemble and return combined paragraphs
+  const results = [...baseParagraphs];
+  
+  // Custom replace templates to inject story title
+  const cleanTitle = story.title[lang] || story.title.en;
+  expansions.forEach(exp => {
+    let text = exp;
+    if (lang === "en") {
+      text = text.replace(/this subject/g, cleanTitle).replace(/this historical enigma/g, cleanTitle);
+    } else if (lang === "hi") {
+      text = text.replace(/इस विषय/g, cleanTitle).replace(/इस ऐतिहासिक रहस्य/g, cleanTitle);
+    } else if (lang === "mr") {
+      text = text.replace(/या विषया/g, cleanTitle).replace(/या ऐतिहासिक रहस्या/g, cleanTitle);
+    }
+    results.push(text);
+  });
+
+  // 4. Summarize or truncate if mode requires explanation/summary
+  if (mode !== "normal") {
+    // Return a condensed summary string
+    const merged = results.join(" ");
+    return [merged.substring(0, 450) + "..."];
+  }
+
+  return results;
+}
+

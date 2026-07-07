@@ -101,6 +101,11 @@ class MockCollection:
         self._save(data)
         return len(data) < original_len
 
+    async def create_index(self, name: str, unique: bool = False):
+        # Dummy index placeholder for local JSON collections compatibility
+        return name
+
+
 class MockDatabase:
     def __init__(self, db_dir: str):
         self.db_dir = db_dir
@@ -122,13 +127,25 @@ async def init_db():
     
     if HAS_MOTOR and settings.MONGODB_URI:
         try:
-            print("Connecting to MongoDB Atlas Cluster...")
-            db_client = AsyncIOMotorClient(settings.MONGODB_URI)
+            print("Connecting to MongoDB Atlas Cluster with connection pooling...")
+            # Configure Connection Pooling parameters
+            db_client = AsyncIOMotorClient(
+                settings.MONGODB_URI,
+                maxPoolSize=100,
+                minPoolSize=10
+            )
             db = db_client[settings.DATABASE_NAME]
             # Simple ping to verify connection
             await db_client.admin.command('ping')
             is_mock_db = False
-            print("Successfully connected to MongoDB Atlas.")
+            
+            # Setup database indexes for performance
+            print("Creating database search indexes...")
+            await db["stories"].create_index("id", unique=True)
+            await db["users"].create_index("email", unique=True)
+            await db["categories"].create_index("slug", unique=True)
+            
+            print("Successfully connected to MongoDB Atlas and created indexes.")
             return
         except Exception as e:
             print(f"Failed to connect to MongoDB: {e}. Falling back to Local Mock JSON Database...")
@@ -139,10 +156,11 @@ async def init_db():
     is_mock_db = True
 
 async def close_db():
-    global db_client
+    global db_client, db
     if db_client:
         db_client.close()
         print("Database connections closed.")
+    db = None
 
 def get_db():
     global db

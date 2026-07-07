@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: velora-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - velora-network
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: velora-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - MONGODB_URI=mongodb://mongodb:27017/
+      - DATABASE_NAME=velora_db
+      - JWT_SECRET=velora-super-secret-key-cinema-documentary-story-engine
+      - LOCAL_DB_DIR=backend_data
+    depends_on:
+      - mongodb
+    networks:
+      - velora-network
+    restart: always
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: velora-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/api
+    depends_on:
+      - backend
+    networks:
+      - velora-network
+    restart: always
+
+volumes:
+  mongodb_data:
+
+networks:
+  velora-network:
+    driver: bridge

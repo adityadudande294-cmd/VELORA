@@ -29,6 +29,10 @@ class Settings(BaseSettings):
     # Fallback storage path (for offline database connection simulation)
     LOCAL_DB_DIR: str = os.getenv("LOCAL_DB_DIR", "backend_data")
 
+    # Gemini API Settings
+    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
+
+
     class Config:
         case_sensitive = True
         env_file = ".env"

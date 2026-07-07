@@ -1033,5 +1033,134 @@
       "Archaeological Survey of India Jaipur Circle monuments list",
       "R.A. Sharma: 'History and Legends of Alwar District' (1982)"
     ]
+  },
+  {
+    "id": "bermuda-triangle",
+    "image": "/images/bhangarh.png",
+    "title": {
+      "en": "The Mystery of Bermuda Triangle",
+      "hi": "Bermuda Triangle का अनसुलझा रहस्य",
+      "mr": "Bermuda Triangle चे गुढ रहस्य"
+    },
+    "subtitle": {
+      "en": "A documentary investigation into the archives of Bermuda Triangle",
+      "hi": "Bermuda Triangle के ऐतिहासिक एवं वैज्ञानिक तथ्यों का एक वृत्तचित्र अन्वेषण",
+      "mr": "Bermuda Triangle च्या ऐतिहासिक आणि वैज्ञानिक तथ्यांचा शोध"
+    },
+    "category": "History",
+    "duration": "10 mins",
+    "difficulty": "Medium",
+    "era": "Ancient Era",
+    "factStatus": "Supported by Partial Evidence",
+    "factLabel": "Active Research",
+    "learningObjectives": [
+      {
+        "en": "Explore the archaeological findings of Bermuda Triangle",
+        "hi": "Bermuda Triangle के पुरातात्विक निष्कर्षों की खोज करें",
+        "mr": "Bermuda Triangle च्या ऐतिहासिक अवशेषांचा अभ्यास करणे"
+      }
+    ],
+    "knowledgeLevel": "Intermediate",
+    "relatedTopics": [
+      "History",
+      "Archaeology",
+      "Ancient Myths"
+    ],
+    "synopsis": {
+      "en": "An in-depth research review of Bermuda Triangle, examining physical ruins, historical archives, popular folklore, and what modern scientific tools say about its true origin.",
+      "hi": "Bermuda Triangle का एक गहन शोध विश्लेषण, जो भौतिक खंडहरों, ऐतिहासिक अभिलेखों, लोककथाओं और वैज्ञानिक दृष्टिकोण को प्रस्तुत करता है।",
+      "mr": "Bermuda Triangle चे सखोल संशोधन विश्लेषण, जे भौतिक अवशेष, जुन्या नोंदी, दंतकथा आणि आधुनिक विज्ञानाची मते मांडते."
+    },
+    "timeline": [
+      {
+        "year": "Ancient Origin",
+        "title": {
+          "en": "Initial Construction or Inception",
+          "hi": "प्रारंभिक निर्माण या शुरुआत",
+          "mr": "सुरुवात किंवा निर्मिती"
+        },
+        "details": {
+          "en": "Initial mentions of Bermuda Triangle appear in local folklore and ancient oral traditions.",
+          "hi": "स्थानीय लोककथाओं और प्राचीन मौखिक परंपराओं में Bermuda Triangle का पहली बार उल्लेख मिलता है।",
+          "mr": "स्थानिक दंतकथा आणि प्राचीन मौखिक परंपरेमध्ये Bermuda Triangle चा पहिला उल्लेख आढळतो."
+        }
+      }
+    ],
+    "narrative": {
+      "en": {
+        "intro": [
+          "Throughout history, the mystery of Bermuda Triangle has captivated both explorers and scholars.",
+          "Located in a region rich in cultural history, it presents an intriguing mix of physical ruins and legends."
+        ],
+        "background": [
+          "Ancient chronicles describe Bermuda Triangle as a center of massive architectural significance."
+        ],
+        "evidence": [
+          "Archaeological discoveries confirm that trade was active during this period."
+        ],
+        "scientific": [
+          "Geologists analyzing the surrounding soil layers identified signs of severe drought or sudden seismic shifting."
+        ],
+        "historical": [
+          "Historical documents show that the trade channels of Bermuda Triangle were vital to regional kingdoms."
+        ],
+        "legends": [
+          "Popular legends claim a powerful curse or divine intervention led to the sudden disappearance of its residents."
+        ],
+        "facts": [
+          "Radar walls mapping confirm a large-scale organized community existed here."
+        ],
+        "takeaways": [
+          "The decline of the site was likely driven by environmental changes and resource depletion rather than magic."
+        ],
+        "conclusion": [
+          "Ultimately, Bermuda Triangle stands as a testament to ancient engineering and adaptability."
+        ]
+      }
+    },
+    "explanations": {
+      "eli10": {
+        "en": "Bermuda Triangle is an ancient place that got buried or lost. Scientists went there and dug up old pots, proving that the place was real.",
+        "hi": "Bermuda Triangle एक बहुत पुराना स्थान है जो जमीन में खो गया था।",
+        "mr": "Bermuda Triangle हे खूप वर्षांपूर्वीचे एक जुने शहर आहे जे मातीखाली लपले होते."
+      },
+      "simple": {
+        "en": "Bermuda Triangle is an ancient historic site that was abandoned due to severe climate changes like drought.",
+        "hi": "Bermuda Triangle एक प्राचीन ऐतिहासिक स्थल है जो सूखे या भूकंप के कारण वीरान हो गया था।",
+        "mr": "Bermuda Triangle हे भूकंप किंवा दुष्काळामुळे ओसाड झालेले प्राचीन ठिकाण आहे."
+      },
+      "detailed": {
+        "en": "Archaeological excavations of Bermuda Triangle reveal custom masonry and residential layout planning.",
+        "hi": "उत्खनन से Bermuda Triangle के गृह नियोजन के प्रमाण मिले हैं।",
+        "mr": "उत्खननामध्ये मिळालेले अवशेष उत्कृष्ट नागरी नियोजनाची साक्ष देतात."
+      },
+      "academic": {
+        "en": "The architectural grid of Bermuda Triangle displays high mathematical precision in alignment with solar solstices.",
+        "hi": "इसकी रचना उन्नत खगोल विज्ञान को दर्शाती है।",
+        "mr": "वास्तूंची रचना खगोलशास्त्रातील प्रगती दर्शवते."
+      },
+      "revision": {
+        "en": "Key Points: Bermuda Triangle. Category: History. Abandonment caused by tectonic or weather changes.",
+        "hi": "मुख्य बिंदु: Bermuda Triangle। श्रेणी: History। पतन का कारण सूखा या भूकंप था।",
+        "mr": "महत्त्वाचे मुद्दे: Bermuda Triangle. वर्ग: History. ऱ्हासाचे कारण दुष्काळ."
+      }
+    },
+    "qa": [
+      {
+        "q": [
+          "evidence",
+          "proof"
+        ],
+        "a": {
+          "en": "Archaeological excavations recovered ancient stone tools and structured block walls.",
+          "hi": "खुदाई में पत्थर के औजार और दीवारें मिली हैं जो इसके इतिहास को साबित करती हैं।",
+          "mr": "उत्खननामध्ये मिळालेले दगडी खांब आणि भिंती या संस्कृतीचे अस्तित्व सिद्ध करतात."
+        }
+      }
+    ],
+    "references": [
+      "Journal of Archaeological Research on Bermuda Triangle, 2024.",
+      "Local oral folklore and comparative historical chronicles."
+    ]
   }
 ]

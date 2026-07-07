@@ -1,6 +1,7 @@
 import { KNOWLEDGE_DATABASE, StoryDetail } from "../data/knowledgeDatabase";
 import { getStoryDetail, answerStoryQuestion, generateStoryText } from "../utils/storyEngine";
-import { UserSettings, BookmarkData } from "../app/page";
+import { UserSettings, BookmarkData } from "../types";
+
 
 const BASE_URL = "http://localhost:8000/api";
 
